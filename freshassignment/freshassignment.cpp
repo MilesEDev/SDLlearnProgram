@@ -4,9 +4,16 @@
 
 #include <iostream>
 #include "SDL.h"
+
+#include "C:\Users\Miles\source\repos\freshassignment\imgui_impl_sdl2.h"
+#include "C:\Users\Miles\source\repos\freshassignment\imgui\backends\imgui_impl_opengl3.h"
+
+
+
 #undef main
 int main()
 {
+
 	SDL_Window* window = SDL_CreateWindow("SDL Example", /* Title of the SDL window */
 		500, 
 		50, 
@@ -16,46 +23,65 @@ int main()
 	
 	SDL_Init(SDL_INIT_EVERYTHING);
 
-	
+	ImGui::CreateContext();                 
 
 	SDL_Renderer* myrenderer = SDL_CreateRenderer(window, -1,0);
-	SDL_Surface* surface = SDL_GetWindowSurface(window);
+	
 	SDL_SetRenderDrawColor(myrenderer, 255, 0, 0, 255);
 	SDL_Rect* srcrect = new SDL_Rect();
 	srcrect->x = 50;
 	srcrect->y = 50;
 	srcrect->w = 20;
 	srcrect->h = 20;
-	
-
-
-	SDL_UpdateWindowSurface(window);
-
 	SDL_RenderClear(myrenderer);
-	
-
-	SDL_UpdateWindowSurface(window);
-	
 	SDL_SetRenderDrawColor(myrenderer, 0, 255, 0, 255);
-	SDL_UpdateWindowSurface(window);
 	SDL_RenderDrawRect(myrenderer, srcrect);
-	SDL_UpdateWindowSurface(window);
+	SDL_RenderFillRect(myrenderer, srcrect);
+	SDL_RenderPresent(myrenderer);
 
 
-	Uint32 col = SDL_MapRGB(0, 255, 0, 255);
-	SDL_FillRect(surface, srcrect, col);
-	SDL_UpdateWindowSurface(window);
-	SDL_UpdateWindowSurfaceRects(window,srcrect,1);
-	SDL_FillRect(surface, srcrect, col);
-	SDL_UpdateWindowSurface(window);
-	SDL_UpdateWindowSurfaceRects(window, srcrect, 1);
+	SDL_Vertex vertex_1 = { {10.5, 10.5}, {0, 255, 0, 255}, {1, 1} };
+	SDL_Vertex vertex_2 = { {20.5, 100.5}, {0, 255, 0, 255}, {1, 1} };
+	SDL_Vertex vertex_3 = { {10.5, 40.5}, {0, 255, 0, 255}, {1, 1} };
+	SDL_Vertex vertex_4 = { {20.5,40.5},{0,255,0,255},{1,1} };
+
+	// Put them into array
+
+	SDL_Vertex vertices[] = {
+		vertex_1,
+		vertex_2,
+		vertex_3,
+	
+
+	
+
+	};
+
+	// Set renderer color
+
+	SDL_SetRenderDrawColor(myrenderer, 255, 0, 0, 255);
+	SDL_RenderClear(myrenderer);
+
+	// Render red triangle
+
+	SDL_SetRenderDrawColor(myrenderer, 0, 0, 255, 255);
+	int error = SDL_RenderGeometry(myrenderer,0, vertices, 3, NULL, 0);
+	std::cout << SDL_GetError();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+
+
+
 	SDL_Delay(5000);
+
 	SDL_RenderPresent(myrenderer);
 
 	
 	SDL_Delay(5000);
-
+	
 	SDL_DestroyWindow(window);
+
 	SDL_Quit();
 	
 
