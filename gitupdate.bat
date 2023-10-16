@@ -14,6 +14,15 @@ git add *.config
 
 git add *.bat
 
+git add *.vcxproj
+
+git add *.vcxproj.user
+
+git add *.vcxproj.filters
+
+git add *.dll
+
+
 git commit -m %1
 
 git push -u origin master
