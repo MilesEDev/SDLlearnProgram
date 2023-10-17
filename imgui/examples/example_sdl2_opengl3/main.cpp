@@ -18,11 +18,6 @@
 #include <SDL_opengl.h>
 #endif
 
-// This example can also compile and run with Emscripten! See 'Makefile.emscripten' for details.
-#ifdef __EMSCRIPTEN__
-#include "../libs/emscripten/emscripten_mainloop_stub.h"
-#endif
-
 // Main code
 int main(int, char**)
 {
@@ -67,7 +62,9 @@ int main(int, char**)
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
     SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
     SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
-    SDL_Window* window = SDL_CreateWindow("Dear ImGui SDL2+OpenGL3 example", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, window_flags);
+    SDL_Window* window = SDL_CreateWindow("welp lets see if this changes", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, window_flags);
+ 
+   
     SDL_GLContext gl_context = SDL_GL_CreateContext(window);
     SDL_GL_MakeCurrent(window, gl_context);
     SDL_GL_SetSwapInterval(1); // Enable vsync
@@ -141,8 +138,7 @@ int main(int, char**)
         ImGui::NewFrame();
 
         // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-        if (show_demo_window)
-            ImGui::ShowDemoWindow(&show_demo_window);
+        
 
         // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
         {
@@ -179,11 +175,33 @@ int main(int, char**)
 
         // Rendering
         ImGui::Render();
-        glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
-        glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
-        glClear(GL_COLOR_BUFFER_BIT);
+     
+        SDL_Renderer* myrenderer = SDL_CreateRenderer(window, -1, 0);
+        ImGui_ImplSDL2_InitForSDLRenderer(window, myrenderer);
+        SDL_Init(SDL_INIT_EVERYTHING);
+
+        
+
+      
+        SDL_SetRenderDrawColor(myrenderer, 255, 0, 0, 255);
+        SDL_Rect* srcrect = new SDL_Rect();
+        srcrect->x = 50;
+        srcrect->y = 50;
+        srcrect->w = 590;
+        srcrect->h = 500;
+        SDL_RenderClear(myrenderer);
+        SDL_SetRenderDrawColor(myrenderer, 0, 255, 0, 255);
+        SDL_RenderDrawRect(myrenderer, srcrect);
+        SDL_RenderFillRect(myrenderer, srcrect);
+       
+        ImGui::Render();
+      
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         SDL_GL_SwapWindow(window);
+
+
+        
+      
     }
 #ifdef __EMSCRIPTEN__
     EMSCRIPTEN_MAINLOOP_END;
