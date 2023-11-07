@@ -25,5 +25,5 @@ git add *.pdb
 
 git commit -m %1
 
-git push -f origin master:profdevolopment
+git push -u origin master:profdevolopment
 
