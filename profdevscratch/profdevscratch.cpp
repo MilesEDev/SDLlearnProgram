@@ -3,12 +3,28 @@
 
 #include <iostream>
 #include "SDL.h"
+
+#include "gui.h"
+#include "Render.h"
 #undef main
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
-    return 0;
+    Render* myrenderer = new Render(); 
+    window* mywindow = new window();
+
+    myrenderer->linkToWindow(mywindow);
+    myrenderer->setPenColourString("green");
+    myrenderer->renderClear();
+    myrenderer->setPenColourRGBA(255, 0, 0, 255);
+    myrenderer->drawTo(50, 50);
+    myrenderer->drawTo(50, 100);
+    myrenderer->showRender();
+    gui* mygui = new gui();
+
+    SDL_Delay(5000);
+    
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

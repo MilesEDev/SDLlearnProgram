@@ -6,8 +6,5 @@ private:
 	virtual void renderself();
 	
 
-
-
-
 };
 

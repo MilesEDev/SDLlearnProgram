@@ -104,7 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Miles\source\repos\profdevscratch\imgui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Miles\source\repos\profdevscratch\imgui\backends;C:\Users\Miles\source\repos\profdevscratch\imgui</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,10 +136,13 @@
     <ClCompile Include="..\imgui\imgui_draw.cpp" />
     <ClCompile Include="..\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="contextalreadyset.cpp" />
     <ClCompile Include="gui.cpp" />
     <ClCompile Include="parser.cpp" />
     <ClCompile Include="profdevscratch.cpp" />
+    <ClCompile Include="rectangle.cpp" />
     <ClCompile Include="Render.cpp" />
+    <ClCompile Include="renderTexture.cpp" />
     <ClCompile Include="shape.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
@@ -152,11 +155,19 @@
     <ClInclude Include="..\imgui\backends\imgui_impl_sdl2.h" />
     <ClInclude Include="..\imgui\backends\imgui_impl_sdlrenderer2.h" />
     <ClInclude Include="..\imgui\imgui.h" />
+    <ClInclude Include="contextalreadyset.h" />
     <ClInclude Include="gui.h" />
     <ClInclude Include="parser.h" />
+    <ClInclude Include="rectangle.h" />
     <ClInclude Include="Render.h" />
+    <ClInclude Include="renderTexture.h" />
     <ClInclude Include="shape.h" />
     <ClInclude Include="window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\unittestforassignmentclasses\unittestforassignmentclasses.vcxproj">
+      <Project>{580cac78-011f-416b-beda-c5a7a21b22b8}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

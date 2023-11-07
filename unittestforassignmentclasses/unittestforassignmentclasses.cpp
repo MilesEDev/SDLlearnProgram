@@ -11,6 +11,7 @@ namespace unittestforassignmentclasses
 		
 		TEST_METHOD(TestMethod1)
 		{
+			
 		}
 	};
 }
