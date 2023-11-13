@@ -17,6 +17,8 @@
 #include "nonfillvalue.h"
 #include "PosPencommand.h"
 #include "clearcommand.h"
+#include "colourCommand.h"
+#include "notcolourexception.h"
 
 class parser
 {

@@ -30,7 +30,83 @@ namespace fullyworkingunittests
 
 			auto func = [myparser] { myparser->syntaxCheckAll(); };
 			Assert::ExpectException<nonnumberexception>(func);
-		
+			
+
+		}
+
+
+		TEST_METHOD(circlevalidtest)
+		{
+			parser* myparser = new parser();
+
+			myparser->splitToCommands("circle 50");
+
+			Render* myrenderer = new Render();
+
+			
+
+			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
+
+			SDL_Texture* mytext2;
+			mytext2 = myparser->runForAll(myrenderer,mytext);
+
+			Assert::IsTrue(mytext == mytext2);
+
+		}
+
+
+		TEST_METHOD(rectanglevalid)
+		{
+			parser* myparser = new parser();
+
+			myparser->splitToCommands("rectangle 50 50");
+
+			Render* myrenderer = new Render();
+
+
+
+			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
+
+			SDL_Texture* mytext2;
+			mytext2 = myparser->runForAll(myrenderer, mytext);
+
+			Assert::IsTrue(mytext == mytext2);
+
+		}
+		TEST_METHOD(trianglevalid)
+		{
+			parser* myparser = new parser();
+
+			myparser->splitToCommands("triangle 50 50 60 70");
+
+			Render* myrenderer = new Render();
+
+
+
+			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
+
+			SDL_Texture* mytext2;
+			mytext2 = myparser->runForAll(myrenderer, mytext);
+
+			Assert::IsTrue(mytext == mytext2);
+
+		}
+		TEST_METHOD(clearvalid)
+		{
+			parser* myparser = new parser();
+
+			myparser->splitToCommands("clear");
+
+			Render* myrenderer = new Render();
+
+
+
+			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
+
+			SDL_Texture* mytext2;
+			mytext2 = myparser->runForAll(myrenderer, mytext);
+
+			Assert::IsTrue(mytext == mytext2);
 
 		}
 		

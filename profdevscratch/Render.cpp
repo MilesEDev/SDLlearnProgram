@@ -45,12 +45,13 @@ void Render::drawTo(float x, float y)
 }
 void Render::setPenColourRGBA(Uint8 R, Uint8 G, Uint8 B, Uint8 A)
 {
-	SDL_SetRenderDrawColor(myrenderer,R,G,B,A);
+	
 	penRGBA.clear();
 	penRGBA.push_back(R);
 	penRGBA.push_back(G);
 	penRGBA.push_back(B);
 	penRGBA.push_back(A);
+	SDL_SetRenderDrawColor(myrenderer, R, G, B, A);
 
 	
 

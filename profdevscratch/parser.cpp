@@ -123,6 +123,22 @@ bool parser::syntaxCheckAll()
 			}
 
 		}
+		if (SDL_strcasecmp(command.front().c_str(), "pen") == 0)
+		{
+			colourCommand* mycolCommand = new colourCommand();
+			int size = command.size() - 1;
+			if (mycolCommand->correctParamsCount(size))
+			{
+				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
+			}
+			std::string store = command.at(1);
+			if (!mycolCommand->syntaxcheck(command.at(1)))
+			{
+				throw notcolourexception("you have tried to enter something which is not a colour" + std::to_string(line));
+			}
+
+		}
+
 
 
 		
@@ -153,7 +169,7 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 			{
 				std::cout << "running" << std::endl;
 				circleCommand* circCom = new circleCommand();
-				myrenderer->setPenColourRGBA(0, 255, 0, 255);
+				
 				circCom->setRadius(std::stof(command.at(1)));
 				circCom->runCommand(myrenderer,myrenderer->getPen());
 				
@@ -162,7 +178,7 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 			{
 				std::cout << "running" << std::endl;
 				rectangleCommand* rectCom = new rectangleCommand();
-				myrenderer->setPenColourRGBA(0, 255, 0, 255);
+				
 				rectCom->setRectDimensions(std::stof(command.at(1)),std::stof(command.at(2)));
 				rectCom->runCommand(myrenderer, myrenderer->getPen());
 
@@ -171,7 +187,7 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 			{
 				std::cout << "running" << std::endl;
 				triangleCommand* triCom = new triangleCommand();
-				myrenderer->setPenColourRGBA(0, 255, 0, 255);
+				
 				triCom->setPoints(std::stof(command.at(1)), std::stof(command.at(2)),
 					std::stof(command.at(3)), std::stof(command.at(4)));
 				triCom->runCommand(myrenderer, myrenderer->getPen());
@@ -199,6 +215,17 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 
 				
 			}
+			if (SDL_strcasecmp(command.front().c_str(), "pen") == 0)
+			{
+
+				colourCommand* colCom = new colourCommand();
+				colCom->setCol(command.at(1));
+				colCom->runCommand(myrenderer);
+
+
+
+			}
+			
 
 
 

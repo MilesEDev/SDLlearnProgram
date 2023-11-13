@@ -129,14 +129,20 @@
     <ClCompile Include="rectangleCommand.cpp">
       <Filter>Source Files\commands</Filter>
     </ClCompile>
-    <ClCompile Include="triangleCommand.cpp">
-      <Filter>Source Files\commands</Filter>
-    </ClCompile>
     <ClCompile Include="PosPencommand.cpp">
       <Filter>Source Files\commands</Filter>
     </ClCompile>
     <ClCompile Include="clearcommand.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="colourCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="notcolourexception.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="triangleCommand.cpp">
+      <Filter>Source Files\exceptions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +228,12 @@
       <Filter>Header Files\commands</Filter>
     </ClInclude>
     <ClInclude Include="clearcommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="colourCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="notcolourexception.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
