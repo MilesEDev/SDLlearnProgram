@@ -47,6 +47,20 @@ namespace fullyworkingunittests
 
 
 		}
+		TEST_METHOD(toofewtriangles)
+		{
+			parser* myparser = new parser();
+
+			myparser->splitToCommands("Triangle 100");
+
+
+
+
+			auto func = [myparser] { myparser->syntaxCheckAll(); };
+			Assert::ExpectException<InvalidParameters>(func);
+
+
+		}
 		
 	
 
