@@ -9,6 +9,8 @@
 #include "invalidParameters.h"
 #include "Render.h"
 #include "gui.h"
+#include <iostream>
+#include <fstream>
 
 
 
@@ -298,41 +300,14 @@ namespace fullyworkingunittests
 
 
 		}
-		/*
-		TEST_METHOD(loadtest)
-		{
+		
 
-			parser* myparser = new parser();
-			std::string myfile = "Text1.txt";
-			std::string mystring = myparser->loadFromTxt(myfile);
+		
 
-			Assert::IsTrue(mystring == "hello world");
-			
-			
-
-		}
-		*/
-
-		TEST_METHOD(singlecommandlinetest) 
-		{
-			gui* mygui = new gui();
-			Render* myrenderer = new Render();
-			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
-			mygui->setConsoleInput("circle 50");
-			
-			parser* newparser = new parser();
-
-			newparser->splitToCommands(mygui->getConsoleInput());
-
-			SDL_Texture* mytext2;
-			mytext2 = newparser->runForAll(myrenderer, mytext);
-
-			Assert::IsTrue(mytext == mytext2);
-
-
-
-
-		}
+		/**
+		 * .this is testing for multi line command inputs into command line
+		 * 
+		 */
 		TEST_METHOD(multilinetest)
 		{
 			gui* mygui = new gui();
@@ -350,6 +325,31 @@ namespace fullyworkingunittests
 			mytext2 = newparser->runForAll(myrenderer, mytext);
 
 			Assert::IsTrue(mytext == mytext2);
+
+
+
+		}
+		/**
+		 * 
+		 * .this is testing for single line command inputs into command line
+		 * 
+		 */
+		TEST_METHOD(singlecommandlinetest)
+		{
+			gui* mygui = new gui();
+			Render* myrenderer = new Render();
+			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
+			mygui->setConsoleInput("circle 50");
+
+			parser* newparser = new parser();
+
+			newparser->splitToCommands(mygui->getConsoleInput());
+
+			SDL_Texture* mytext2;
+			mytext2 = newparser->runForAll(myrenderer, mytext);
+
+			Assert::IsTrue(mytext == mytext2);
+
 
 
 

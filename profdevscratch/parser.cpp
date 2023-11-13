@@ -341,7 +341,7 @@ void parser::saveToTxt(std::string program)
 	 newFileName="program"+ std::to_string(numOfFiles)+".txt";
 	 std::ofstream MyMainWriteFile(newFileName);
 	 MyMainWriteFile << program;
-
+	 MyWriteFile.close();
 
 
 	
@@ -350,7 +350,8 @@ void parser::saveToTxt(std::string program)
 std::string parser::loadFromTxt(std::string programName)
 {
 	std::string storeProgram;
-	std::ifstream MyReadFile(programName);
+
+	std::ifstream MyReadFile(programName.c_str());
 	
 	std::string line;
 
@@ -358,7 +359,9 @@ std::string parser::loadFromTxt(std::string programName)
 	{
 		storeProgram = storeProgram + line + "\n";
 	}
+	MyReadFile.close();
 	return storeProgram;
+
 
 }
 

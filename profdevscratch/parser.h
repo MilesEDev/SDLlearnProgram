@@ -23,6 +23,7 @@
 #include "resetCommand.h"
 #include "notcommandexception.h"
 
+
 /**
  * 
  * .parses the commands and runs them 

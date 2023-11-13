@@ -1,14 +1,17 @@
 #pragma once
+#if __has_include("imgui.h") && __has_include(<stdint.h>)
 #include "imgui.h"
 #include "imgui_impl_sdl2.h"
 #include "imgui_impl_opengl3.h"
+#include "imgui_stdlib.h"
+#endif
+
 #include <stdio.h>
 #include <SDL.h>
 #include "window.h"
-#include "imgui_stdlib.h"
+
 #include "Render.h"
 #include "parser.h"
-#include <thread>
 #include <thread>
 
 
