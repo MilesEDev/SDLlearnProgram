@@ -97,6 +97,7 @@ public:
 	 */
 	SDL_Window* getSDLWindow();
 	
+	void showWindow();
 	
 	
 

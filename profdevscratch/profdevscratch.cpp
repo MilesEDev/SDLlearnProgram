@@ -3,9 +3,11 @@
 
 #include <iostream>
 #include "SDL.h"
-
+#include "shape.h"
 #include "gui.h"
 #include "Render.h"
+#include "eventfactory.h"
+#include "parser.h"
 #undef main
 
 
@@ -13,17 +15,36 @@ int main()
 {
     Render* myrenderer = new Render(); 
     window* mywindow = new window();
-
+    mywindow->showWindow();
+    
     myrenderer->linkToWindow(mywindow);
-    myrenderer->setPenColourString("green");
-    myrenderer->renderClear();
-    myrenderer->setPenColourRGBA(255, 0, 0, 255);
-    myrenderer->drawTo(50, 50);
-    myrenderer->drawTo(50, 100);
-    myrenderer->showRender();
-    gui* mygui = new gui();
+   
+    
+    SDL_Renderer* mySDLRenderer = myrenderer->getSDLRenderer();
+    SDL_Texture* mytext = SDL_CreateTexture(mySDLRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 800, 500);
+    SDL_SetRenderTarget(mySDLRenderer, mytext);
+    SDL_SetRenderDrawColor(mySDLRenderer, 0, 0, 255, 255);
+    SDL_RenderClear(mySDLRenderer);
+   
+    SDL_SetRenderTarget(mySDLRenderer, nullptr);
 
     SDL_Delay(5000);
+
+  
+   
+  
+    gui* mygui = new gui(mywindow);
+    
+    mygui->makeDefaultFrame(myrenderer,mytext,myrenderer->getSDLRenderer());
+    SDL_Delay(5000);
+    
+    
+
+    
+    
+    
+    
+
     
 }
 

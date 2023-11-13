@@ -6,8 +6,5 @@ class contextalreadyset:public std::exception
 {
 public:
     std::string error();
-  
-
-
 };
 

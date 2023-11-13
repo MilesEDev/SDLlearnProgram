@@ -8,6 +8,7 @@
 class renderTexture
 {
 private:
+	std::string lastError;
 	std::pair<int, int> texturesize;
 	SDL_Texture* mySDLTexture;
 	SDL_Renderer* textureRenderContext;
@@ -28,11 +29,20 @@ public:
 
 	std::pair<int, int> getSize();
 
-	void expand(std::pair<int, int> vertices[]);
+
 
 	SDL_Renderer* getRenderContext();
 
 	void linkTextureToRender(SDL_Renderer* renderer);
+
+	SDL_Renderer* targetThisTexture(SDL_Renderer* renderer);
+
+	SDL_Texture* getSDLTexture();
+		
+		
+	
+
+	
 	
 };
 

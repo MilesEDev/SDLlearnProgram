@@ -3,35 +3,39 @@
 #include <string>
 window::window(){
 
-	mywindow = SDL_CreateWindow("", 500,50,800,500,SDL_WINDOW_OPENGL);
+	mywindow = SDL_CreateWindow("", 500,50,800,500, SDL_WINDOW_OPENGL|SDL_WINDOW_HIDDEN  );
 	size = std::make_pair(800, 500);
 	pos = std::make_pair(500, 50);
 	title = "";
+	
 }
 
 window::window(int xsize, int ysize)
 {
 	
-	mywindow = SDL_CreateWindow("", 500, 50, xsize, ysize,SDL_WINDOW_OPENGL);
+	mywindow = SDL_CreateWindow("", 500, 50, xsize, ysize, SDL_WINDOW_HIDDEN | SDL_WINDOW_OPENGL);
 	size = std::make_pair(xsize, ysize);
 	pos = std::make_pair(500, 50);
 	title = "";
+	
 }
 
 window::window(int xsize, int ysize,std::string title) 
 {
-	mywindow =SDL_CreateWindow(title.c_str(), 500, 50, xsize, ysize,SDL_WINDOW_OPENGL);
+	mywindow =SDL_CreateWindow(title.c_str(), 500, 50, xsize, ysize, SDL_WINDOW_HIDDEN | SDL_WINDOW_OPENGL);
 	size = std::make_pair(xsize, ysize);
 	pos = std::make_pair(500, 50);
 	this->title = title;
+	
 }
 
 window::window(int xsize, int ysize, int xpos, int ypos,std::string title)
 {
-	mywindow = SDL_CreateWindow(title.c_str(), xpos, ypos, xsize, ysize,SDL_WINDOW_OPENGL);
+	mywindow = SDL_CreateWindow(title.c_str(), xpos, ypos, xsize, ysize, SDL_WINDOW_HIDDEN | SDL_WINDOW_OPENGL);
 	size = std::make_pair(xsize, ysize);
 	pos = std::make_pair(xpos, ypos);
 	this->title = title;
+	
 }
 
 void window::setSize(int x, int y)
@@ -67,5 +71,9 @@ SDL_Window* window::getSDLWindow()
 	return mywindow;
 }
 
+void window::showWindow()
+{
+	SDL_ShowWindow(mywindow);
+}
 
 

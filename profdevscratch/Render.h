@@ -5,10 +5,20 @@
 
 #include "window.h"
 #include "SDL.h"
+#include "eventfactory.h"
+#include <array>
+#include <vector>
+
+
+
+
 
 class Render
 {
 private:
+
+	std::string error;
+	std::vector<Uint8> penRGBA;
 	/**
 	 * .the cordinate of the pen
 	 */
@@ -25,6 +35,11 @@ private:
 	 * .the sdl renderer to render shapes with
 	 */
 	SDL_Renderer* myrenderer;
+
+	window* renderWindow;
+
+
+
 public:
 	/**
 	 * .blank constructor generates a default window and default positions for pen
@@ -99,9 +114,21 @@ public:
 
 	void setSDLRenderer(SDL_Renderer* myNewRenderer);
 	
-
-
+	void setFill(bool onOrOff);
 	
+	std::vector<Uint8> getPenColour();
+
+	bool getFill();
+
+	std::pair<float, float> getPen();
+
+	window* getWindow();
+
+	void drawShapeToText(shape* targetShape);
+
+	std::string getLastError(); 
+
+	void removeAnyTargets();
 
 };
 

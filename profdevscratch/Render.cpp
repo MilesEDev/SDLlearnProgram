@@ -4,7 +4,7 @@
 #include <iostream>   
 
 #include "Render.h"
-
+#include "shape.h"
 
 Render::Render()
 {
@@ -14,6 +14,7 @@ Render::Render()
 Render::Render(window* mywindow) 
 {
 	penStartCordinate = std::make_pair(0.0f, 0.0f);
+	renderWindow = mywindow;
 	canvas = mywindow->getSDLWindow();
 	myrenderer = SDL_CreateRenderer(canvas, 3, 0); 
 }
@@ -27,6 +28,7 @@ Render::Render(SDL_Renderer* SDLRenderer)
 
 void Render::linkToWindow(window* mywindow) 
 {
+	renderWindow = mywindow;
 	canvas = mywindow->getSDLWindow();
 	myrenderer = SDL_CreateRenderer(canvas, 3, 0);
 }
@@ -37,8 +39,6 @@ void Render::setPen(float x, float y)
 }
 void Render::drawTo(float x, float y) 
 {
-	
-	
 	SDL_RenderDrawLine(myrenderer, penStartCordinate.first, penStartCordinate.second, x, y);
 	setPen(x, y);
 	
@@ -46,24 +46,30 @@ void Render::drawTo(float x, float y)
 void Render::setPenColourRGBA(int R, int B, int G, int A)
 {
 	SDL_SetRenderDrawColor(myrenderer, R,G,B,A);
+	penRGBA.push_back(R);
+	penRGBA.push_back(G);
+	penRGBA.push_back(B);
+	penRGBA.push_back(A);
+
 }
 void Render::setPenColourString(std::string colour) 
 {
 	if (colour == "red")
 	{
-		SDL_SetRenderDrawColor(myrenderer, 255, 0, 0, 255);
+		setPenColourRGBA(255, 0, 0, 255);
+		
 	}
 	else if (colour == "blue") {
 
-		SDL_SetRenderDrawColor(myrenderer, 0, 0, 255, 255);
+		setPenColourRGBA(0, 255, 0, 255);
 	}
 	else if (colour == "green") 
 	{
-		SDL_SetRenderDrawColor(myrenderer, 0, 255, 0, 255);
+		setPenColourRGBA(0, 0, 255, 255);
 	}
 	else 
 	{
-		int donothing = 0;
+		error = "this is not a colour";
 	}
 }
 void Render::renderClear() 
@@ -92,8 +98,49 @@ void Render::setSDLRenderer(SDL_Renderer* myNewRenderer)
 
 	myrenderer = myNewRenderer;
 }
+void Render::setFill(bool onOrOff) 
+{
+	if (onOrOff == true) {
+
+		fill = true; 
+	}
+	else {
+		fill = false; 
+	}
+	
+}
+std::vector<Uint8> Render::getPenColour() {
+
+	return penRGBA;
+}
+bool Render::getFill() 
+{
+	return fill;
+}
+std::pair<float, float> Render::getPen() 
+{
+	return penStartCordinate;
+}
+window* Render::getWindow() {
+
+	return renderWindow;
+}
 
 
+void Render::drawShapeToText(shape* shapearg) {
+	
+	
+	this->penStartCordinate = shapearg->renderself(myrenderer, penRGBA, fill);
+	
+}
 
+std::string Render::getLastError()
+{
+	return error;
+}
 
+void Render::removeAnyTargets()
+{
+	SDL_SetRenderTarget(myrenderer, nullptr);
+}
 

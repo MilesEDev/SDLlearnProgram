@@ -1,9 +1,13 @@
 #pragma once
+#include "SDL.h"
+#include <array>
+#include <vector>
+
 class shape
 {
-private:
+public:
 
-	virtual void renderself();
+	virtual std::pair<float,float> renderself(SDL_Renderer* myrenderer, std::vector<Uint8> RGBA,bool fill) = 0;
 	
 
 };

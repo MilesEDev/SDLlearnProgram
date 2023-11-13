@@ -1,5 +1,7 @@
 #include "contextalreadyset.h"
-
+#include <iostream>
+#include <exception>
+#include <string>       
 
 std::string contextalreadyset::error()
 {
