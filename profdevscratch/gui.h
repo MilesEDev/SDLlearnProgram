@@ -29,7 +29,7 @@ public:
 	SDL_Window* getWindow();
 	void consoleInput();
 	void caller();
-	void runner(Render* myrenderer,SDL_Texture* mytext,std::string mystring,parser* myparser);
+	bool runner(Render* myrenderer,SDL_Texture* mytext,std::string mystring,parser* myparser);
 
 
 	

@@ -148,6 +148,7 @@
     <ClCompile Include="nonfillvalue.cpp" />
     <ClCompile Include="nonnumberexception.cpp" />
     <ClCompile Include="parser.cpp" />
+    <ClCompile Include="PosPencommand.cpp" />
     <ClCompile Include="profdevscratch.cpp" />
     <ClCompile Include="rectangle.cpp" />
     <ClCompile Include="rectangleCommand.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="nonfillvalue.h" />
     <ClInclude Include="nonnumberexception.h" />
     <ClInclude Include="parser.h" />
+    <ClInclude Include="PosPencommand.h" />
     <ClInclude Include="rectangle.h" />
     <ClInclude Include="rectangleCommand.h" />
     <ClInclude Include="Render.h" />

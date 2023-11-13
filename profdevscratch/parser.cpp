@@ -107,8 +107,20 @@ bool parser::syntaxCheckAll()
 			{
 				throw nonfillvalue("you have tried to use a value for fill which is not on or off" + std::to_string(line));
 			}
-
-			
+		}
+		if (SDL_strcasecmp(command.front().c_str(),"moveTo") == 0)
+		{
+			PosPencommand* penCom = new PosPencommand();
+			int size = command.size() - 1;
+			if (!penCom->correctParamsCount(size))
+			{
+				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
+			}
+			std::string store = command.at(1);
+			if (!penCom->syntaxcheck(command.at(1),command.at(2)))
+			{
+				throw nonnumberexception("you have tried to use a non number in a number field for circle at line" + std::to_string(line));
+			}
 
 		}
 
@@ -170,6 +182,13 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 				fillCommand* fillCom = new fillCommand();
 				fillCom->setFill(command.at(1));
 				fillCom->runCommand(myrenderer);
+			}
+			if (SDL_strcasecmp(command.front().c_str(), "moveTo") == 0)
+			{
+				std::cout << "running" << std::endl;
+				PosPencommand* penCom = new PosPencommand();
+				penCom->setPoints(std::stof(command.at(1)), std::stof(command.at(2)));
+				penCom->runCommand(myrenderer,myrenderer->getPen());
 			}
 
 

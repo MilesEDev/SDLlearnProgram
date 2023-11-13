@@ -126,6 +126,9 @@
     <ClCompile Include="nonfillvalue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PosPencommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -205,6 +208,9 @@
     </ClInclude>
     <ClInclude Include="nonfillvalue.h">
       <Filter>Header Files\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="PosPencommand.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

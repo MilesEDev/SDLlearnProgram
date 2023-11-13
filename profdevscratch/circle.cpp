@@ -7,7 +7,7 @@ circle::circle()
 
 }
 
-circle::circle(std::pair<float, float>, float radius)
+circle::circle(std::pair<float, float> pen, float radius)
 {
 	this->radius = radius;
 	this->pen = pen;

@@ -191,11 +191,19 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 		{
 			if (!strmultiline.empty()) 
 			{
-				runner(myrenderer, mytext, strmultiline, myparser);
+				if (!runner(myrenderer, mytext, strmultiline, myparser)) 
+				{
+					ImGui::OpenPopup("ThePopup");
+					
+				}
 			}
 			else if (!str.empty())
 			{
-				runner(myrenderer, mytext, str, myparser);
+				if (!runner(myrenderer, mytext, str, myparser) )
+				{
+					ImGui::OpenPopup("ThePopup");
+
+				}
 			}
 
 		}
@@ -241,7 +249,7 @@ void gui::caller()
 	mythread = new std::thread(&gui::consoleInput,this);
 }
 
-void gui::runner(Render* myrenderer, SDL_Texture* mytext, std::string mystring, parser* myparser)
+bool gui::runner(Render* myrenderer, SDL_Texture* mytext, std::string mystring, parser* myparser)
 {
 
 	myparser->clearAllLists();
@@ -254,18 +262,22 @@ void gui::runner(Render* myrenderer, SDL_Texture* mytext, std::string mystring, 
 	catch (InvalidParameters& e)
 	{
 		error = e.returnError();
-		
+		return false;
 	}
 	catch (nonnumberexception& e)
 	{
 		error = e.returnError();
+		return false;
 		
 	}
 	catch (nonfillvalue e)
 	{
 		error = e.returnError();
+		return false;
 		
 	}
+	
+	return true;
 
 }
 
