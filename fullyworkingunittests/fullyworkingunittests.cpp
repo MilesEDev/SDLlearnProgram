@@ -18,7 +18,10 @@ namespace fullyworkingunittests
 	TEST_CLASS(fullyworkingunittests)
 	{
 	public:
-		
+		/**
+		 * .test method for checking if string added as float is handled
+		 * 
+		 */
 		TEST_METHOD(circlestringasnum)
 		{
 			parser* myparser = new parser();
@@ -34,7 +37,10 @@ namespace fullyworkingunittests
 
 		}
 
-
+		/**
+		 * .test to see if circle renders with valid data
+		 * 
+		 */
 		TEST_METHOD(circlevalidtest)
 		{
 			parser* myparser = new parser();
@@ -54,7 +60,10 @@ namespace fullyworkingunittests
 
 		}
 
-
+		/**
+		 * test to see if rectangle with valid parameters can be created.
+		 * 
+		 */
 		TEST_METHOD(rectanglevalid)
 		{
 			parser* myparser = new parser();
@@ -73,6 +82,10 @@ namespace fullyworkingunittests
 			Assert::IsTrue(mytext == mytext2);
 
 		}
+		/**
+		 * .test to see if triangle with valid data can be created
+		 * 
+		 */
 		TEST_METHOD(trianglevalid)
 		{
 			parser* myparser = new parser();
@@ -91,6 +104,10 @@ namespace fullyworkingunittests
 			Assert::IsTrue(mytext == mytext2);
 
 		}
+		/**
+		 * .see if the clear function can clear 
+		 * 
+		 */
 		TEST_METHOD(clearvalid)
 		{
 			parser* myparser = new parser();
@@ -110,6 +127,10 @@ namespace fullyworkingunittests
 
 		}
 		
+		/**
+		 * .test for too few paramets on rectangle
+		 * 
+		 */
 		TEST_METHOD(toofewrectangle)
 		{
 			parser* myparser = new parser();
@@ -124,6 +145,11 @@ namespace fullyworkingunittests
 
 
 		}
+		/**
+		 * 
+		 * .test for too few parameters on triangles
+		 * 
+		 */
 		TEST_METHOD(toofewtriangles)
 		{
 			parser* myparser = new parser();
@@ -138,7 +164,10 @@ namespace fullyworkingunittests
 
 
 		}
-		
+		/**
+		 * .test to see if fill command updates fill
+		 * 
+		 */
 		TEST_METHOD(fillupdate)
 		{
 			parser* myparser = new parser();
@@ -157,6 +186,10 @@ namespace fullyworkingunittests
 
 		
 		}
+		/**
+		 * .test to see if fill with invalid fill property is handled
+		 * 
+		 */
 		TEST_METHOD(badfill)
 		{
 			parser* myparser = new parser();
@@ -171,7 +204,10 @@ namespace fullyworkingunittests
 
 
 		}
-
+		/**
+		 * .moveto test to make sure pen changes
+		 * 
+		 */
 		TEST_METHOD(movetotestupdate)
 		{
 			parser* myparser = new parser();
@@ -192,7 +228,10 @@ namespace fullyworkingunittests
 
 
 		}
-
+		/**
+		 * .make sure update colour by checking if colours have changed
+		 * 
+		 */
 		TEST_METHOD(updatecolour)
 		{
 			parser* myparser = new parser();
@@ -214,13 +253,16 @@ namespace fullyworkingunittests
 			
 
 		}
-
+		/**
+		 * .check to make sure pen pos changes after drawto
+		 * 
+		 */
 		TEST_METHOD(drawtotestupdate)
 		{
 
 			parser* myparser = new parser();
 
-			myparser->splitToCommands("drawto 200 300");
+			myparser->splitToCommands("drawto 100 400");
 
 			Render* myrenderer = new Render();
 			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
@@ -229,7 +271,7 @@ namespace fullyworkingunittests
 			//auto func = [myparser,myrenderer,mytext] { myparser->runForAll(myrenderer,mytext); };
 			myparser->runForAll(myrenderer, mytext);
 			std::pair<float, float> newPen = myrenderer->getPen();
-			Assert::IsTrue(newPen.first == 200 && newPen.second == 300);
+			Assert::IsTrue(newPen.first == 100 && newPen.second == 400);
 
 
 		}
