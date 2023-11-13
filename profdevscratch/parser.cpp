@@ -64,7 +64,21 @@ bool parser::syntaxCheckAll()
 			}
 			return true;
 		}
-
+		if (SDL_strcasecmp(command.front().c_str(), "rectangle") == 0)
+		{
+			rectangleCommand* rectCom = new rectangleCommand();
+			int size = command.size() -1;
+			if (!rectCom->correctParamsCount(size))
+			{
+				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
+			}
+			
+			if (!rectCom->syntaxcheck(command.at(1),command.at(2)))
+			{
+				throw nonnumberexception("you have tried to use a non number in a number field for circle at line" + std::to_string(line));
+			}
+			return true;
+		}
 
 		
 	}
@@ -97,6 +111,15 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 				circCom->setRadius(std::stof(command.at(1)));
 				circCom->runCommand(myrenderer,myrenderer->getPen());
 				
+			}
+			if (SDL_strcasecmp(command.front().c_str(), "rectangle") == 0)
+			{
+				std::cout << "running" << std::endl;
+				rectangleCommand* rectCom = new rectangleCommand();
+				myrenderer->setPenColourRGBA(0, 255, 0, 255);
+				rectCom->setRectDimensions(std::stof(command.at(1)),std::stof(command.at(2)));
+				rectCom->runCommand(myrenderer, myrenderer->getPen());
+
 			}
 
 

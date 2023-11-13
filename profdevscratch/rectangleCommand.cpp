@@ -3,7 +3,7 @@
 
 rectangleCommand::rectangleCommand()
 {
-	
+	parameterno = 2;
 }
 
 bool rectangleCommand::syntaxcheck(std::string height, std::string width)
@@ -25,4 +25,17 @@ bool rectangleCommand::syntaxcheck(std::string height, std::string width)
 	{
 		return true;
 	}
+}
+
+void rectangleCommand::setRectDimensions(float width, float height)
+{
+	this->width = width;
+	this->height = height;
+		
+
+}
+
+void rectangleCommand::runCommand(Render* renderer, std::pair<float, float> Pen)
+{
+	renderer->drawShapeToText(new rectangle(height,width,Pen));
 }

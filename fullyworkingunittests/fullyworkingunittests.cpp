@@ -6,6 +6,7 @@
 #include <contextalreadyset.h>
 #include "parser.h"
 #include "nonnumberexception.h"
+#include "invalidParameters.h"
 
 
 
@@ -31,6 +32,21 @@ namespace fullyworkingunittests
 		
 
 		}
+		TEST_METHOD(toofewrectangle)
+		{
+			parser* myparser = new parser();
+
+			myparser->splitToCommands("rectangle 100");
+
+
+
+
+			auto func = [myparser] { myparser->syntaxCheckAll(); };
+			Assert::ExpectException<InvalidParameters>(func);
+
+
+		}
+
 	
 
 	};
