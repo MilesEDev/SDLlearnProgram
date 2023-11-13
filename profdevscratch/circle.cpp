@@ -40,7 +40,7 @@ std::pair<float,float> circle::renderself(SDL_Renderer* myrenderer, std::vector<
 			triangle* mytri = new triangle(verts[0].position.x, verts[0].position.y,
 				verts[1].position.x, verts[1].position.y, verts[2].position.x, verts[2].position.y);
 			mytri->setColour(RGBA);
-			mytri->renderself(myrenderer, RGBA, fill);
+			pen = mytri->renderself(myrenderer, RGBA, fill);
 
 		}
 		else

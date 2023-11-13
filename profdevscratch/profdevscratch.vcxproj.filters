@@ -120,6 +120,12 @@
     <ClCompile Include="invalidParameters.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="fillCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="nonfillvalue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -193,6 +199,12 @@
     </ClInclude>
     <ClInclude Include="invalidParameters.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fillCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="nonfillvalue.h">
+      <Filter>Header Files\exceptions</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

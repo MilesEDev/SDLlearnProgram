@@ -142,8 +142,10 @@
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="contextalreadyset.cpp" />
     <ClCompile Include="eventfactory.cpp" />
+    <ClCompile Include="fillCommand.cpp" />
     <ClCompile Include="gui.cpp" />
     <ClCompile Include="invalidParameters.cpp" />
+    <ClCompile Include="nonfillvalue.cpp" />
     <ClCompile Include="nonnumberexception.cpp" />
     <ClCompile Include="parser.cpp" />
     <ClCompile Include="profdevscratch.cpp" />
@@ -171,8 +173,10 @@
     <ClInclude Include="Commands.h" />
     <ClInclude Include="contextalreadyset.h" />
     <ClInclude Include="eventfactory.h" />
+    <ClInclude Include="fillCommand.h" />
     <ClInclude Include="gui.h" />
     <ClInclude Include="invalidParameters.h" />
+    <ClInclude Include="nonfillvalue.h" />
     <ClInclude Include="nonnumberexception.h" />
     <ClInclude Include="parser.h" />
     <ClInclude Include="rectangle.h" />

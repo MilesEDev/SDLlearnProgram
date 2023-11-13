@@ -52,8 +52,8 @@ bool parser::syntaxCheckAll()
 		if (SDL_strcasecmp(command.front().c_str(),"circle")==0)
 		{
 			circleCommand* circCom = new circleCommand();
-			
-			if (!circCom->correctParamsCount(command.size() - 1)) 
+			int size = command.size() - 1;
+			if (!circCom->correctParamsCount(size)) 
 			{
 				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
 			}
@@ -94,6 +94,24 @@ bool parser::syntaxCheckAll()
 			}
 			
 		}
+		if (SDL_strcasecmp(command.front().c_str(), "fill") == 0)
+		{
+			fillCommand* fillCom = new fillCommand();
+			int size = command.size() - 1;
+			if (!fillCom->correctParamsCount(size))
+			{
+				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
+			}
+
+			if (!fillCom->syntaxcheck(command.at(1)))
+			{
+				throw nonfillvalue("you have tried to use a value for fill which is not on or off" + std::to_string(line));
+			}
+
+			
+
+		}
+
 
 		
 	}
@@ -146,6 +164,13 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 					std::stof(command.at(3)), std::stof(command.at(4)));
 				triCom->runCommand(myrenderer, myrenderer->getPen());
 			}
+			if (SDL_strcasecmp(command.front().c_str(), "fill") == 0)
+			{
+				std::cout << "running" << std::endl;
+				fillCommand* fillCom = new fillCommand();
+				fillCom->setFill(command.at(1));
+				fillCom->runCommand(myrenderer);
+			}
 
 
 		}
@@ -183,13 +208,43 @@ void parser::splitToArguments(std::string line)
 
 void parser::saveToTxt(std::string program)
 {
-	std::ofstream MyFile("filename.txt");
+	int numOfFiles = 0;
+	std::string newFileName;
+	std::string numOfFilesstr;
+	std::ifstream MyReadFile("NumOfTxt.txt");
 
-	// Write to the file
-	MyFile << program;
+	 getline(MyReadFile, numOfFilesstr);
 
-	// Close the file
-	MyFile.close();
+	 numOfFiles = std::stoi(numOfFilesstr);
+
+	 numOfFiles++;
+
+	 std::ofstream MyWriteFile("NumOfTxt.txt");
+
+	 MyWriteFile << std::to_string(numOfFiles);
+
+
+	 newFileName="program"+ std::to_string(numOfFiles)+".txt";
+	 std::ofstream MyMainWriteFile(newFileName);
+	 MyMainWriteFile << program;
+
+
+
+	
+}
+
+std::string parser::loadFromTxt(std::string programName)
+{
+	std::string storeProgram;
+	std::ifstream MyReadFile(programName);
+	std::string line;
+
+	while (getline(MyReadFile, line)) 
+	{
+		storeProgram = storeProgram + line + "\n";
+	}
+	return storeProgram;
+
 }
 
 

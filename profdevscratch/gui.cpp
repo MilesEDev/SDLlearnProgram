@@ -36,8 +36,9 @@ gui::gui(window* mywindow)
 }
 void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* sdlrend)
 {
-	std::string error;
+	
 	parser* myparser = new parser();
+	std::string filename;
 	std::string str;
 	std::string strmultiline;
 	bool done = false;
@@ -52,7 +53,7 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 	SDL_Rect* srcRectBlack = new SDL_Rect();
 	int windowx = mywindow->getWindowSize().first ;
 	int windowy = mywindow->getWindowSize().second;
-
+	caller();
 	srcRectBlack->x = 0;
 	srcRectBlack->y = 0;
 	srcRectBlack->w = windowx/5;
@@ -67,42 +68,81 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 	SDL_SetRenderDrawColor(sdlrend, 0, 0, 0, 255);
 	SDL_RenderClear(sdlrend);
 	SDL_SetRenderTarget(sdlrend, nullptr);
-	while(true)
+	while (true)
 	{
-		
+
 		//counter++;
 		//myrenderer->drawTo(50, 100);
-		
+
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
 		{
 			ImGui_ImplSDL2_ProcessEvent(&event);
-			
+
 		}
 
 		SDL_RenderCopy(sdlrend, mytextbackground, nullptr, srcRectBlack);
 		SDL_RenderCopy(sdlrend, mytext, nullptr, srcRect);
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplSDL2_NewFrame();
-		
+
+
+
 		ImGui::NewFrame();
-		ImGui::SetNextWindowSize(ImVec2(windowx/5,windowy ), ImGuiCond_Once);
+		ImGui::SetNextWindowSize(ImVec2(windowx / 5, windowy), ImGuiCond_Once);
 
 		ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);
 		ImGui::Begin("Hello, world!");
+		if (this->commandLine == "run") {
+
+
+
+			runner(myrenderer, mytext, strmultiline, myparser);
+			if (!error.empty())
+			{
+				ImGui::OpenPopup("ThePopup");
+
+			}
+			commandLine.clear();
+			caller();
+
+		}
+		else if (!this->commandLine.empty())
+		{
+			runner(myrenderer, mytext, commandLine, myparser);
+			if (!error.empty())
+			{
+				ImGui::OpenPopup("ThePopup");
+
+			}
+			commandLine.clear();
+			caller();
+
+
+		}
 
 		if (ImGui::Button("save", buttonsize))
 		{
 			myparser->saveToTxt(strmultiline);
 
 		}
-		//ImGui::InputText()
-		ImGui::InputTextMultiline("##label",&strmultiline);
-		ImGui::InputText("###label", &str);
-		
+		ImGui::SameLine(0.0f, 9.0f);
+
+		if (ImGui::Button("load", buttonsize))
+		{
+			strmultiline = myparser->loadFromTxt(filename);
+
+		}
+		ImGui::InputText("fileToLoad", &filename);
 	
+		//ImGui::InputText()
+		ImGui::InputTextMultiline("##label", &strmultiline);
+		ImGui::InputText("###label", &str);
+
+
 		if (ImGui::Button("syntax", buttonsize))
 		{
+			myparser->clearAllLists();
 			try {
 				bool syntax = myparser->syntaxCheckAll();
 				if (syntax) {
@@ -120,10 +160,6 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 				error = e.returnError();
 				ImGui::OpenPopup("ThePopup");
 			}
-
-
-
-			
 		}
 		if (ImGui::BeginPopupModal("ThePopup")) {
 			ImGui::Text(error.c_str());
@@ -147,40 +183,30 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 		ImGui::SameLine(0.0f, 9.0f);
 		if (ImGui::Button("run", buttonsize))
 		{
-			try {
-				if (!strmultiline.empty())
-				{
-					myparser->splitToCommands(strmultiline);
-				}
-
-				mytext = myparser->runForAll(myrenderer, mytext);
-			}
-			catch (InvalidParameters& e) 
+			if (!strmultiline.empty()) 
 			{
-				error = e.returnError();
-				ImGui::OpenPopup("ThePopup");
+				runner(myrenderer, mytext, strmultiline, myparser);
 			}
-			catch (nonnumberexception& e)
+			else if (!str.empty())
 			{
-				error = e.returnError();
-				ImGui::OpenPopup("ThePopup");
+				runner(myrenderer, mytext, str, myparser);
 			}
-
 
 		}
 		ImGui::End();
-		
-	
+
+
 		ImGui::Render();
-			
-	    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-				
+
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 		SDL_GL_SwapWindow(mySDLWindow);
+	}
 				
 			
-	}
-	
 }
+	
+
 	
 	
 
@@ -188,4 +214,54 @@ SDL_Window* gui::getWindow()
 {
 	return mySDLWindow;
 }
+
+void gui::consoleInput()
+{ 
+	
+	
+	
+	std::getline(std::cin, commandLine);
+		
+
+	
+	
+	
+	
+	
+}
+
+void gui::caller()
+{
+	mythread = new std::thread(&gui::consoleInput,this);
+}
+
+void gui::runner(Render* myrenderer, SDL_Texture* mytext, std::string mystring, parser* myparser)
+{
+
+	myparser->clearAllLists();
+	try {
+		myparser->splitToCommands(mystring);
+		mytext = myparser->runForAll(myrenderer, mytext);
+	}
+
+
+	catch (InvalidParameters& e)
+	{
+		error = e.returnError();
+		
+	}
+	catch (nonnumberexception& e)
+	{
+		error = e.returnError();
+		
+	}
+	catch (nonfillvalue e)
+	{
+		error = e.returnError();
+		
+	}
+
+}
+
+
 

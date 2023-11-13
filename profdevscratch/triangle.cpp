@@ -16,7 +16,13 @@ std::pair<float,float> triangle::renderself(SDL_Renderer* myrenderer, std::vecto
 	if (fill) 
 	{
 		
-		setColour(RGBA);
+		//setColour(RGBA);
+		for (int i = 0; i < 3; i++)
+		{
+			std::cout << RGBA.at(0);
+			verts[i].color = { RGBA.at(0),RGBA[1],RGBA[2],RGBA[3] };
+
+		}
 		SDL_RenderGeometry(myrenderer, nullptr, verts, 3, NULL, 0);
 		
 	}
@@ -37,12 +43,13 @@ void triangle::setPoints(float x, float y, float x2, float y2, float x3, float y
 	verts[2].position = { x3,y3 };
 }
 
-void triangle::setColour(std::vector<Uint8> RGBA)
+void triangle::setColour(std::vector<Uint8> &RGBA)
 {
 	
 	for (int i = 0; i < 3; i++)
 	{
-		verts[i].color = { RGBA[0],RGBA[1],RGBA[2],RGBA[3] };
+		std::cout << RGBA.at(0);
+		verts[i].color = { RGBA.at(0),RGBA[1],RGBA[2],RGBA[3]};
 		
 	}
 }

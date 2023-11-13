@@ -13,6 +13,8 @@
 #include <iostream>
 #include <fstream>
 #include "triangleCommand.h"
+#include "fillCommand.h"
+#include "nonfillvalue.h"
 
 class parser
 {
@@ -34,6 +36,8 @@ public:
 	void splitToArguments(std::string line);
 
 	void saveToTxt(std::string program);
+
+	std::string loadFromTxt(std::string programName);
 	
 	
 	

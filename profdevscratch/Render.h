@@ -86,7 +86,7 @@ public:
 	 * \param B blue value
 	 * \param A alpha value
 	 */
-	void setPenColourRGBA(int R, int G, int B, int A);
+	void setPenColourRGBA(Uint8 R, Uint8 G, Uint8 B, Uint8 A);
 	/**
 	 * .sets the colour of the pen using a string to determine what colour to set to
 	 *

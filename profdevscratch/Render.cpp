@@ -43,13 +43,16 @@ void Render::drawTo(float x, float y)
 	setPen(x, y);
 	
 }
-void Render::setPenColourRGBA(int R, int B, int G, int A)
+void Render::setPenColourRGBA(Uint8 R, Uint8 G, Uint8 B, Uint8 A)
 {
-	SDL_SetRenderDrawColor(myrenderer, R,G,B,A);
+	SDL_SetRenderDrawColor(myrenderer,R,G,B,A);
+	penRGBA.clear();
 	penRGBA.push_back(R);
 	penRGBA.push_back(G);
 	penRGBA.push_back(B);
 	penRGBA.push_back(A);
+
+	
 
 }
 void Render::setPenColourString(std::string colour) 
@@ -100,13 +103,7 @@ void Render::setSDLRenderer(SDL_Renderer* myNewRenderer)
 }
 void Render::setFill(bool onOrOff) 
 {
-	if (onOrOff == true) {
-
-		fill = true; 
-	}
-	else {
-		fill = false; 
-	}
+	fill = onOrOff;
 	
 }
 std::vector<Uint8> Render::getPenColour() {
@@ -129,7 +126,7 @@ window* Render::getWindow() {
 
 void Render::drawShapeToText(shape* shapearg) {
 	
-	
+
 	this->penStartCordinate = shapearg->renderself(myrenderer, penRGBA, fill);
 	
 }

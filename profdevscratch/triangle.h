@@ -18,7 +18,7 @@ public:
 	triangle(float x, float y, float x2, float y2, float x3, float y3);
 	std::pair<float,float> renderself(SDL_Renderer* myrenderer, std::vector<Uint8> RGBA , bool fill) override;
 	void setPoints(float x, float y, float x2, float y2, float x3, float y3);
-	void setColour(std::vector<Uint8> RGBA);
+	void setColour(std::vector<Uint8> &RGBA);
 	void setPen(std::pair<float, float> newPen);
 	
 	
