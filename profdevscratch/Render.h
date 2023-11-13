@@ -12,11 +12,15 @@
 
 
 
-
+/**
+ * .the custom handy dandy renderer for all your rendering needs 
+ */
 class Render
 {
 private:
-
+	/**
+	 * .any function errors to be returned
+	 */
 	std::string error;
 	std::vector<Uint8> penRGBA;
 	/**
@@ -109,25 +113,68 @@ public:
 	 */
 	void renderClearAbsoloute();
 
-	
+	/**
+	 * .
+	 * 
+	 * \return  sdl renderer
+	 */
 	SDL_Renderer* getSDLRenderer();
-
+	/**
+	 * .sets sdl renderer
+	 */
+	
 	void setSDLRenderer(SDL_Renderer* myNewRenderer);
-	
+	/**
+	 * .sets fill 
+	 * 
+	 * \param onOrOff fill on or fill off
+	 */
 	void setFill(bool onOrOff);
-	
+	/**
+	 * .gets pen colour
+	 * 
+	 * \return  the pen colour
+	 */
 	std::vector<Uint8> getPenColour();
 
+	/**
+	 * .gets fill bool
+	 * 
+	 * \return the fill bool 
+	 */
 	bool getFill();
-
+	/**
+	 * .gets fill value
+	 * 
+	 * \return fill bool 
+	 */
+	/**
+	 * .gets pen 
+	 * 
+	 * \return pen values
+	 */
 	std::pair<float, float> getPen();
-
+	/**
+	 * .gets window
+	 * 
+	 * \return object window value
+	 */
 	window* getWindow();
-
+	/**
+	 * .draws shape to texture
+	 * 
+	 * \param targetShape shape to be drawn
+	 */
 	void drawShapeToText(shape* targetShape);
-
+	/**
+	 * 
+	 * .gets last function error
+	 */
 	std::string getLastError(); 
-
+	/**
+	 * .remove all texture targets 
+	 * 
+	 */
 	void removeAnyTargets();
 
 };

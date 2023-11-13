@@ -9,6 +9,9 @@
 #include "circle.h"
 
 #include <list>
+/**
+ * .not created yet may be expanded on to deal with dependencies
+ */
 class eventfactory
 {
 private:

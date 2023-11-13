@@ -144,6 +144,15 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 		{
 			myparser->clearAllLists();
 			try {
+				if (!strmultiline.empty())
+				{
+					myparser->splitToCommands(strmultiline);
+				}
+				else if (!str.empty()) 
+				{
+					myparser->splitToCommands(strmultiline);
+				}
+
 				bool syntax = myparser->syntaxCheckAll();
 				if (syntax) {
 					ImGui::OpenPopup("syntax good");

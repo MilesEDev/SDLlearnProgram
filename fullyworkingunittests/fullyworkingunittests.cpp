@@ -275,7 +275,10 @@ namespace fullyworkingunittests
 
 
 		}
-
+		/**
+		 * .test to make sure resettest sets pen back to correct pos
+		 * 
+		 */
 		TEST_METHOD(resettest)
 		{
 

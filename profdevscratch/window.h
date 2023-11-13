@@ -5,11 +5,27 @@
 
 #include "SDL.h"
 
+
+/**
+ * .window to display into 
+ */
 class window {
 private:
+	/**
+	 * .the sdl window to be displayed
+	 */
 	SDL_Window* mywindow;
+	/**
+	 * .the size values of the window
+	 */
 	std::pair<int, int> size;
+	/**
+	 * .the position of the widnow
+	 */
 	std::pair<int, int> pos; 
+	/**
+	 * .the title of the window 
+	 */
 	std::string title;
 
 public:
@@ -96,7 +112,9 @@ public:
 	 * \return the sdl window pointer 
 	 */
 	SDL_Window* getSDLWindow();
-	
+	/**
+	 * .shows window 
+	 */
 	void showWindow();
 	
 	
