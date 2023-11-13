@@ -19,13 +19,13 @@ void fillCommand::setFill(std::string onOrOff)
 bool fillCommand::syntaxcheck(std::string onOrOff)
 {
     
-    if (SDL_strcasecmp(onOrOff.c_str(), "on")==0 && SDL_strcasecmp(onOrOff.c_str(), "off")==0) {
+    if (SDL_strcasecmp(onOrOff.c_str(), "on") ==0 || SDL_strcasecmp(onOrOff.c_str(), "off") ==0) {
 
-        return false;
+        return true;
     }
     else
     {
-        return true; 
+        return false; 
     }
 
     

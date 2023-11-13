@@ -160,6 +160,12 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 				error = e.returnError();
 				ImGui::OpenPopup("ThePopup");
 			}
+			catch (nonfillvalue e)
+			{
+				error = e.returnError();
+				ImGui::OpenPopup("ThePopup");
+
+			}
 		}
 		if (ImGui::BeginPopupModal("ThePopup")) {
 			ImGui::Text(error.c_str());

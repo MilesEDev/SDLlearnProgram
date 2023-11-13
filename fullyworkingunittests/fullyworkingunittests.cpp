@@ -62,7 +62,7 @@ namespace fullyworkingunittests
 
 
 		}
-		/*
+		
 		TEST_METHOD(fillupdate)
 		{
 			parser* myparser = new parser();
@@ -79,8 +79,22 @@ namespace fullyworkingunittests
 			Assert::IsTrue(fill);
 
 
+		
+		}
+		TEST_METHOD(badfill)
+		{
+			parser* myparser = new parser();
 
-		}*/
+			myparser->splitToCommands("fill beef");
+
+
+
+
+			auto func = [myparser] { myparser->syntaxCheckAll(); };
+			Assert::ExpectException<nonfillvalue>(func);
+
+
+		}
 
 		
 	
