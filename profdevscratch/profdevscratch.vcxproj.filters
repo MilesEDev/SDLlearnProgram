@@ -144,6 +144,9 @@
     <ClCompile Include="triangleCommand.cpp">
       <Filter>Source Files\exceptions</Filter>
     </ClCompile>
+    <ClCompile Include="drawToCommand.cpp">
+      <Filter>Source Files\commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -234,6 +237,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="notcolourexception.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="drawToCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

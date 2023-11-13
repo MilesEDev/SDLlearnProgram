@@ -2,7 +2,7 @@
 
 colourCommand::colourCommand()
 {
-    parameterno = 2;
+    parameterno =1;
 }
 
 bool colourCommand::syntaxcheck(std::string colour)

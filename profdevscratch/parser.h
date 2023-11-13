@@ -19,6 +19,7 @@
 #include "clearcommand.h"
 #include "colourCommand.h"
 #include "notcolourexception.h"
+#include "drawToCommand.h"
 
 class parser
 {

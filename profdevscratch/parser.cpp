@@ -127,7 +127,7 @@ bool parser::syntaxCheckAll()
 		{
 			colourCommand* mycolCommand = new colourCommand();
 			int size = command.size() - 1;
-			if (mycolCommand->correctParamsCount(size))
+			if (!mycolCommand->correctParamsCount(size))
 			{
 				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
 			}
@@ -137,6 +137,20 @@ bool parser::syntaxCheckAll()
 				throw notcolourexception("you have tried to enter something which is not a colour" + std::to_string(line));
 			}
 
+		}
+		if (SDL_strcasecmp(command.front().c_str(), "drawto") == 0)
+		{
+			drawToCommand* drawtoCom = new drawToCommand();
+			int size = command.size() - 1;
+			if (!drawtoCom->correctParamsCount(size))
+			{
+				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
+			}
+
+			if (!drawtoCom->syntaxcheck(command.at(1), command.at(2)))
+			{
+				throw nonnumberexception("you have tried to use a non number in a number field for circle at line" + std::to_string(line));
+			}
 		}
 
 
@@ -225,6 +239,16 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 
 
 			}
+			if (SDL_strcasecmp(command.front().c_str(), "drawto") == 0)
+			{
+				std::cout << "running" << std::endl;
+				drawToCommand* drawtoCom = new drawToCommand();
+
+				drawtoCom->setPos(std::stof(command.at(1)), std::stof(command.at(2)));
+				drawtoCom->runCommand(myrenderer, myrenderer->getPen());
+
+			}
+			
 			
 
 

@@ -215,9 +215,6 @@ namespace fullyworkingunittests
 
 		}
 
-
-	
-
 	};
 }
 

@@ -143,6 +143,7 @@
     <ClCompile Include="colourCommand.cpp" />
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="contextalreadyset.cpp" />
+    <ClCompile Include="drawToCommand.cpp" />
     <ClCompile Include="eventfactory.cpp" />
     <ClCompile Include="fillCommand.cpp" />
     <ClCompile Include="gui.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="colourCommand.h" />
     <ClInclude Include="Commands.h" />
     <ClInclude Include="contextalreadyset.h" />
+    <ClInclude Include="drawToCommand.h" />
     <ClInclude Include="eventfactory.h" />
     <ClInclude Include="fillCommand.h" />
     <ClInclude Include="gui.h" />
