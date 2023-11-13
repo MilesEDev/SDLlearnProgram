@@ -22,10 +22,11 @@ bool circleCommand::syntaxcheck(std::string radius)
 	
 }
 
-void circleCommand::runCommand(Render* renderer,std::pair<float,float> Pen)
+std::string circleCommand::runCommand(Render* renderer,std::pair<float,float> Pen)
 {
 	 
 	renderer->drawShapeToText(new circle(Pen, this->radius));
+	return SDL_GetError();
 	
 
 }

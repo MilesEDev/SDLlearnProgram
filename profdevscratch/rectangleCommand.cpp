@@ -35,7 +35,8 @@ void rectangleCommand::setRectDimensions(float width, float height)
 
 }
 
-void rectangleCommand::runCommand(Render* renderer, std::pair<float, float> Pen)
+std::string rectangleCommand::runCommand(Render* renderer, std::pair<float, float> Pen)
 {
 	renderer->drawShapeToText(new rectangle(height,width,Pen));
+	return(SDL_GetError());
 }

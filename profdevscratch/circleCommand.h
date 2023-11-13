@@ -15,7 +15,7 @@ public:
 
 	bool syntaxcheck(std::string radius);
 
-	void runCommand(Render* renderer, std::pair<float, float> Pen);
+	std::string runCommand(Render* renderer, std::pair<float, float> Pen);
 	
 	void setRadius(float newRadius);
 

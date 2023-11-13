@@ -18,7 +18,7 @@ public:
 	void setFill(std::string onOrOff);
 	bool syntaxcheck(std::string onOrOff);
 
-	void runCommand(Render* myrenderer);
+	std::string runCommand(Render* myrenderer);
 
 
 	

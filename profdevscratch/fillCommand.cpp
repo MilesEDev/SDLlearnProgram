@@ -32,7 +32,8 @@ bool fillCommand::syntaxcheck(std::string onOrOff)
 
 }
 
-void fillCommand::runCommand(Render* myrenderer)
+std::string fillCommand::runCommand(Render* myrenderer)
 {
     myrenderer->setFill(fill);
+    return(SDL_GetError());
 }

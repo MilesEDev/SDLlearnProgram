@@ -14,7 +14,7 @@ public:
 
 	void setRectDimensions(float width,float height);
 
-	void runCommand(Render* renderer, std::pair<float, float> Pen);
+	std::string runCommand(Render* renderer, std::pair<float, float> Pen);
 	
 
 

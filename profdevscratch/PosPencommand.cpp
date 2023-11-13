@@ -36,9 +36,10 @@ void PosPencommand::setPoints(float newx, float newy)
 
 }
 
-void PosPencommand::runCommand(Render* renderer, std::pair<float, float> Pen)
+std::string PosPencommand::runCommand(Render* renderer, std::pair<float, float> Pen)
 {
 	renderer->setPen(x, y);
+	return SDL_GetError();
 }
 
 

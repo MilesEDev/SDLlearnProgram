@@ -16,6 +16,7 @@
 #include "fillCommand.h"
 #include "nonfillvalue.h"
 #include "PosPencommand.h"
+#include "clearcommand.h"
 
 class parser
 {

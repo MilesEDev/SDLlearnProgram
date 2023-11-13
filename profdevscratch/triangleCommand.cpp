@@ -46,8 +46,9 @@ void triangleCommand::setPoints(float newx1, float newx2, float newy1, float new
 	y2 = newy2;
 
 }
-void triangleCommand::runCommand(Render* renderer, std::pair<float, float> Pen)
+std::string triangleCommand::runCommand(Render* renderer, std::pair<float, float> Pen)
 {
 	renderer->drawShapeToText(new triangle(Pen.first,Pen.second,x1,y1,x2,y2));
+	return SDL_GetError();
 }
 

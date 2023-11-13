@@ -96,7 +96,27 @@ namespace fullyworkingunittests
 
 		}
 
-		
+		TEST_METHOD(movetotestupdate)
+		{
+			parser* myparser = new parser();
+
+			myparser->splitToCommands("moveTo 200 300");
+			
+			Render* myrenderer = new Render();
+			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
+
+			
+			//auto func = [myparser,myrenderer,mytext] { myparser->runForAll(myrenderer,mytext); };
+			myparser->runForAll(myrenderer, mytext);
+			std::pair<float, float> newPen = myrenderer->getPen();
+			Assert::AreEqual(std::to_string((int)newPen.first).c_str(),"200");
+			
+			
+			
+
+
+		}
+
 	
 
 	};

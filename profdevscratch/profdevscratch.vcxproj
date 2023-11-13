@@ -139,6 +139,7 @@
     <ClCompile Include="..\imgui\misc\cpp\imgui_stdlib.cpp" />
     <ClCompile Include="circle.cpp" />
     <ClCompile Include="circleCommand.cpp" />
+    <ClCompile Include="clearcommand.cpp" />
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="contextalreadyset.cpp" />
     <ClCompile Include="eventfactory.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="..\imgui\misc\cpp\imgui_stdlib.h" />
     <ClInclude Include="circle.h" />
     <ClInclude Include="circleCommand.h" />
+    <ClInclude Include="clearcommand.h" />
     <ClInclude Include="Commands.h" />
     <ClInclude Include="contextalreadyset.h" />
     <ClInclude Include="eventfactory.h" />

@@ -18,7 +18,7 @@ public:
 
 	void setPoints(float newx1, float newx2, float newy1, float newy2);
 
-	void runCommand(Render* renderer, std::pair<float, float> Pen);
+	std::string runCommand(Render* renderer, std::pair<float, float> Pen);
 
 
 };

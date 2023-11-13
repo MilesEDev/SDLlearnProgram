@@ -37,6 +37,12 @@
     <Filter Include="Header Files\shapes">
       <UniqueIdentifier>{8923d080-a356-4115-9a22-3122fdcc17c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\commands">
+      <UniqueIdentifier>{f4f552d9-b720-40f1-8698-3c5ce54fa9ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\commands">
+      <UniqueIdentifier>{bcaf5a75-8161-4a4d-a293-d9b26a02dda8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="profdevscratch.cpp">
@@ -96,18 +102,6 @@
     <ClCompile Include="window.cpp">
       <Filter>Source Files\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="Commands.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="circleCommand.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="triangleCommand.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="rectangleCommand.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="circle.cpp">
       <Filter>Source Files\shapes</Filter>
     </ClCompile>
@@ -120,13 +114,28 @@
     <ClCompile Include="invalidParameters.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fillCommand.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="nonfillvalue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="circleCommand.cpp">
+      <Filter>Source Files\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands.cpp">
+      <Filter>Source Files\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="fillCommand.cpp">
+      <Filter>Source Files\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="rectangleCommand.cpp">
+      <Filter>Source Files\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="triangleCommand.cpp">
+      <Filter>Source Files\commands</Filter>
+    </ClCompile>
     <ClCompile Include="PosPencommand.cpp">
+      <Filter>Source Files\commands</Filter>
+    </ClCompile>
+    <ClCompile Include="clearcommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -179,18 +188,6 @@
     <ClInclude Include="window.h">
       <Filter>Header Files\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Commands.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="circleCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="triangleCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="rectangleCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="triangle.h">
       <Filter>Header Files\shapes</Filter>
     </ClInclude>
@@ -203,13 +200,28 @@
     <ClInclude Include="invalidParameters.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="fillCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="nonfillvalue.h">
       <Filter>Header Files\exceptions</Filter>
     </ClInclude>
+    <ClInclude Include="circleCommand.h">
+      <Filter>Header Files\commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands.h">
+      <Filter>Header Files\commands</Filter>
+    </ClInclude>
+    <ClInclude Include="fillCommand.h">
+      <Filter>Header Files\commands</Filter>
+    </ClInclude>
+    <ClInclude Include="rectangleCommand.h">
+      <Filter>Header Files\commands</Filter>
+    </ClInclude>
+    <ClInclude Include="triangleCommand.h">
+      <Filter>Header Files\commands</Filter>
+    </ClInclude>
     <ClInclude Include="PosPencommand.h">
+      <Filter>Header Files\commands</Filter>
+    </ClInclude>
+    <ClInclude Include="clearcommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

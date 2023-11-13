@@ -190,6 +190,16 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 				penCom->setPoints(std::stof(command.at(1)), std::stof(command.at(2)));
 				penCom->runCommand(myrenderer,myrenderer->getPen());
 			}
+			if (SDL_strcasecmp(command.front().c_str(), "clear") == 0)
+			{
+				
+				clearcommand* clearCom = new clearcommand();
+				clearCom->runCommand(myrenderer, myrenderer->getPen());
+
+
+				
+			}
+
 
 
 		}
