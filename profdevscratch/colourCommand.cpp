@@ -8,7 +8,7 @@ colourCommand::colourCommand()
 bool colourCommand::syntaxcheck(std::string colour)
 {
     if (SDL_strcasecmp(colour.c_str(), "red") == 0 || SDL_strcasecmp(colour.c_str(), "green") == 0
-    || SDL_strcasecmp(colour.c_str(), "blue") == 0 ||SDL_strcasecmp(colour.c_str(), "black") == 0) 
+    || SDL_strcasecmp(colour.c_str(), "blue") == 0 ||SDL_strcasecmp(colour.c_str(), "white") == 0) 
     {
 
         return true;
@@ -53,7 +53,7 @@ void colourCommand::setCol(std::string colour)
 
 
     }
-    if (SDL_strcasecmp(colour.c_str(), "black") == 0)
+    if (SDL_strcasecmp(colour.c_str(), "white") == 0)
     {
         colours.push_back(255);
         colours.push_back(255);

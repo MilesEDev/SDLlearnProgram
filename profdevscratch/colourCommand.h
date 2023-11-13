@@ -7,7 +7,7 @@ class colourCommand : public Commands
 
 {
 private:
-	std::vector<Uint8> colours;;
+	std::vector<Uint8> colours;
 
 
 public:

@@ -193,6 +193,29 @@ namespace fullyworkingunittests
 
 		}
 
+		TEST_METHOD(updatecolour)
+		{
+			parser* myparser = new parser();
+
+			myparser->splitToCommands("pen green");
+
+			Render* myrenderer = new Render();
+			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
+			std::vector<Uint8> colours = { 0,255,0,255};
+
+			//auto func = [myparser,myrenderer,mytext] { myparser->runForAll(myrenderer,mytext); };
+			myparser->runForAll(myrenderer, mytext);
+			std::vector<Uint8> actualColours = myrenderer->getPenColour();
+			Assert::IsTrue(colours[0] == actualColours[0] && colours[1] == actualColours[1] && colours[2] == actualColours[2]
+				&& colours[3] == actualColours[3]);
+				
+			
+			
+			
+
+		}
+
+
 	
 
 	};
