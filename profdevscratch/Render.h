@@ -22,7 +22,7 @@ private:
 	 * .any function errors to be returned
 	 */
 	std::string error;
-	std::vector<Uint8> penRGBA;
+	std::vector<Uint8> penRGBA = { 255,255,255,255 };
 	/**
 	 * .the cordinate of the pen
 	 */

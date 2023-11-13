@@ -39,8 +39,7 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 	
 	parser* myparser = new parser();
 	std::string filename;
-	std::string str;
-	std::string strmultiline;
+	
 	bool done = false;
 	ImVec2 buttonsize = ImVec2(50, 20);
 	
@@ -96,7 +95,7 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 		if (this->commandLine == "run") {
 
 
-
+			myparser->clearAllLists();
 			runner(myrenderer, mytext, strmultiline, myparser);
 			if (!error.empty())
 			{
@@ -142,10 +141,13 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 
 		if (ImGui::Button("syntax", buttonsize))
 		{
-			myparser->clearAllLists();
+			
+			
 			try {
 				if (!strmultiline.empty())
 				{
+					myparser->clearAllLists();
+					myrenderer->setPen(0, 0);
 					myparser->splitToCommands(strmultiline);
 				}
 				else if (!str.empty()) 
@@ -162,28 +164,33 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 			catch (InvalidParameters& e)
 			{
 				error = e.returnError();
+				myparser->clearAllLists();
 				ImGui::OpenPopup("ThePopup");
 			}
 			catch (nonnumberexception& e)
 			{
 				error = e.returnError();
+				myparser->clearAllLists();
 				ImGui::OpenPopup("ThePopup");
 			}
 			catch (nonfillvalue e)
 			{
 				error = e.returnError();
+				myparser->clearAllLists();
 				ImGui::OpenPopup("ThePopup");
 
 			}
 			catch (notcolourexception e)
 			{
 				error = e.returnError();
+				myparser->clearAllLists();
 				ImGui::OpenPopup("ThePopup");
 
 			}
 			catch (notcommandexception e)
 			{
 				error = e.returnError();
+				myparser->clearAllLists();
 				ImGui::OpenPopup("ThePopup");
 
 			}
@@ -199,6 +206,7 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 		}
 		if (ImGui::BeginPopupModal("syntax good")) {
 			ImGui::Text("syntax good");
+			myparser->clearAllLists();
 			if (ImGui::Button("ok", buttonsize))
 			{
 				ImGui::CloseCurrentPopup();
@@ -212,6 +220,8 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 		{
 			if (!strmultiline.empty()) 
 			{
+				myparser->clearAllLists();
+				myrenderer->setPen(0, 0);
 				if (!runner(myrenderer, mytext, strmultiline, myparser)) 
 				{
 					ImGui::OpenPopup("ThePopup");
@@ -273,7 +283,7 @@ void gui::caller()
 bool gui::runner(Render* myrenderer, SDL_Texture* mytext, std::string mystring, parser* myparser)
 {
 
-	myparser->clearAllLists();
+	
 	try {
 		myparser->splitToCommands(mystring);
 		mytext = myparser->runForAll(myrenderer, mytext);
@@ -283,35 +293,59 @@ bool gui::runner(Render* myrenderer, SDL_Texture* mytext, std::string mystring, 
 	catch (InvalidParameters& e)
 	{
 		error = e.returnError();
+		myparser->clearAllLists();
 		return false;
 	}
 	catch (nonnumberexception& e)
 	{
 		error = e.returnError();
+		myparser->clearAllLists();
 		return false;
 		
 	}
 	catch (nonfillvalue e)
 	{
 		error = e.returnError();
+		myparser->clearAllLists();
 		return false;
 		
 	}
 	catch (notcolourexception e)
 	{
 		error = e.returnError();
+		myparser->clearAllLists();
 		return false;
 
 	}
 	catch (notcommandexception e)
 	{
 		error = e.returnError();
+		myparser->clearAllLists();
 		return false;
 
 	}
 	
 	return true;
 
+}
+
+std::string gui::getConsoleInput()
+{
+	return commandLine;
+}
+void gui::setConsoleInput(std::string newline) {
+
+	commandLine = newline;
+}
+
+std::string gui::getMultiLine()
+{
+	return strmultiline;
+}
+
+void gui::setMultiLine(std::string newmulti)
+{
+	strmultiline = newmulti;
 }
 
 

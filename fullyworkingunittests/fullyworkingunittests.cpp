@@ -8,6 +8,7 @@
 #include "nonnumberexception.h"
 #include "invalidParameters.h"
 #include "Render.h"
+#include "gui.h"
 
 
 
@@ -312,6 +313,50 @@ namespace fullyworkingunittests
 		}
 		*/
 
+		TEST_METHOD(singlecommandlinetest) 
+		{
+			gui* mygui = new gui();
+			Render* myrenderer = new Render();
+			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
+			mygui->setConsoleInput("circle 50");
+			
+			parser* newparser = new parser();
+
+			newparser->splitToCommands(mygui->getConsoleInput());
+
+			SDL_Texture* mytext2;
+			mytext2 = newparser->runForAll(myrenderer, mytext);
+
+			Assert::IsTrue(mytext == mytext2);
+
+
+
+
+		}
+		TEST_METHOD(multilinetest)
+		{
+			gui* mygui = new gui();
+			Render* myrenderer = new Render();
+			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
+			mygui->setConsoleInput("run");
+
+			parser* newparser = new parser();
+			if (mygui->getConsoleInput() == "run")
+			{
+				mygui->setMultiLine("circle 60");
+				newparser->splitToCommands(mygui->getMultiLine());
+			}
+			SDL_Texture* mytext2;
+			mytext2 = newparser->runForAll(myrenderer, mytext);
+
+			Assert::IsTrue(mytext == mytext2);
+
+
+
+		}
+		
+
+		
 	};
 }
 

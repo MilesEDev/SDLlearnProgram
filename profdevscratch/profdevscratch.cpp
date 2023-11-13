@@ -23,7 +23,7 @@ int main()
     SDL_Renderer* mySDLRenderer = myrenderer->getSDLRenderer();
     SDL_Texture* mytext = SDL_CreateTexture(mySDLRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
     SDL_SetRenderTarget(mySDLRenderer, mytext);
-    SDL_SetRenderDrawColor(mySDLRenderer, 0, 0, 255, 255);
+    SDL_SetRenderDrawColor(mySDLRenderer, 255, 255, 255, 255);
     SDL_RenderClear(mySDLRenderer);
    
     SDL_SetRenderTarget(mySDLRenderer, nullptr);

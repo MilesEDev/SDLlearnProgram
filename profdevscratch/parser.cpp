@@ -65,7 +65,7 @@ bool parser::syntaxCheckAll()
 			}
 			
 		}
-		if (SDL_strcasecmp(command.front().c_str(), "rectangle") == 0)
+		else if (SDL_strcasecmp(command.front().c_str(), "rectangle") == 0)
 		{
 			rectangleCommand* rectCom = new rectangleCommand();
 			int size = command.size() -1;
@@ -80,7 +80,7 @@ bool parser::syntaxCheckAll()
 			}
 			
 		}
-		if (SDL_strcasecmp(command.front().c_str(), "triangle") == 0)
+		else if (SDL_strcasecmp(command.front().c_str(), "triangle") == 0)
 		{
 			triangleCommand* triCom = new triangleCommand();
 			int size = command.size() - 1;
@@ -95,7 +95,7 @@ bool parser::syntaxCheckAll()
 			}
 			
 		}
-		if (SDL_strcasecmp(command.front().c_str(), "fill") == 0)
+		else if (SDL_strcasecmp(command.front().c_str(), "fill") == 0)
 		{
 			fillCommand* fillCom = new fillCommand();
 			int size = command.size() - 1;
@@ -109,7 +109,7 @@ bool parser::syntaxCheckAll()
 				throw nonfillvalue("you have tried to use a value for fill which is not on or off" + std::to_string(line));
 			}
 		}
-		if (SDL_strcasecmp(command.front().c_str(),"moveTo") == 0)
+		else if (SDL_strcasecmp(command.front().c_str(),"moveTo") == 0)
 		{
 			PosPencommand* penCom = new PosPencommand();
 			int size = command.size() - 1;
@@ -124,7 +124,7 @@ bool parser::syntaxCheckAll()
 			}
 
 		}
-		if (SDL_strcasecmp(command.front().c_str(), "pen") == 0)
+		else if (SDL_strcasecmp(command.front().c_str(), "pen") == 0)
 		{
 			colourCommand* mycolCommand = new colourCommand();
 			int size = command.size() - 1;
@@ -139,7 +139,7 @@ bool parser::syntaxCheckAll()
 			}
 
 		}
-		if (SDL_strcasecmp(command.front().c_str(), "drawto") == 0)
+		else if (SDL_strcasecmp(command.front().c_str(), "drawto") == 0)
 		{
 			drawToCommand* drawtoCom = new drawToCommand();
 			int size = command.size() - 1;
@@ -153,7 +153,7 @@ bool parser::syntaxCheckAll()
 				throw nonnumberexception("you have tried to use a non number in a number field for circle at line" + std::to_string(line));
 			}
 		}
-		if (SDL_strcasecmp(command.front().c_str(), "clear") == 0)
+		else if (SDL_strcasecmp(command.front().c_str(), "clear") == 0)
 		{
 			clearcommand* clearCom = new clearcommand();
 			int size = command.size() - 1;
@@ -162,7 +162,7 @@ bool parser::syntaxCheckAll()
 				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
 			}
 		}
-		if (SDL_strcasecmp(command.front().c_str(), "reset") == 0)
+		else if (SDL_strcasecmp(command.front().c_str(), "reset") == 0)
 		{
 			resetCommand* resetCom = new resetCommand();
 			int size = command.size() - 1;
@@ -171,10 +171,12 @@ bool parser::syntaxCheckAll()
 				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
 			}
 		}
-		else {
-
+		
+		else 
+		{
 			throw notcommandexception("this is not a command on line" + std::to_string(line));
 		}
+		
 
 
 		
@@ -189,8 +191,9 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 	if (syntaxCheckAll()) 
 	{
 		SDL_SetRenderTarget(myrenderer->getSDLRenderer(), mytext);
-		myrenderer->setPenColourRGBA(255, 0, 0, 255);
-		myrenderer->renderClear();
+		SDL_SetRenderDrawColor(myrenderer->getSDLRenderer(), 255, 255, 255, 255);
+		SDL_RenderClear(myrenderer->getSDLRenderer());
+		SDL_SetRenderDrawColor(myrenderer->getSDLRenderer(), 0, 0,0, 0);
 		
 		
 

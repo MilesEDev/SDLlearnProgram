@@ -20,6 +20,15 @@ class gui
 {
 private:
 	/**
+	 * .single line str to take in
+	 */
+	std::string str;
+	/**
+	 * .multi line string to take in 
+	 */
+	std::string strmultiline;
+	/*
+	/**
 	 * .command line arugment to be taken in 
 	 */
 	std::string commandLine;
@@ -68,8 +77,24 @@ public:
 	 */
 	bool runner(Render* myrenderer,SDL_Texture* mytext,std::string mystring,parser* myparser);
 
+	/**
+	 * .gets the line from console
+	 * 
+	 * \return the console line
+	 */
+	std::string getConsoleInput();
+	
+	/**
+	 * .sets console input
+	 * 
+	 * \return 
+	 */
+	void setConsoleInput(std::string newline);
 
 	
+	std::string getMultiLine();
+
+	void setMultiLine(std::string newmulti);
 
 
 
