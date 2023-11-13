@@ -20,6 +20,8 @@
 #include "colourCommand.h"
 #include "notcolourexception.h"
 #include "drawToCommand.h"
+#include "resetCommand.h"
+#include "notcommandexception.h"
 
 class parser
 {

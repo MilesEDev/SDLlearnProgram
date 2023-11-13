@@ -151,6 +151,7 @@
     <ClCompile Include="nonfillvalue.cpp" />
     <ClCompile Include="nonnumberexception.cpp" />
     <ClCompile Include="notcolourexception.cpp" />
+    <ClCompile Include="notcommandexception.cpp" />
     <ClCompile Include="parser.cpp" />
     <ClCompile Include="PosPencommand.cpp" />
     <ClCompile Include="profdevscratch.cpp" />
@@ -158,6 +159,7 @@
     <ClCompile Include="rectangleCommand.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="renderTexture.cpp" />
+    <ClCompile Include="resetCommand.cpp" />
     <ClCompile Include="shape.cpp" />
     <ClCompile Include="triangle.cpp" />
     <ClCompile Include="triangleCommand.cpp" />
@@ -187,12 +189,14 @@
     <ClInclude Include="nonfillvalue.h" />
     <ClInclude Include="nonnumberexception.h" />
     <ClInclude Include="notcolourexception.h" />
+    <ClInclude Include="notcommandexception.h" />
     <ClInclude Include="parser.h" />
     <ClInclude Include="PosPencommand.h" />
     <ClInclude Include="rectangle.h" />
     <ClInclude Include="rectangleCommand.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="renderTexture.h" />
+    <ClInclude Include="resetCommand.h" />
     <ClInclude Include="shape.h" />
     <ClInclude Include="triangle.h" />
     <ClInclude Include="triangleCommand.h" />

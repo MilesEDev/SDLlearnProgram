@@ -185,7 +185,7 @@ namespace fullyworkingunittests
 			//auto func = [myparser,myrenderer,mytext] { myparser->runForAll(myrenderer,mytext); };
 			myparser->runForAll(myrenderer, mytext);
 			std::pair<float, float> newPen = myrenderer->getPen();
-			Assert::AreEqual(std::to_string((int)newPen.first).c_str(),"200");
+			Assert::IsTrue(newPen.first == 200 && newPen.second == 300);
 			
 			
 			
@@ -214,6 +214,58 @@ namespace fullyworkingunittests
 			
 
 		}
+
+		TEST_METHOD(drawtotestupdate)
+		{
+
+			parser* myparser = new parser();
+
+			myparser->splitToCommands("drawto 200 300");
+
+			Render* myrenderer = new Render();
+			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
+
+
+			//auto func = [myparser,myrenderer,mytext] { myparser->runForAll(myrenderer,mytext); };
+			myparser->runForAll(myrenderer, mytext);
+			std::pair<float, float> newPen = myrenderer->getPen();
+			Assert::IsTrue(newPen.first == 200 && newPen.second == 300);
+
+
+		}
+
+		TEST_METHOD(resettest)
+		{
+
+			parser* myparser = new parser();
+
+			myparser->splitToCommands("reset");
+
+			Render* myrenderer = new Render();
+			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
+
+
+			//auto func = [myparser,myrenderer,mytext] { myparser->runForAll(myrenderer,mytext); };
+			myparser->runForAll(myrenderer, mytext);
+			std::pair<float, float> newPen = myrenderer->getPen();
+			Assert::IsTrue(newPen.first == 0 && newPen.second == 0);
+
+
+		}
+		/*
+		TEST_METHOD(loadtest)
+		{
+
+			parser* myparser = new parser();
+			std::string myfile = "Text1.txt";
+			std::string mystring = myparser->loadFromTxt(myfile);
+
+			Assert::IsTrue(mystring == "hello world");
+			
+			
+
+		}
+		*/
 
 	};
 }

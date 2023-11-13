@@ -172,6 +172,12 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 				ImGui::OpenPopup("ThePopup");
 
 			}
+			catch (notcommandexception e)
+			{
+				error = e.returnError();
+				ImGui::OpenPopup("ThePopup");
+
+			}
 		}
 		if (ImGui::BeginPopupModal("ThePopup")) {
 			ImGui::Text(error.c_str());
@@ -283,6 +289,12 @@ bool gui::runner(Render* myrenderer, SDL_Texture* mytext, std::string mystring, 
 		
 	}
 	catch (notcolourexception e)
+	{
+		error = e.returnError();
+		return false;
+
+	}
+	catch (notcommandexception e)
 	{
 		error = e.returnError();
 		return false;

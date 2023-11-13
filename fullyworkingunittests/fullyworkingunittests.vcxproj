@@ -99,7 +99,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>C:\Users\Miles\source\repos\profdevscratch\profdevscratch\x64\Debug;$(VCInstallDir)UnitTest\lib;C:\Users\Miles\source\repos\profdevscratch\profdevscratch\x64\Debug\*.obj;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Miles\source\repos\profdevscratch\profdevscratch;C:\Users\Miles\source\repos\profdevscratch\profdevscratch\x64\Debug;$(VCInstallDir)UnitTest\lib;C:\Users\Miles\source\repos\profdevscratch\profdevscratch\x64\Debug\*.obj;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>C:\Users\Miles\source\repos\profdevscratch\profdevscratch\x64\Debug\*.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -170,6 +170,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Text.txt" />
+    <Text Include="Text1.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

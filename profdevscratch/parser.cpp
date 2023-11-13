@@ -46,9 +46,10 @@ void parser::clearAllLists()
 
 bool parser::syntaxCheckAll()
 {
-	
+	line = 0;
 	for (std::vector<std::string> command : commands)
 	{
+		line++;
 		if (SDL_strcasecmp(command.front().c_str(),"circle")==0)
 		{
 			circleCommand* circCom = new circleCommand();
@@ -152,7 +153,28 @@ bool parser::syntaxCheckAll()
 				throw nonnumberexception("you have tried to use a non number in a number field for circle at line" + std::to_string(line));
 			}
 		}
+		if (SDL_strcasecmp(command.front().c_str(), "clear") == 0)
+		{
+			clearcommand* clearCom = new clearcommand();
+			int size = command.size() - 1;
+			if (!clearCom->correctParamsCount(size))
+			{
+				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
+			}
+		}
+		if (SDL_strcasecmp(command.front().c_str(), "reset") == 0)
+		{
+			resetCommand* resetCom = new resetCommand();
+			int size = command.size() - 1;
+			if (!resetCom->correctParamsCount(size))
+			{
+				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
+			}
+		}
+		else {
 
+			throw notcommandexception("this is not a command on line" + std::to_string(line));
+		}
 
 
 		
@@ -248,6 +270,15 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 				drawtoCom->runCommand(myrenderer, myrenderer->getPen());
 
 			}
+			if (SDL_strcasecmp(command.front().c_str(), "reset") == 0)
+			{
+
+				resetCommand* resetCom = new resetCommand();
+				resetCom->runCommand(myrenderer, myrenderer->getPen());
+
+
+
+			}
 			
 			
 
@@ -317,6 +348,7 @@ std::string parser::loadFromTxt(std::string programName)
 {
 	std::string storeProgram;
 	std::ifstream MyReadFile(programName);
+	
 	std::string line;
 
 	while (getline(MyReadFile, line)) 
