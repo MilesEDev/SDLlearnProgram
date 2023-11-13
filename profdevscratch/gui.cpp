@@ -103,13 +103,39 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 	
 		if (ImGui::Button("syntax", buttonsize))
 		{
-			
-			bool syntax = myparser->syntaxCheckAll();
-			
+			try {
+				bool syntax = myparser->syntaxCheckAll();
+				if (syntax) {
+					ImGui::OpenPopup("syntax good");
+				}
+
+			}
+			catch (InvalidParameters& e)
+			{
+				error = e.returnError();
+				ImGui::OpenPopup("ThePopup");
+			}
+			catch (nonnumberexception& e)
+			{
+				error = e.returnError();
+				ImGui::OpenPopup("ThePopup");
+			}
+
+
+
 			
 		}
 		if (ImGui::BeginPopupModal("ThePopup")) {
 			ImGui::Text(error.c_str());
+			if (ImGui::Button("ok", buttonsize))
+			{
+				ImGui::CloseCurrentPopup();
+			}
+			ImGui::EndPopup();
+
+		}
+		if (ImGui::BeginPopupModal("syntax good")) {
+			ImGui::Text("syntax good");
 			if (ImGui::Button("ok", buttonsize))
 			{
 				ImGui::CloseCurrentPopup();

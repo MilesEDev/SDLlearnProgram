@@ -12,6 +12,7 @@
 #include "invalidParameters.h"
 #include <iostream>
 #include <fstream>
+#include "triangleCommand.h"
 
 class parser
 {

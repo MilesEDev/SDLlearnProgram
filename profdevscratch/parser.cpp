@@ -30,9 +30,9 @@ void parser::splitToCommands(std::string program)
 			break;
 		}
 		else {
-			program = program.erase(0, pos);
+			program = program.erase(0, pos+1);
 		}
-		program = program.erase(0, pos+1);
+
 		commands.push_back(arguments);
 		arguments.clear();
 	}
@@ -62,7 +62,7 @@ bool parser::syntaxCheckAll()
 			{
 				throw nonnumberexception("you have tried to use a non number in a number field for circle at line" + std::to_string(line));
 			}
-			return true;
+			
 		}
 		if (SDL_strcasecmp(command.front().c_str(), "rectangle") == 0)
 		{
@@ -77,11 +77,27 @@ bool parser::syntaxCheckAll()
 			{
 				throw nonnumberexception("you have tried to use a non number in a number field for circle at line" + std::to_string(line));
 			}
-			return true;
+			
+		}
+		if (SDL_strcasecmp(command.front().c_str(), "triangle") == 0)
+		{
+			triangleCommand* triCom = new triangleCommand();
+			int size = command.size() - 1;
+			if (!triCom->correctParamsCount(size))
+			{
+				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
+			}
+
+			if (!triCom->syntaxcheck(command.at(1), command.at(2),command.at(3),command.at(4)))
+			{
+				throw nonnumberexception("you have tried to use a non number in a number field for circle at line" + std::to_string(line));
+			}
+			
 		}
 
 		
 	}
+	return true;
 
 }
 
@@ -120,6 +136,15 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 				rectCom->setRectDimensions(std::stof(command.at(1)),std::stof(command.at(2)));
 				rectCom->runCommand(myrenderer, myrenderer->getPen());
 
+			}
+			if (SDL_strcasecmp(command.front().c_str(), "triangle") == 0)
+			{
+				std::cout << "running" << std::endl;
+				triangleCommand* triCom = new triangleCommand();
+				myrenderer->setPenColourRGBA(0, 255, 0, 255);
+				triCom->setPoints(std::stof(command.at(1)), std::stof(command.at(2)),
+					std::stof(command.at(3)), std::stof(command.at(4)));
+				triCom->runCommand(myrenderer, myrenderer->getPen());
 			}
 
 
