@@ -4,8 +4,9 @@
 #include "SDL.h"
 #include <exception>
 #include <contextalreadyset.h>
+#include "parser.h"
+#include "nonnumberexception.h"
 
-/*
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -16,16 +17,17 @@ namespace fullyworkingunittests
 	{
 	public:
 		
-		TEST_METHOD(TestMethod1)
+		TEST_METHOD(circlestringasnum)
 		{
-			SDL_Window* mockWindow = SDL_CreateWindow("window", 200, 200, 200, 200, SDL_WINDOW_HIDDEN);
-			SDL_Renderer* mockRenderer = SDL_CreateRenderer(mockWindow, -1, 0);
-			renderTexture* mockTexture = new renderTexture(mockRenderer);
+			parser* myparser = new parser();
+
+			myparser->splitToCommands("circle beef");
+
+			
 
 
-			SDL_Renderer* mockRenderer2 = SDL_CreateRenderer(mockWindow, -1, 0);
-			auto func = [mockTexture, mockRenderer2] { mockTexture->linkTextureToRender(mockRenderer2); };
-			Assert::ExpectException<std::invalid_argument>(func);
+			auto func = [myparser] { myparser->syntaxCheckAll(); };
+			Assert::ExpectException<nonnumberexception>(func);
 		
 
 		}
@@ -33,4 +35,6 @@ namespace fullyworkingunittests
 
 	};
 }
-*/
+
+
+
