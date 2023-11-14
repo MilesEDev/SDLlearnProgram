@@ -287,9 +287,11 @@ namespace fullyworkingunittests
 
 			parser* myparser = new parser();
 
+			
 			myparser->splitToCommands("reset");
 
 			Render* myrenderer = new Render();
+			myrenderer->setPen(100, 100);
 			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
 
 
@@ -354,6 +356,21 @@ namespace fullyworkingunittests
 
 
 		}
+		TEST_METHOD(invalidcommand) 
+		{
+			parser* myparser = new parser();
+
+			myparser->splitToCommands("crce 100");
+
+
+
+
+			auto func = [myparser] { myparser->syntaxCheckAll(); };
+			Assert::ExpectException<notcommandexception>(func);
+
+
+		}
+
 		
 
 		
