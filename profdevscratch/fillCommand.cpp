@@ -9,6 +9,7 @@ bool fillCommand::syntaxcheck(std::vector<std::string> commandArgs)
     }
     else
     {
+        throw nonfillvalue("you have entered an incorrect value for fill please enter on or off");
         return false;
     }
 

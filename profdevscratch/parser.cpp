@@ -42,19 +42,21 @@ void parser::clearAllLists()
 	commands.clear();
 }
 
-bool parser::syntaxCheckAll()
+std::string parser::syntaxCheckAll()
 {
-	commandFactory* myFactory = new commandFactory(); 
+	commandFactory* myFactory = new commandFactory();
 	line = 0;
-	for (std::vector<std::string> command : commands)
+	try
 	{
-		line++;
-		
+		for (std::vector<std::string> command : commands)
+		{
+			line++;
+
 			Commands* current_Command = myFactory->getCommand(command.front());
 			int size = command.size() - 1;
-			if (!current_Command->correctParamsCount(size)) 
+			if (!current_Command->correctParamsCount(size))
 			{
-				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
+				throw InvalidParameters("you have entered the incorrect number of parameters");
 			}
 			if (size > 0)
 			{
@@ -65,57 +67,71 @@ bool parser::syntaxCheckAll()
 					commandArgs.push_back(command.at(i));
 
 				}
-				if (!argChecker->syntaxcheck(commandArgs))
-				{
-					throw nonnumberexception("you have tried to use a non number in a number field for circle at line" + std::to_string(line));
-				}
+				argChecker->syntaxcheck(commandArgs);
 			}
-		
-		
-	}
-	return true;
 
+
+		}
+	}
+	catch (nonnumberexception& e)
+	{
+		return e.returnError() + " on line "+std::to_string(line);
+	}
+	catch (InvalidParameters& e)
+	{
+		return e.returnError() + " on line " + std::to_string(line);
+	}
+	catch(nonfillvalue& e)
+	{
+		return e.returnError() + " on line " + std::to_string(line);
+	}
+
+	return "ok";
 }
+				
+				
+			
+		
+		
+	
+
+
+
+
 
 SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 {
 	
-	if (syntaxCheckAll()) 
+	
+	SDL_SetRenderTarget(myrenderer->getSDLRenderer(), mytext);
+	SDL_SetRenderDrawColor(myrenderer->getSDLRenderer(), 255, 255, 255, 255);
+	SDL_RenderClear(myrenderer->getSDLRenderer());
+	SDL_SetRenderDrawColor(myrenderer->getSDLRenderer(), 0, 0,0, 0);
+	commandFactory* myComFactory = new commandFactory(); 
+		
+
+	
+
+	for (std::vector<std::string> command : commands)
 	{
-		SDL_SetRenderTarget(myrenderer->getSDLRenderer(), mytext);
-		SDL_SetRenderDrawColor(myrenderer->getSDLRenderer(), 255, 255, 255, 255);
-		SDL_RenderClear(myrenderer->getSDLRenderer());
-		SDL_SetRenderDrawColor(myrenderer->getSDLRenderer(), 0, 0,0, 0);
-		commandFactory* myComFactory = new commandFactory(); 
-		
 
-	
+		Commands* current_Command = myComFactory->getCommand(command.at(0));
 
-		for (std::vector<std::string> command : commands)
-		{
-
-			Commands* current_Command = myComFactory->getCommand(command.at(0));
-
-			std::vector<std::string> commandArgs;
+		std::vector<std::string> commandArgs;
 				
-			if (!current_Command->correctParamsCount(0)) 
+		if (!current_Command->correctParamsCount(0)) 
+		{
+			for (int i = 1; i < command.size(); i++)
 			{
-				for (int i = 1; i < command.size(); i++)
-				{
-					commandArgs.push_back(command.at(i));
+				commandArgs.push_back(command.at(i));
 
-				}
-				IArgManager* argChecker = dynamic_cast<IArgManager*>(current_Command);
-				argChecker->setAttributes(commandArgs);
-
-				current_Command->runCommand(myrenderer, myrenderer->getPen());
 			}
-		
-		}
-	
+			IArgManager* argChecker = dynamic_cast<IArgManager*>(current_Command);
+			argChecker->setAttributes(commandArgs);
 
-	
-	
+			current_Command->runCommand(myrenderer, myrenderer->getPen());
+		}
+		
 	}
 	myrenderer->removeAnyTargets();
 	return mytext;

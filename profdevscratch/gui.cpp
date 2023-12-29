@@ -141,60 +141,31 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 
 		if (ImGui::Button("syntax", buttonsize))
 		{
-			
-			
-			try {
-				if (!strmultiline.empty())
-				{
-					myparser->clearAllLists();
-					myrenderer->setPen(0, 0);
-					myparser->splitToCommands(strmultiline);
-				}
-				else if (!str.empty()) 
-				{
-					myparser->splitToCommands(strmultiline);
-				}
 
-				bool syntax = myparser->syntaxCheckAll();
-				if (syntax) {
-					ImGui::OpenPopup("syntax good");
-				}
+			if (!strmultiline.empty())
+			{
+				myparser->clearAllLists();
+				myrenderer->setPen(0, 0);
+				myparser->splitToCommands(strmultiline);
+			}
+			else if (!str.empty())
+			{
+				myparser->splitToCommands(strmultiline);
+			}
 
+			std::string syntax = myparser->syntaxCheckAll();
+			if (syntax == "ok") {
+				ImGui::OpenPopup("syntax good");
 			}
-			catch (InvalidParameters& e)
+			else
 			{
-				error = e.returnError();
-				myparser->clearAllLists();
+				error = syntax;
 				ImGui::OpenPopup("ThePopup");
-			}
-			catch (nonnumberexception& e)
-			{
-				error = e.returnError();
-				myparser->clearAllLists();
-				ImGui::OpenPopup("ThePopup");
-			}
-			catch (nonfillvalue e)
-			{
-				error = e.returnError();
-				myparser->clearAllLists();
-				ImGui::OpenPopup("ThePopup");
-
-			}
-			catch (notcolourexception e)
-			{
-				error = e.returnError();
-				myparser->clearAllLists();
-				ImGui::OpenPopup("ThePopup");
-
-			}
-			catch (notcommandexception e)
-			{
-				error = e.returnError();
-				myparser->clearAllLists();
-				ImGui::OpenPopup("ThePopup");
-
 			}
 		}
+			
+
+			
 		if (ImGui::BeginPopupModal("ThePopup")) {
 			ImGui::Text(error.c_str());
 			if (ImGui::Button("ok", buttonsize))
@@ -275,48 +246,22 @@ void gui::caller()
 bool gui::runner(Render* myrenderer, SDL_Texture* mytext, std::string mystring, parser* myparser)
 {
 
+
+	myparser->splitToCommands(mystring);
+	std::string syntax = myparser->syntaxCheckAll();
 	
-	try {
-		myparser->splitToCommands(mystring);
+	if (syntax == "ok") 
+	{
 		mytext = myparser->runForAll(myrenderer, mytext);
 	}
-
-
-	catch (InvalidParameters& e)
+	else
 	{
-		error = e.returnError();
-		myparser->clearAllLists();
-		return false;
+		error = syntax;
+		ImGui::OpenPopup("ThePopup");
 	}
-	catch (nonnumberexception& e)
-	{
-		error = e.returnError();
-		myparser->clearAllLists();
-		return false;
-		
-	}
-	catch (nonfillvalue e)
-	{
-		error = e.returnError();
-		myparser->clearAllLists();
-		return false;
-		
-	}
-	catch (notcolourexception e)
-	{
-		error = e.returnError();
-		myparser->clearAllLists();
-		return false;
-
-	}
-	catch (notcommandexception e)
-	{
-		error = e.returnError();
-		myparser->clearAllLists();
-		return false;
-
-	}
+	myparser->clearAllLists();
 	
+
 	return true;
 
 }

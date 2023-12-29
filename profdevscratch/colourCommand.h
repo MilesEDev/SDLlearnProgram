@@ -4,6 +4,7 @@
 #include "Render.h"
 #include "Commands.h"
 #include "IArgManager.h"
+#include "notcolourexception.h"
 /**
  * .the bridge between user and renderer for setting colour 
  */

@@ -12,6 +12,6 @@ public:
 
 	float divide();
 
-	float runExpression()
+	float runExpression();
 };
 

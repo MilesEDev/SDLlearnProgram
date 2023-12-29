@@ -60,7 +60,7 @@ public:
 	 * 
 	 * \return success
 	 */
-	bool syntaxCheckAll();
+	std::string syntaxCheckAll();
 	/**
 	 * .runs all commands
 	 * 

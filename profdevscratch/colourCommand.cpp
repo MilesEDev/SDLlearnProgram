@@ -15,6 +15,7 @@ bool colourCommand::syntaxcheck(std::vector<std::string> commandArgs)
     }
     else
     {
+        throw notcolourexception("you have submitted an input that is not a supported colour please enter either red blue green or white");
         return false;
     }
 }

@@ -4,6 +4,7 @@
 #include "Commands.h"
 #include "Render.h"
 #include "IArgManager.h"
+#include "nonfillvalue.h"
 /**
  * .a bridge between user input and filling object 
  */
