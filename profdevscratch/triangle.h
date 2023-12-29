@@ -11,12 +11,7 @@
 class triangle:public shape
 {
 
-public:
-	/**
-	 * .the triangle default constructor
-	 * 
-	 */
-	triangle();
+
 	/**
 	 * .the vertices of the triangle
 	 */
@@ -34,6 +29,22 @@ public:
 	 * \param y2 verticy 2 y cord
 	 * \param x3 verticy 3 x cord
 	 * \param y3 verticy 3 y cord
+	 */
+public:
+	/**
+	 * .the triangle default constructor
+	 *
+	 */
+	triangle();
+	/**
+	 * .
+	 * 
+	 * \param x start x pos of traingle
+	 * \param y start y pos of triangle
+	 * \param x2 dest x pos1 of triangle
+	 * \param y2 dest y pos1 of triangle
+	 * \param x3 dest x pos2 of triangle
+	 * \param y3 dest y pos2 of triangle 
 	 */
 	triangle(float x, float y, float x2, float y2, float x3, float y3);
 	/**

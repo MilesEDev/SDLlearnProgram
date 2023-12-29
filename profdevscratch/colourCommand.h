@@ -3,10 +3,11 @@
 #include "rectangle.h"
 #include "Render.h"
 #include "Commands.h"
+#include "IArgManager.h"
 /**
  * .the bridge between user and renderer for setting colour 
  */
-class colourCommand : public Commands
+class colourCommand : public Commands,public IArgManager
 
 {
 private:
@@ -24,25 +25,23 @@ public:
 	colourCommand();
 
 	/**
-	 * .checks colour strings are valid 
+	 * .checks syntax for colour command 
 	 * 
-	 * \param colour user input 
-	 * \return success 
+	 * \param commandArgs the arguments to be checked 
+	 * \return 
 	 */
-	bool syntaxcheck(std::string colour);
+	bool syntaxcheck(std::vector<std::string> commandArgs) override;
+
+
+	void setAttributes(std::vector<std::string> commandArgs) override;
 	/**
-	 * .sets the colour 
-	 * 
-	 * \param colour the string of colour to set too 
+	 * .runs  colour command
+	 *
+	 * \param renderer to be used set colour
+	 * \param Pen kept as may update to inherit from commands
+	 * \return sdl error if there is one
 	 */
-	void setCol(std::string colour);
-	/**
-	 * .runs the colour change 
-	 * 
-	 * \param myrenderer the renderer to use to change colour 
-	 * \return sdl error 
-	 */
-	std::string runCommand(Render* myrenderer);
+	std::string runCommand(Render* renderer, std::pair<float, float> Pen) override;
 
 
 };

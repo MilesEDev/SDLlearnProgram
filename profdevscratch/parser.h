@@ -3,6 +3,7 @@
 #include <string>       
 #include <iostream>     
 #include <list>
+#include <fstream>
 #include "Commands.h"
 #include <boost/algorithm/string.hpp>
 #include <vector>
@@ -10,19 +11,10 @@
 #include "Render.h"
 #include "nonnumberexception.h"
 #include "invalidParameters.h"
-#include <iostream>
-#include <fstream>
-#include "triangleCommand.h"
-#include "fillCommand.h"
 #include "nonfillvalue.h"
-#include "PosPencommand.h"
-#include "clearcommand.h"
-#include "colourCommand.h"
 #include "notcolourexception.h"
-#include "drawToCommand.h"
-#include "resetCommand.h"
 #include "notcommandexception.h"
-
+#include "commandFactory.h"
 
 /**
  * 
@@ -40,6 +32,10 @@ private:
 	 * .whole commands to be stored in neat string
 	 */
 	std::vector<std::vector<std::string>> commands;
+	/**
+	 * 
+	 * .this is the line number for returning error 
+	 */
 	int line = 0;
 public:
 	/**

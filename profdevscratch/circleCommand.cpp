@@ -8,10 +8,9 @@ circleCommand::circleCommand()
 	parameterno = 1;
 }
 
-bool circleCommand::syntaxcheck(std::string radius)
+bool circleCommand::syntaxcheck(std::vector<std::string> commandArgs)
 {
-	if (this->isFloat(radius)) {
-		this->radius = std::stof(radius);
+	if (this->isFloat(commandArgs.at(0))) {
 		return true;
 		
 	}
@@ -22,16 +21,16 @@ bool circleCommand::syntaxcheck(std::string radius)
 	
 }
 
+void circleCommand::setAttributes(std::vector<std::string> commandArgs)
+{
+	parsedAttributes.push_back(std::stoi(commandArgs.at(0)));
+}
+
 std::string circleCommand::runCommand(Render* renderer,std::pair<float,float> Pen)
 {
 	 
-	renderer->drawShapeToText(new circle(Pen, this->radius));
+	renderer->drawShapeToText(new circle(Pen, parsedAttributes.at(0)));
 	return SDL_GetError();
 	
 
-}
-void circleCommand::setRadius(float newRadius) 
-{
-
-	radius = newRadius;
 }

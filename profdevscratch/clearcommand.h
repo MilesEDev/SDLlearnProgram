@@ -22,5 +22,10 @@ public:
 	 */
 	std::string runCommand(Render* renderer, std::pair<float, float> Pen);
 
+	
+
+
+
+
 };
 

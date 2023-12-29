@@ -17,6 +17,8 @@ public:
 	 * \return the pen pos for any changes in position 
 	 */
 	virtual std::pair<float,float> renderself(SDL_Renderer* myrenderer, std::vector<Uint8> RGBA,bool fill) = 0;
+
+
 	
 
 };

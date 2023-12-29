@@ -1,13 +1,25 @@
 #include "fillCommand.h"
 
-fillCommand::fillCommand()
+bool fillCommand::syntaxcheck(std::vector<std::string> commandArgs)
 {
-    parameterno = 1;
+    std::string onOrOff = commandArgs.at(0);
+    if (SDL_strcasecmp(onOrOff.c_str(), "on") == 0 || SDL_strcasecmp(onOrOff.c_str(), "off") == 0) {
+
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+
+
 }
 
-void fillCommand::setFill(std::string onOrOff)
+void fillCommand::setAttributes(std::vector<std::string> commandArgs)
 {
-    if (SDL_strcasecmp(onOrOff.c_str(), "on") ==0) {
+    std::string onOrOff = commandArgs.at(0);
+    if (SDL_strcasecmp(onOrOff.c_str(), "on") == 0) {
 
         fill = true;
     }
@@ -16,24 +28,16 @@ void fillCommand::setFill(std::string onOrOff)
     }
 }
 
-bool fillCommand::syntaxcheck(std::string onOrOff)
+fillCommand::fillCommand()
 {
-    
-    if (SDL_strcasecmp(onOrOff.c_str(), "on") ==0 || SDL_strcasecmp(onOrOff.c_str(), "off") ==0) {
-
-        return true;
-    }
-    else
-    {
-        return false; 
-    }
-
-    
-
+    parameterno = 1;
 }
 
-std::string fillCommand::runCommand(Render* myrenderer)
+std::string fillCommand::runCommand(Render* myrenderer, std::pair<float, float> Pen)
 {
     myrenderer->setFill(fill);
     return(SDL_GetError());
 }
+
+
+

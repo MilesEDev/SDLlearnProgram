@@ -7,38 +7,39 @@ PosPencommand::PosPencommand()
 	parameterno = 2;
 }
 
-bool PosPencommand::syntaxcheck(std::string x, std::string y)
+bool PosPencommand::syntaxcheck(std::vector<std::string> commandArgs)
 {
 	bool error = false;
-	if (!this->isFloat(x))
+	for (int i = 0; i < 2; i++)
 	{
-		error = true;
+		if (this->isFloat(commandArgs.at(i))) 
+		{
+
+		}
+		else
+		{
+			error = true;
+		}
+		
 	}
-	if (!this->isFloat(y))
-	{
-		error = true;
-	}
+	return !error;
 	
-	if (error)
-	{
-		return false;
-	}
-	else
-	{
-		return true;
-	}
 }
 
-void PosPencommand::setPoints(float newx, float newy)
+void PosPencommand::setAttributes(std::vector<std::string> commandArgs)
 {
-	x = newx;
-	y = newy;
-
+	for (int i = 0; i < 2; i++)
+	{
+		parsedAttributes.push_back(std::stoi(commandArgs.at(i)));
+	}
 }
+
+
+
 
 std::string PosPencommand::runCommand(Render* renderer, std::pair<float, float> Pen)
 {
-	renderer->setPen(x, y);
+	renderer->setPen(parsedAttributes.at(0), parsedAttributes.at(1));
 	return SDL_GetError();
 }
 

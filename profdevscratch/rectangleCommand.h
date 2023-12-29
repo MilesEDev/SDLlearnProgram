@@ -3,10 +3,11 @@
 #include <string>
 #include "rectangle.h"
 #include "Render.h"
+#include "IArgManager.h"
 /**
  * .a bridge between taking user input and rendering rectangle
  */
-class rectangleCommand:public Commands
+class rectangleCommand:public Commands,public IArgManager
 {
 
 private:
@@ -25,21 +26,15 @@ public:
 	 */
 	rectangleCommand();
 	/**
-	 * .check user inputs are both floats or ints to set height and width
-	 * 
-	 * \param height height of rectangle
-	 * \param width width of rectangle
-	 * \return success or not
+	 * .
+	 *
+	 * \param commandArgs takes in commandArgs and checks syntax on it for rectangle
+	 * \return is good syntax or not
 	 */
-	bool syntaxcheck(std::string height,std::string width);
-	/**
-	 * .sets up height and width
-	 * 
-	 * \param width width of rectangle
-	 * \param height height of rectangle
-	 */
+	bool syntaxcheck(std::vector<std::string> commandArgs) override;
 	
-	void setRectDimensions(float width,float height);
+
+	void setAttributes(std::vector<std::string> commandArgs);
 	/**
 	 * .runs rectangle command
 	 * 

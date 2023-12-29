@@ -5,14 +5,14 @@ drawToCommand::drawToCommand()
 	parameterno = 2;
 }
 
-bool drawToCommand::syntaxcheck(std::string x, std::string y)
+bool drawToCommand::syntaxcheck(std::vector<std::string> commandArgs)
 {
 	bool error = false;
-	if (!this->isFloat(x))
+	if (!this->isFloat(commandArgs.at(0)))
 	{
 		error = true;
 	}
-	if (!this->isFloat(y))
+	if (!this->isFloat(commandArgs.at(1)))
 	{
 		error = true;
 	}
@@ -26,15 +26,16 @@ bool drawToCommand::syntaxcheck(std::string x, std::string y)
 	}
 }
 
-void drawToCommand::setPos(float x, float y)
+void drawToCommand::setAttributes(std::vector<std::string> commandArgs)
 {
-	this->x = x;
-	this->y = y;
+	parsedAttributes.push_back(std::stoi(commandArgs.at(0)));
+	parsedAttributes.push_back(std::stoi(commandArgs.at(1)));
 }
+
 
 std::string drawToCommand::runCommand(Render* renderer, std::pair<float, float> Pen)
 {
-	renderer->drawTo(this->x, this->y);
+	renderer->drawTo(parsedAttributes.at(0),parsedAttributes.at(1));
 	return(SDL_GetError());
 }
 

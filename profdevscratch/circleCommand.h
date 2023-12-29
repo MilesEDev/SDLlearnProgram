@@ -5,18 +5,15 @@
 #include "Render.h"
 #include "eventfactory.h"
 #include "shape.h"
+#include "IArgManager.h"
 #include "circle.h"
 /**
  * .a bridge between user input and setting up circle 
  */
-class circleCommand:public Commands
+class circleCommand:public Commands,public IArgManager
 {
 private:
-	/**
-	 * 
-	 * .radius to be set and used to render circle
-	 */
-	float radius;
+	
 public:
 	/**
 	 * .sets num parameters 
@@ -29,7 +26,7 @@ public:
 	 * \param radius takes in user input
 	 * \return successes or not
 	 */
-	bool syntaxcheck(std::string radius);
+	
 	/**
 	 * .runs circle command
 	 * 
@@ -37,14 +34,22 @@ public:
 	 * \param Pen kept as may update to inherit from commands
 	 * \return sdl error if there is one
 	 */
-	std::string runCommand(Render* renderer, std::pair<float, float> Pen);
+	std::string runCommand(Render* renderer, std::pair<float, float> Pen) override;
+	
+
 	/**
-	 * .sets radius
+	 * .
 	 * 
-	 * \param newRadius new radius to set
+	 * \param commandArgs takes in commandArgs and checks syntax on it for circle 
+	 * \return is good syntax or not 
 	 */
-	void setRadius(float newRadius);
+	bool syntaxcheck(std::vector<std::string> commandArgs) override; 
+	
+	
+	void setAttributes(std::vector<std::string> commandArgs) override;
+
 
 
 };
+
 

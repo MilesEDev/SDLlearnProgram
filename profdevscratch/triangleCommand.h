@@ -3,10 +3,11 @@
 #include <iostream>   
 #include "commands.h"
 #include "Render.h"
+#include "IArgManager.h"
 /**
  * .a bridge between user input and rendering triangle
  */
-class triangleCommand:public Commands
+class triangleCommand:public Commands,public IArgManager
 {
 
 	/**
@@ -33,23 +34,13 @@ public:
 	triangleCommand();
 	/**
 	 * .
-	 * 
-	 * \param x1 the user input for vertex 2 x value
-	 * \param y1 the user input for vertex 2 y value
-	 * \param x2 the user input for vertex 3 x value
-	 * \param y2 the user input for vertex 3 y value 
-	 * \return success or not for is int
+	 *
+	 * \param commandArgs takes in commandArgs and checks syntax on it for circle
+	 * \return is good syntax or not
 	 */
-	bool syntaxcheck(std::string x1, std::string y1, std::string x2, std::string y2);
-	/**
-	 * .sets up points for triangle to be rendered from 
-	 * 
-	 * \param newx1 new vertex 2 x
-	 * \param newx2 new vertex 3 x
-	 * \param newy1 new vertex 2 y
-	 * \param newy2 new vertex 3 y
-	 */
-	void setPoints(float newx1, float newx2, float newy1, float newy2);
+	bool syntaxcheck(std::vector<std::string> commandArgs) override;
+
+	void setAttributes(std::vector<std::string> commandArgs) override;
 	/**
 	 * .
 	 * 

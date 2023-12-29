@@ -6,37 +6,35 @@ rectangleCommand::rectangleCommand()
 	parameterno = 2;
 }
 
-bool rectangleCommand::syntaxcheck(std::string height, std::string width)
+bool rectangleCommand::syntaxcheck(std::vector<std::string> commandArgs)
 {
 	bool error = false;
-	if (!this->isFloat(height)) 
-	{
-		error = true;
+
+	for (int i = 0; i < 2; i++)	{
+
+		if (this->isFloat(commandArgs.at(i))) 
+		{
+
+		}
+		else
+		{
+			error = true;
+		}
 	}
-	if (!this->isFloat(width))
-	{
-		error = true;
-	}
-	if (error)
-	{
-		return false;
-	}
-	else 
-	{
-		return true;
-	}
+	return !error;
 }
 
-void rectangleCommand::setRectDimensions(float width, float height)
+void rectangleCommand::setAttributes(std::vector<std::string> commandArgs) 
 {
-	this->width = width;
-	this->height = height;
-		
-
+	for (int i = 0; i < 2; i++)
+	{
+		parsedAttributes.push_back(std::stoi(commandArgs.at(i)));
+	}
 }
+
 
 std::string rectangleCommand::runCommand(Render* renderer, std::pair<float, float> Pen)
 {
-	renderer->drawShapeToText(new rectangle(height,width,Pen));
+	renderer->drawShapeToText(new rectangle(parsedAttributes.at(0),parsedAttributes.at(1), Pen));
 	return(SDL_GetError());
 }

@@ -263,16 +263,8 @@ SDL_Window* gui::getWindow()
 void gui::consoleInput()
 { 
 	
-	
-	
 	std::getline(std::cin, commandLine);
-		
 
-	
-	
-	
-	
-	
 }
 
 void gui::caller()

@@ -3,10 +3,11 @@
 #include <iostream>   
 #include "commands.h"
 #include "Render.h"
+#include "IArgManager.h"
 /**
  * .a bridge between user input and setting pen position
  */
-class PosPencommand :public Commands
+class PosPencommand :public Commands,public IArgManager
 {
 	/**
 	 * .pos of pen x
@@ -22,21 +23,11 @@ public:
 	 * 
 	 */
 	PosPencommand();
-	/**
-	 * .performs check on parameters coming to check if ints
-	 * 
-	 * \param x user input 1
-	 * \param y user input 2
-	 * \return success of check
-	 */
-	bool syntaxcheck(std::string x, std::string y);
-	/**
-	 * .sets points for setting of new pen pos
-	 * 
-	 * \param newx1 pen x change
-	 * \param newx2 pen y change
-	 */
-	void setPoints(float newx1, float newx2);
+	
+	bool syntaxcheck(std::vector<std::string> commandArgs) override;
+
+
+	void setAttributes(std::vector<std::string> commandArgs) override;
 	/**
 	 * .runs set pen command
 	 * 

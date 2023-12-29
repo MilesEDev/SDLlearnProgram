@@ -1,8 +1,6 @@
 #include "parser.h"
 #include <boost/algorithm/string.hpp>
-#include "circleCommand.h"
-#include "rectangleCommand.h"
-#include "triangle.h"
+
 
 parser::parser() 
 {
@@ -46,139 +44,33 @@ void parser::clearAllLists()
 
 bool parser::syntaxCheckAll()
 {
+	commandFactory* myFactory = new commandFactory(); 
 	line = 0;
 	for (std::vector<std::string> command : commands)
 	{
 		line++;
-		if (SDL_strcasecmp(command.front().c_str(),"circle")==0)
-		{
-			circleCommand* circCom = new circleCommand();
-			int size = command.size() - 1;
-			if (!circCom->correctParamsCount(size)) 
-			{
-				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
-			}
-			std::string store = command.at(1);
-			if (!circCom->syntaxcheck(store)) 
-			{
-				throw nonnumberexception("you have tried to use a non number in a number field for circle at line" + std::to_string(line));
-			}
-			
-		}
-		else if (SDL_strcasecmp(command.front().c_str(), "rectangle") == 0)
-		{
-			rectangleCommand* rectCom = new rectangleCommand();
-			int size = command.size() -1;
-			if (!rectCom->correctParamsCount(size))
-			{
-				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
-			}
-			
-			if (!rectCom->syntaxcheck(command.at(1),command.at(2)))
-			{
-				throw nonnumberexception("you have tried to use a non number in a number field for circle at line" + std::to_string(line));
-			}
-			
-		}
-		else if (SDL_strcasecmp(command.front().c_str(), "triangle") == 0)
-		{
-			triangleCommand* triCom = new triangleCommand();
-			int size = command.size() - 1;
-			if (!triCom->correctParamsCount(size))
-			{
-				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
-			}
-
-			if (!triCom->syntaxcheck(command.at(1), command.at(2),command.at(3),command.at(4)))
-			{
-				throw nonnumberexception("you have tried to use a non number in a number field for circle at line" + std::to_string(line));
-			}
-			
-		}
-		else if (SDL_strcasecmp(command.front().c_str(), "fill") == 0)
-		{
-			fillCommand* fillCom = new fillCommand();
-			int size = command.size() - 1;
-			if (!fillCom->correctParamsCount(size))
-			{
-				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
-			}
-
-			if (!fillCom->syntaxcheck(command.at(1)))
-			{
-				throw nonfillvalue("you have tried to use a value for fill which is not on or off" + std::to_string(line));
-			}
-		}
-		else if (SDL_strcasecmp(command.front().c_str(),"moveTo") == 0)
-		{
-			PosPencommand* penCom = new PosPencommand();
-			int size = command.size() - 1;
-			if (!penCom->correctParamsCount(size))
-			{
-				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
-			}
-			std::string store = command.at(1);
-			if (!penCom->syntaxcheck(command.at(1),command.at(2)))
-			{
-				throw nonnumberexception("you have tried to use a non number in a number field for circle at line" + std::to_string(line));
-			}
-
-		}
-		else if (SDL_strcasecmp(command.front().c_str(), "pen") == 0)
-		{
-			colourCommand* mycolCommand = new colourCommand();
-			int size = command.size() - 1;
-			if (!mycolCommand->correctParamsCount(size))
-			{
-				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
-			}
-			std::string store = command.at(1);
-			if (!mycolCommand->syntaxcheck(command.at(1)))
-			{
-				throw notcolourexception("you have tried to enter something which is not a colour" + std::to_string(line));
-			}
-
-		}
-		else if (SDL_strcasecmp(command.front().c_str(), "drawto") == 0)
-		{
-			drawToCommand* drawtoCom = new drawToCommand();
-			int size = command.size() - 1;
-			if (!drawtoCom->correctParamsCount(size))
-			{
-				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
-			}
-
-			if (!drawtoCom->syntaxcheck(command.at(1), command.at(2)))
-			{
-				throw nonnumberexception("you have tried to use a non number in a number field for circle at line" + std::to_string(line));
-			}
-		}
-		else if (SDL_strcasecmp(command.front().c_str(), "clear") == 0)
-		{
-			clearcommand* clearCom = new clearcommand();
-			int size = command.size() - 1;
-			if (!clearCom->correctParamsCount(size))
-			{
-				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
-			}
-		}
-		else if (SDL_strcasecmp(command.front().c_str(), "reset") == 0)
-		{
-			resetCommand* resetCom = new resetCommand();
-			int size = command.size() - 1;
-			if (!resetCom->correctParamsCount(size))
-			{
-				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
-			}
-		}
 		
-		else 
-		{
-			throw notcommandexception("this is not a command on line" + std::to_string(line));
-		}
+			Commands* current_Command = myFactory->getCommand(command.front());
+			int size = command.size() - 1;
+			if (!current_Command->correctParamsCount(size)) 
+			{
+				throw InvalidParameters("you have entered the incorrect number of parameters on line" + std::to_string(line));
+			}
+			if (size > 0)
+			{
+				IArgManager* argChecker = dynamic_cast<IArgManager*>(current_Command);
+				std::vector<std::string> commandArgs;
+				for (int i = 1; i < command.size(); i++)
+				{
+					commandArgs.push_back(command.at(i));
+
+				}
+				if (!argChecker->syntaxcheck(commandArgs))
+				{
+					throw nonnumberexception("you have tried to use a non number in a number field for circle at line" + std::to_string(line));
+				}
+			}
 		
-
-
 		
 	}
 	return true;
@@ -194,101 +86,36 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 		SDL_SetRenderDrawColor(myrenderer->getSDLRenderer(), 255, 255, 255, 255);
 		SDL_RenderClear(myrenderer->getSDLRenderer());
 		SDL_SetRenderDrawColor(myrenderer->getSDLRenderer(), 0, 0,0, 0);
-		
-		
-
+		commandFactory* myComFactory = new commandFactory(); 
 		
 
+	
 
 		for (std::vector<std::string> command : commands)
 		{
 
-			std::cout << command.front() << std::endl;
-			if (SDL_strcasecmp(command.front().c_str(), "circle") ==0)
-			{
-				std::cout << "running" << std::endl;
-				circleCommand* circCom = new circleCommand();
+			Commands* current_Command = myComFactory->getCommand(command.at(0));
+
+			std::vector<std::string> commandArgs;
 				
-				circCom->setRadius(std::stof(command.at(1)));
-				circCom->runCommand(myrenderer,myrenderer->getPen());
-				
-			}
-			if (SDL_strcasecmp(command.front().c_str(), "rectangle") == 0)
+			if (!current_Command->correctParamsCount(0)) 
 			{
-				std::cout << "running" << std::endl;
-				rectangleCommand* rectCom = new rectangleCommand();
-				
-				rectCom->setRectDimensions(std::stof(command.at(1)),std::stof(command.at(2)));
-				rectCom->runCommand(myrenderer, myrenderer->getPen());
+				for (int i = 1; i < command.size(); i++)
+				{
+					commandArgs.push_back(command.at(i));
 
+				}
+				IArgManager* argChecker = dynamic_cast<IArgManager*>(current_Command);
+				argChecker->setAttributes(commandArgs);
+
+				current_Command->runCommand(myrenderer, myrenderer->getPen());
 			}
-			if (SDL_strcasecmp(command.front().c_str(), "triangle") == 0)
-			{
-				std::cout << "running" << std::endl;
-				triangleCommand* triCom = new triangleCommand();
-				
-				triCom->setPoints(std::stof(command.at(1)), std::stof(command.at(2)),
-					std::stof(command.at(3)), std::stof(command.at(4)));
-				triCom->runCommand(myrenderer, myrenderer->getPen());
-			}
-			if (SDL_strcasecmp(command.front().c_str(), "fill") == 0)
-			{
-				std::cout << "running" << std::endl;
-				fillCommand* fillCom = new fillCommand();
-				fillCom->setFill(command.at(1));
-				fillCom->runCommand(myrenderer);
-			}
-			if (SDL_strcasecmp(command.front().c_str(), "moveTo") == 0)
-			{
-				std::cout << "running" << std::endl;
-				PosPencommand* penCom = new PosPencommand();
-				penCom->setPoints(std::stof(command.at(1)), std::stof(command.at(2)));
-				penCom->runCommand(myrenderer,myrenderer->getPen());
-			}
-			if (SDL_strcasecmp(command.front().c_str(), "clear") == 0)
-			{
-				
-				clearcommand* clearCom = new clearcommand();
-				clearCom->runCommand(myrenderer, myrenderer->getPen());
-
-
-				
-			}
-			if (SDL_strcasecmp(command.front().c_str(), "pen") == 0)
-			{
-
-				colourCommand* colCom = new colourCommand();
-				colCom->setCol(command.at(1));
-				colCom->runCommand(myrenderer);
-
-
-
-			}
-			if (SDL_strcasecmp(command.front().c_str(), "drawto") == 0)
-			{
-				std::cout << "running" << std::endl;
-				drawToCommand* drawtoCom = new drawToCommand();
-
-				drawtoCom->setPos(std::stof(command.at(1)), std::stof(command.at(2)));
-				drawtoCom->runCommand(myrenderer, myrenderer->getPen());
-
-			}
-			if (SDL_strcasecmp(command.front().c_str(), "reset") == 0)
-			{
-
-				resetCommand* resetCom = new resetCommand();
-				resetCom->runCommand(myrenderer, myrenderer->getPen());
-
-
-
-			}
-			
-			
-
-
-
+		
 		}
+	
 
+	
+	
 	}
 	myrenderer->removeAnyTargets();
 	return mytext;

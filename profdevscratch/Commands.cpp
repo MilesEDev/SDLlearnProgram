@@ -60,4 +60,3 @@ bool Commands::correctParamsCount(int numParams)
 	}
 }
 
-

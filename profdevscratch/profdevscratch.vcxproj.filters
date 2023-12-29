@@ -43,6 +43,18 @@
     <Filter Include="Header Files\commands">
       <UniqueIdentifier>{bcaf5a75-8161-4a4d-a293-d9b26a02dda8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\commands\supporting classes">
+      <UniqueIdentifier>{45d27601-64de-4879-87fb-444dbce79442}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\commands\sub-commands">
+      <UniqueIdentifier>{d2bba1aa-dfdf-4e29-bcd9-00a8b9cadb09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\commands\supporting classes">
+      <UniqueIdentifier>{594e43d5-1e9f-4e8f-9df3-5fa7b3b6b490}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\commands\sub-commands">
+      <UniqueIdentifier>{a83070bb-529b-456c-95f2-1836828aaa69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="profdevscratch.cpp">
@@ -78,9 +90,6 @@
     <ClCompile Include="..\imgui\misc\cpp\imgui_stdlib.cpp">
       <Filter>Source Files\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="eventfactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="shape.cpp">
       <Filter>Source Files\shapes</Filter>
     </ClCompile>
@@ -108,49 +117,61 @@
     <ClCompile Include="triangle.cpp">
       <Filter>Source Files\shapes</Filter>
     </ClCompile>
-    <ClCompile Include="nonnumberexception.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="invalidParameters.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="nonfillvalue.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="circleCommand.cpp">
-      <Filter>Source Files\commands</Filter>
-    </ClCompile>
-    <ClCompile Include="Commands.cpp">
-      <Filter>Source Files\commands</Filter>
-    </ClCompile>
-    <ClCompile Include="fillCommand.cpp">
-      <Filter>Source Files\commands</Filter>
-    </ClCompile>
-    <ClCompile Include="rectangleCommand.cpp">
-      <Filter>Source Files\commands</Filter>
-    </ClCompile>
-    <ClCompile Include="PosPencommand.cpp">
-      <Filter>Source Files\commands</Filter>
-    </ClCompile>
-    <ClCompile Include="clearcommand.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="colourCommand.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="notcolourexception.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="triangleCommand.cpp">
       <Filter>Source Files\exceptions</Filter>
     </ClCompile>
-    <ClCompile Include="drawToCommand.cpp">
-      <Filter>Source Files\commands</Filter>
+    <ClCompile Include="invalidParameters.cpp">
+      <Filter>Source Files\exceptions</Filter>
     </ClCompile>
-    <ClCompile Include="resetCommand.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="nonnumberexception.cpp">
+      <Filter>Source Files\exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="notcolourexception.cpp">
+      <Filter>Source Files\exceptions</Filter>
     </ClCompile>
     <ClCompile Include="notcommandexception.cpp">
+      <Filter>Source Files\exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="circleCommand.cpp">
+      <Filter>Source Files\commands\sub-commands</Filter>
+    </ClCompile>
+    <ClCompile Include="clearcommand.cpp">
+      <Filter>Source Files\commands\sub-commands</Filter>
+    </ClCompile>
+    <ClCompile Include="colourCommand.cpp">
+      <Filter>Source Files\commands\sub-commands</Filter>
+    </ClCompile>
+    <ClCompile Include="drawToCommand.cpp">
+      <Filter>Source Files\commands\sub-commands</Filter>
+    </ClCompile>
+    <ClCompile Include="fillCommand.cpp">
+      <Filter>Source Files\commands\sub-commands</Filter>
+    </ClCompile>
+    <ClCompile Include="IArgManager.cpp">
+      <Filter>Source Files\commands\supporting classes</Filter>
+    </ClCompile>
+    <ClCompile Include="rectangleCommand.cpp">
+      <Filter>Source Files\commands\sub-commands</Filter>
+    </ClCompile>
+    <ClCompile Include="PosPencommand.cpp">
+      <Filter>Source Files\commands\sub-commands</Filter>
+    </ClCompile>
+    <ClCompile Include="resetCommand.cpp">
+      <Filter>Source Files\commands\sub-commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Commands.cpp">
+      <Filter>Source Files\commands\supporting classes</Filter>
+    </ClCompile>
+    <ClCompile Include="eventfactory.cpp">
+      <Filter>Source Files\commands\supporting classes</Filter>
+    </ClCompile>
+    <ClCompile Include="commandFactory.cpp">
+      <Filter>Source Files\commands\supporting classes</Filter>
+    </ClCompile>
+    <ClCompile Include="triangleCommand.cpp">
+      <Filter>Source Files\commands\sub-commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Expression.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -178,9 +199,6 @@
     </ClInclude>
     <ClInclude Include="..\imgui\misc\cpp\imgui_stdlib.h">
       <Filter>Header Files\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="eventfactory.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="shape.h">
       <Filter>Header Files\shapes</Filter>
@@ -212,46 +230,55 @@
     <ClInclude Include="nonnumberexception.h">
       <Filter>Header Files\exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="invalidParameters.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="nonfillvalue.h">
       <Filter>Header Files\exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="circleCommand.h">
-      <Filter>Header Files\commands</Filter>
-    </ClInclude>
-    <ClInclude Include="Commands.h">
-      <Filter>Header Files\commands</Filter>
-    </ClInclude>
-    <ClInclude Include="fillCommand.h">
-      <Filter>Header Files\commands</Filter>
-    </ClInclude>
-    <ClInclude Include="rectangleCommand.h">
-      <Filter>Header Files\commands</Filter>
-    </ClInclude>
-    <ClInclude Include="triangleCommand.h">
-      <Filter>Header Files\commands</Filter>
-    </ClInclude>
-    <ClInclude Include="PosPencommand.h">
-      <Filter>Header Files\commands</Filter>
-    </ClInclude>
-    <ClInclude Include="clearcommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="colourCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="notcolourexception.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="drawToCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="resetCommand.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\exceptions</Filter>
     </ClInclude>
     <ClInclude Include="notcommandexception.h">
+      <Filter>Header Files\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="invalidParameters.h">
+      <Filter>Header Files\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="circleCommand.h">
+      <Filter>Header Files\commands\sub-commands</Filter>
+    </ClInclude>
+    <ClInclude Include="clearcommand.h">
+      <Filter>Header Files\commands\sub-commands</Filter>
+    </ClInclude>
+    <ClInclude Include="colourCommand.h">
+      <Filter>Header Files\commands\sub-commands</Filter>
+    </ClInclude>
+    <ClInclude Include="commandFactory.h">
+      <Filter>Header Files\commands\supporting classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Commands.h">
+      <Filter>Header Files\commands\supporting classes</Filter>
+    </ClInclude>
+    <ClInclude Include="drawToCommand.h">
+      <Filter>Header Files\commands\sub-commands</Filter>
+    </ClInclude>
+    <ClInclude Include="fillCommand.h">
+      <Filter>Header Files\commands\sub-commands</Filter>
+    </ClInclude>
+    <ClInclude Include="IArgManager.h">
+      <Filter>Header Files\commands\supporting classes</Filter>
+    </ClInclude>
+    <ClInclude Include="PosPencommand.h">
+      <Filter>Header Files\commands\sub-commands</Filter>
+    </ClInclude>
+    <ClInclude Include="rectangleCommand.h">
+      <Filter>Header Files\commands\sub-commands</Filter>
+    </ClInclude>
+    <ClInclude Include="resetCommand.h">
+      <Filter>Header Files\commands\sub-commands</Filter>
+    </ClInclude>
+    <ClInclude Include="triangleCommand.h">
+      <Filter>Header Files\commands\sub-commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Expression.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
