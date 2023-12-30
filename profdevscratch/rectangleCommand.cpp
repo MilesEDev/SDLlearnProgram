@@ -12,7 +12,7 @@ bool rectangleCommand::syntaxcheck(std::vector<std::string> commandArgs)
 
 	for (int i = 0; i < 2; i++)	{
 
-		if (this->isFloat(commandArgs.at(i))) 
+		if (myChecker->isFloat(commandArgs.at(i))) 
 		{
 
 		}

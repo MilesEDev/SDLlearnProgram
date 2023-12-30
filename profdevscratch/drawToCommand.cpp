@@ -8,11 +8,11 @@ drawToCommand::drawToCommand()
 bool drawToCommand::syntaxcheck(std::vector<std::string> commandArgs)
 {
 	bool error = false;
-	if (!this->isFloat(commandArgs.at(0)))
+	if (!myChecker->isFloat(commandArgs.at(0)))
 	{
 		error = true;
 	}
-	if (!this->isFloat(commandArgs.at(1)))
+	if (!myChecker->isFloat(commandArgs.at(1)))
 	{
 		error = true;
 	}

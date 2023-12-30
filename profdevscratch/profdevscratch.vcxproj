@@ -144,6 +144,7 @@
     <ClCompile Include="commandFactory.cpp" />
     <ClCompile Include="Commands.cpp" />
     <ClCompile Include="contextalreadyset.cpp" />
+    <ClCompile Include="dataChecker.cpp" />
     <ClCompile Include="drawToCommand.cpp" />
     <ClCompile Include="eventfactory.cpp" />
     <ClCompile Include="Expression.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="nonnumberexception.cpp" />
     <ClCompile Include="notcolourexception.cpp" />
     <ClCompile Include="notcommandexception.cpp" />
+    <ClCompile Include="operationNotSupportDataType.cpp" />
     <ClCompile Include="parser.cpp" />
     <ClCompile Include="PosPencommand.cpp" />
     <ClCompile Include="profdevscratch.cpp" />
@@ -185,6 +187,7 @@
     <ClInclude Include="commandFactory.h" />
     <ClInclude Include="Commands.h" />
     <ClInclude Include="contextalreadyset.h" />
+    <ClInclude Include="dataChecker.h" />
     <ClInclude Include="drawToCommand.h" />
     <ClInclude Include="Expression.h" />
     <ClInclude Include="fillCommand.h" />
@@ -195,6 +198,7 @@
     <ClInclude Include="nonnumberexception.h" />
     <ClInclude Include="notcolourexception.h" />
     <ClInclude Include="notcommandexception.h" />
+    <ClInclude Include="operationNotSupportDataType.h" />
     <ClInclude Include="parser.h" />
     <ClInclude Include="PosPencommand.h" />
     <ClInclude Include="rectangle.h" />

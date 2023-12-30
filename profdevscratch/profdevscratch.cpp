@@ -8,11 +8,13 @@
 #include "Render.h"
 #include "eventfactory.h"
 #include "parser.h"
+#include "Expression.h"
 #undef main
 
 
 int main()
 {
+    /*
     Render* myrenderer = new Render(); 
     window* mywindow = new window();
     mywindow->showWindow();
@@ -39,6 +41,12 @@ int main()
     SDL_Delay(5000);
     
     
+    */
+
+    Expression* myexpression = new Expression();
+
+
+    std::cout << myexpression->calcFull("\"hi\"+\"bi\"+\"hello\"");
 
     
     

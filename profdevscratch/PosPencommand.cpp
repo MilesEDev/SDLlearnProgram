@@ -12,7 +12,7 @@ bool PosPencommand::syntaxcheck(std::vector<std::string> commandArgs)
 	bool error = false;
 	for (int i = 0; i < 2; i++)
 	{
-		if (this->isFloat(commandArgs.at(i))) 
+		if (myChecker->isFloat(commandArgs.at(i))) 
 		{
 
 		}
