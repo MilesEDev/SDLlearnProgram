@@ -63,12 +63,6 @@ std::string Expression::divide(std::string num1, std::string num2)
     }
 }
 
-std::string Expression::getResult()
-{
-    return std::string();
-}
-
-
 
 std::string Expression::calcFull(std::string expr)
 {
@@ -127,13 +121,14 @@ std::string Expression::calcFull(std::string expr)
                     }
                 }
                 std::string arg2 = expr.substr(opLocation +1,end-opLocation);
+                std::string result;
                 if (operation == "+")
                 {
-                    std::string result = add(arg1, arg2);
+                    result = add(arg1, arg2);
                 }
                 if (operation == "-")
                 {
-                    std::string result = subtract(arg1, arg2);
+                    result = subtract(arg1, arg2);
                 }
                 expr.replace(start, end, result);
                 i = 0;
@@ -141,8 +136,9 @@ std::string Expression::calcFull(std::string expr)
             
 
         }
+        
     }
-    return "fuck";
+    return expr;
 
 }
 

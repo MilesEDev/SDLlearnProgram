@@ -182,9 +182,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\imgui\imgui.h">
       <Filter>Header Files\imgui</Filter>
     </ClInclude>
@@ -293,5 +290,10 @@
     <ClInclude Include="operationNotSupportDataType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

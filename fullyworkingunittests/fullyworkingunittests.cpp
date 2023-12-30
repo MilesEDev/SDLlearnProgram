@@ -364,7 +364,6 @@ namespace fullyworkingunittests
 
 
 
-
 			auto func = [myparser] { myparser->syntaxCheckAll(); };
 			Assert::ExpectException<notcommandexception>(func);
 
