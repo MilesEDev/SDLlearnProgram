@@ -128,6 +128,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\fullyworkingunittests\dataConverter.cpp" />
     <ClCompile Include="..\imgui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="..\imgui\backends\imgui_impl_sdl2.cpp" />
     <ClCompile Include="..\imgui\backends\imgui_impl_sdlrenderer2.cpp" />
@@ -152,11 +153,13 @@
     <ClCompile Include="gui.cpp" />
     <ClCompile Include="IArgManager.cpp" />
     <ClCompile Include="invalidParameters.cpp" />
+    <ClCompile Include="MemoryManager.cpp" />
     <ClCompile Include="nonfillvalue.cpp" />
     <ClCompile Include="nonnumberexception.cpp" />
     <ClCompile Include="notcolourexception.cpp" />
     <ClCompile Include="notcommandexception.cpp" />
     <ClCompile Include="operationNotSupportDataType.cpp" />
+    <ClCompile Include="Page.cpp" />
     <ClCompile Include="parser.cpp" />
     <ClCompile Include="PosPencommand.cpp" />
     <ClCompile Include="profdevscratch.cpp" />
@@ -174,6 +177,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\fullyworkingunittests\dataConverter.h" />
     <ClInclude Include="..\imgui\backends\imgui_impl_opengl3.h" />
     <ClInclude Include="..\imgui\backends\imgui_impl_opengl3_loader.h" />
     <ClInclude Include="..\imgui\backends\imgui_impl_sdl2.h" />
@@ -194,11 +198,13 @@
     <ClInclude Include="gui.h" />
     <ClInclude Include="IArgManager.h" />
     <ClInclude Include="invalidParameters.h" />
+    <ClInclude Include="MemoryManager.h" />
     <ClInclude Include="nonfillvalue.h" />
     <ClInclude Include="nonnumberexception.h" />
     <ClInclude Include="notcolourexception.h" />
     <ClInclude Include="notcommandexception.h" />
     <ClInclude Include="operationNotSupportDataType.h" />
+    <ClInclude Include="Page.h" />
     <ClInclude Include="parser.h" />
     <ClInclude Include="PosPencommand.h" />
     <ClInclude Include="rectangle.h" />

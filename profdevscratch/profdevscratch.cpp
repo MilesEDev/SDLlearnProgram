@@ -46,7 +46,7 @@ int main()
     Expression* myexpression = new Expression();
 
 
-    std::cout << myexpression->calcFull("\"hi\"+\"bi\"+\"hello\"");
+    std::cout << myexpression->calcFull("5-2*2/1+30");
 
     
     

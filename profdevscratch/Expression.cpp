@@ -82,25 +82,33 @@ std::string Expression::calcFull(std::string expr)
                 int opLocation = i;
                 for (std::string operation : priorites)
                 {
-                    if (i > start && i < opLocation)
+                    
+                    i = 0;
+                    
+                    bool key2 = false;
+                    while (i < opLocation)
                     {
-                        start = i;
+                        if (isOperation(expr, i, operation))
+                        {
+                            key2 = true;
+                            if (i > start)
+                            {
+                                start = i+1;
+                            }
+                        }
+                        
+                        i++;
                     }
-                    i = opLocation;
-                    while (!isOperation(expr, i, operation) && i > 0)
-                    {
-                        i--;
-                    }
+                    
+                      
+                    
 
                 }
-                std::string arg1 = expr.substr(start, opLocation);
+                std::string arg1 = expr.substr(start,opLocation-start);
                 i = end;
                 for (std::string operation : priorites)
                 {
-                    if (i < end && i > opLocation)
-                    {
-                        end = i;
-                    }
+
                     i = end;
                     bool key2 = false;
                     while (i > opLocation)
@@ -108,19 +116,17 @@ std::string Expression::calcFull(std::string expr)
                         if (isOperation(expr, i, operation))
                         {
                             key2 = true;
+                            if (i < end)
+                            {
+                                end = i;
+                            }
                         }
-                        if (key2 && i == opLocation+1)
-                        {
-                            break;
-                        }
+
                         i--;
                     }
-                    if (i == opLocation) 
-                    {
-                        i = expr.size();
-                    }
+                
                 }
-                std::string arg2 = expr.substr(opLocation +1,end-opLocation);
+                std::string arg2 = expr.substr(opLocation+1,end-(opLocation+1));
                 std::string result;
                 if (operation == "+")
                 {
@@ -130,10 +136,18 @@ std::string Expression::calcFull(std::string expr)
                 {
                     result = subtract(arg1, arg2);
                 }
-                expr.replace(start, end, result);
+                if (operation == "/")
+                {
+                    result = divide(arg1, arg2);
+                }
+                if (operation == "*")
+                {
+                    result = multiply(arg1, arg2);
+                }
+                expr.replace(start, end-start, result);
                 i = 0;
             }
-            
+          
 
         }
         

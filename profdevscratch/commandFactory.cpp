@@ -2,40 +2,40 @@
 
 Commands* commandFactory::getCommand(std::string thisCommand)
 {
-	if (thisCommand == "circle") 
+	if (SDL_strcasecmp(thisCommand.c_str(),"circle"))
 	{
 		return new circleCommand();
 	}
-	if (thisCommand == "triangle")
+	if (SDL_strcasecmp(thisCommand.c_str(), "triangle"))
 	{
 		return new triangleCommand();
 
 	}
-	if (thisCommand == "clear")
+	if (SDL_strcasecmp(thisCommand.c_str(), "clear"))
 	{
 		return new clearcommand();
 	}
-	if (thisCommand == "colour")
+	if (SDL_strcasecmp(thisCommand.c_str(), "colour"))
 	{
 		return new colourCommand();
 	}
-	if (thisCommand == "drawto")
+	if (SDL_strcasecmp(thisCommand.c_str(), "drawto"))
 	{
 		return new drawToCommand();
 	}
-	if (thisCommand == "fill")
+	if (SDL_strcasecmp(thisCommand.c_str(), "fill"))
 	{
 		return new fillCommand();
 	}
-	if (thisCommand == "pospen")
+	if (SDL_strcasecmp(thisCommand.c_str(), "pospen"))
 	{
 		return new PosPencommand();
 	}
-	if (thisCommand == "rectangle")
+	if (SDL_strcasecmp(thisCommand.c_str(), "rectangle"))
 	{
 		return new rectangleCommand(); 
 	}
-	if (thisCommand == "reset")
+	if (SDL_strcasecmp(thisCommand.c_str(), "reset"))
 	{
 		return new rectangleCommand(); 
 	}

@@ -3,6 +3,12 @@
 class dataChecker
 {
 public:
-	bool isFloat(std::string mystring);
+	bool isFloat(std::string myString);
+
+	bool isBool(std::string myString);
+
+	bool isString(std::string myString);
+
+
 };
 

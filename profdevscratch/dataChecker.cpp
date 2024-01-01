@@ -1,4 +1,5 @@
 #include "dataChecker.h"
+#include <SDL_stdinc.h>
 
 bool dataChecker::isFloat(std::string mystring)
 {
@@ -39,3 +40,28 @@ bool dataChecker::isFloat(std::string mystring)
 	}
 
 }
+
+bool dataChecker::isBool(std::string myString)
+{
+	if (SDL_strcasecmp(myString.c_str(), "true") || SDL_strcasecmp(myString.c_str(), "false"))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool dataChecker::isString(std::string myString)
+{
+	if (myString[0] == '\"' && myString[myString.size()] == '\"')
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
