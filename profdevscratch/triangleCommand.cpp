@@ -18,6 +18,8 @@ bool triangleCommand::syntaxcheck(std::vector<std::string> commandArgs)
 		}
 		else
 		{
+			throw nonnumberexception("you have put in an incorrect data type for triangleCommand please enter a float with the format(number)"
+				"e.g triangle 50 50 60 60");
 			error = true;
 		}
 	}

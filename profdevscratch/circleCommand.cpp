@@ -10,6 +10,7 @@ circleCommand::circleCommand()
 
 bool circleCommand::syntaxcheck(std::vector<std::string> commandArgs)
 {
+	
 	if (myChecker->isFloat(commandArgs.at(0))) {
 		return true;
 		

@@ -7,6 +7,9 @@
 #include "shape.h"
 #include "IArgManager.h"
 #include "circle.h"
+#include "incorrectDataTypeParameter.h"
+#include "dataChecker.h"
+#include "dataConverter.h"
 /**
  * .a bridge between user input and setting up circle 
  */

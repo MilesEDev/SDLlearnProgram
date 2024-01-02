@@ -7,7 +7,17 @@ colourCommand::colourCommand()
 
 bool colourCommand::syntaxcheck(std::vector<std::string> commandArgs)
 {
+  
+    dataConverter* myConverter = new dataConverter(); 
+    dataChecker* myChecker = new dataChecker(); 
     std::string colour = commandArgs.at(0);
+    if (!myChecker->isString(colour))
+    {
+        throw nonStringException("you have put in an incorrect data type for colourCommand please enter a string with the format (\"textinput\")"
+            "e.g colour \"black\"");
+
+    }
+    colour = myConverter->sliceQoutes(colour);
     if (SDL_strcasecmp(colour.c_str(), "red") == 0 || SDL_strcasecmp(colour.c_str(), "green") == 0
         || SDL_strcasecmp(colour.c_str(), "blue") == 0 || SDL_strcasecmp(colour.c_str(), "white") == 0)
     {
