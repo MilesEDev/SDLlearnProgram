@@ -18,3 +18,25 @@ bool dataConverter::stringToBool(std::string myStr)
     }
     
 }
+
+std::string dataConverter::boolToString(bool myBool)
+{
+    if (myBool) 
+    {
+        return "true";
+    }
+    else
+    {
+        return "false"
+    }
+}
+
+std::string dataConverter::sliceQoutes(std::string stringToSlice)
+{
+    return stringToSlice.substr(1, stringToSlice.size());
+}
+
+std::string dataConverter::addQoutes(std::string stringToAdd)
+{
+    return "\"" + stringToAdd + "\"";
+}

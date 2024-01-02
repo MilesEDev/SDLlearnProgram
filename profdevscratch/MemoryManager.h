@@ -2,7 +2,7 @@
 #include <string>
 #include "Page.h"
 #include <vector>
-
+#include "dataConverter.h"
 #include "dataChecker.h"
 
 class MemoryManager

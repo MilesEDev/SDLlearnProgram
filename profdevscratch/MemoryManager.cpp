@@ -28,7 +28,7 @@ void MemoryManager::createPage(std::string varName, std::string varValue)
 		newPage->setDataType("bool");
 		
 
-		void* vPtr = &tempFloa;
+		
 
 		newPage->setVarPtr(vPtr);
 

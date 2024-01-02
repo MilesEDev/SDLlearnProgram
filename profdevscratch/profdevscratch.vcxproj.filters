@@ -186,7 +186,7 @@
     <ClCompile Include="Page.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\fullyworkingunittests\dataConverter.cpp">
+    <ClCompile Include="dataConverter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -305,7 +305,7 @@
     <ClInclude Include="operationNotSupportDataType.h">
       <Filter>Header Files\exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="..\fullyworkingunittests\dataConverter.h">
+    <ClInclude Include="dataConverter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
