@@ -1,24 +1,25 @@
 #include "Expression.h"
 #include <vector>
-
+#include "dataConverter.h"
 std::string Expression::add(std::string term1, std::string term2)
 {
-    
-        if (term1[0] == '\"' && term2[0] == '\"')
-        {
-            std::string result =  term1 + term2;
-            return result;
-        }
+    dataConverter* dataConv = new dataConverter();
+    dataChecker* myChecker = new dataChecker();
+    if (myChecker->isString(term1) && myChecker->isString(term2))
+    {
+        std::string result =  dataConv->sliceQoutes(term1) + dataConv->sliceQoutes(term2);
+        return dataConv->addQoutes(result);
+    }
         
-        else if (myChecker->isFloat(term1) && myChecker->isFloat(term2))
-        {
-            float result = std::stof(term1) + std::stof(term2);
-            return std::to_string(result);
-        }
-        else
-        {
-            //throw operationNotSupportDataType("you have entered in an argument with an unsupported datatype for addition");
-        }
+    else if (myChecker->isFloat(term1) && myChecker->isFloat(term2))
+    {
+        float result = std::stof(term1) + std::stof(term2);
+        return std::to_string(result);
+    }
+    else
+    {
+        //throw operationNotSupportDataType("you have entered in an argument with an unsupported datatype for addition");
+    }
         
     
    
@@ -68,8 +69,7 @@ std::string Expression::calcFull(std::string expr)
 {
     bool key = false;
     int i = 0;
-    std::string priorites[4] = { "/","*","+","-"};
-    std::vector<int> operationPositions;
+    
     for (std::string operation : priorites)
     {
         for (i = 0; i < expr.size(); i++)
@@ -77,34 +77,50 @@ std::string Expression::calcFull(std::string expr)
             key = isOperation(expr, i, operation);
             if (key)
             {
+                
+                
                 int end = expr.size();
                 int start = 0;
                 int opLocation = i;
                 for (std::string operation : priorites)
                 {
-                    
+
                     i = 0;
-                    
+
                     bool key2 = false;
                     while (i < opLocation)
                     {
+                        char breakTest = expr[i];
+                        if (expr[i] == '\"')
+                        {
+                            int j = i+1;
+                            while (j < expr.size())
+                            {
+                                breakTest = expr[j];
+                                
+                                if (expr[j] == '\"')
+                                {
+                                    i = j;
+                                    break;
+                                }
+                                j++;
+                            }
+
+                        }
                         if (isOperation(expr, i, operation))
                         {
                             key2 = true;
                             if (i > start)
                             {
-                                start = i+1;
+                                start = i + 1;
                             }
                         }
-                        
+
                         i++;
                     }
-                    
-                      
-                    
 
                 }
-                std::string arg1 = expr.substr(start,opLocation-start);
+                std::string arg1 = expr.substr(start, opLocation - start);
                 i = end;
                 for (std::string operation : priorites)
                 {
@@ -113,6 +129,20 @@ std::string Expression::calcFull(std::string expr)
                     bool key2 = false;
                     while (i > opLocation)
                     {
+                        if (expr[i] == '\"')
+                        {
+                            int j = i - 1;
+                            while (j > 0)
+                            {
+                                j--;
+                                if (j == '\"')
+                                {
+                                    i = j;
+                                    break;
+                                }
+                            }
+
+                        }
                         if (isOperation(expr, i, operation))
                         {
                             key2 = true;
@@ -124,9 +154,12 @@ std::string Expression::calcFull(std::string expr)
 
                         i--;
                     }
-                
+
                 }
-                std::string arg2 = expr.substr(opLocation+1,end-(opLocation+1));
+                std::string arg2 = expr.substr(opLocation + 1, end - (opLocation + 1));
+                
+            
+                
                 std::string result;
                 if (operation == "+")
                 {
@@ -144,8 +177,10 @@ std::string Expression::calcFull(std::string expr)
                 {
                     result = multiply(arg1, arg2);
                 }
-                expr.replace(start, end-start, result);
+                expr.replace(start, end - start, result);
                 i = 0;
+                    
+                
             }
           
 
@@ -154,6 +189,32 @@ std::string Expression::calcFull(std::string expr)
     }
     return expr;
 
+}
+
+bool Expression::isExpression(std::string exprOrVal)
+{
+    dataChecker* myChecker = new dataChecker();
+    if (myChecker->isString(exprOrVal))
+    {
+        return false; 
+    }
+    else 
+    {
+        for (std::string operation : priorites)
+        {
+            for (int i = 0; i < exprOrVal.size(); i++)
+            {
+
+                if (isOperation(exprOrVal, i, operation))
+                {
+                    return true;
+                }
+            }
+        }
+        return false; 
+    }
+   
+   
 }
 
 bool Expression::isOperation(std::string expr, int subStr, std::string operation)
@@ -168,5 +229,6 @@ bool Expression::isOperation(std::string expr, int subStr, std::string operation
             }
         }
     }
+    
     return true;
 }

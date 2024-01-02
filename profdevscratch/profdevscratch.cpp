@@ -14,7 +14,7 @@
 
 int main()
 {
-    
+    /*
     Render* myrenderer = new Render(); 
     window* mywindow = new window();
     mywindow->showWindow();
@@ -39,7 +39,10 @@ int main()
     
     mygui->makeDefaultFrame(myrenderer,mytext,myrenderer->getSDLRenderer());
     SDL_Delay(5000);
+    */
+    Expression* myexpression = new Expression();
     
+    myexpression->calcFull("\"he+llo\"+\"world\"");
     
     
 

@@ -33,7 +33,7 @@ std::string dataConverter::boolToString(bool myBool)
 
 std::string dataConverter::sliceQoutes(std::string stringToSlice)
 {
-    return stringToSlice.substr(1, stringToSlice.size());
+    return stringToSlice.substr(1, stringToSlice.size()-2);
 }
 
 std::string dataConverter::addQoutes(std::string stringToAdd)

@@ -55,7 +55,7 @@ bool dataChecker::isBool(std::string myString)
 
 bool dataChecker::isString(std::string myString)
 {
-	if (myString[0] == '\"' && myString[myString.size()] == '\"')
+	if (myString[0] == '\"' && myString[myString.size()-1] == '\"')
 	{
 		return true;
 	}
