@@ -18,7 +18,10 @@ bool drawToCommand::syntaxcheck(std::vector<std::string> commandArgs)
 	}
 	if (error)
 	{
+		throw nonnumberexception("you have put in an incorrect data type for drawtoCommand please enter a float with the format(number)"
+			"e.g drawto 50 50");
 		return false;
+
 	}
 	else
 	{

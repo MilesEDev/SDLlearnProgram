@@ -156,6 +156,7 @@
     <ClCompile Include="MemoryManager.cpp" />
     <ClCompile Include="nonfillvalue.cpp" />
     <ClCompile Include="nonnumberexception.cpp" />
+    <ClCompile Include="nonStringException.cpp" />
     <ClCompile Include="notcolourexception.cpp" />
     <ClCompile Include="notcommandexception.cpp" />
     <ClCompile Include="operationNotSupportDataType.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="MemoryManager.h" />
     <ClInclude Include="nonfillvalue.h" />
     <ClInclude Include="nonnumberexception.h" />
+    <ClInclude Include="nonStringException.h" />
     <ClInclude Include="notcolourexception.h" />
     <ClInclude Include="notcommandexception.h" />
     <ClInclude Include="operationNotSupportDataType.h" />

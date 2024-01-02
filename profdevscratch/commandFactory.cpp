@@ -2,40 +2,40 @@
 
 Commands* commandFactory::getCommand(std::string thisCommand)
 {
-	if (SDL_strcasecmp(thisCommand.c_str(),"circle"))
+	if (SDL_strcasecmp(thisCommand.c_str(),"circle")==0)
 	{
 		return new circleCommand();
 	}
-	if (SDL_strcasecmp(thisCommand.c_str(), "triangle"))
+	else if(SDL_strcasecmp(thisCommand.c_str(), "triangle")==0)
 	{
 		return new triangleCommand();
 
 	}
-	if (SDL_strcasecmp(thisCommand.c_str(), "clear"))
+	else if (SDL_strcasecmp(thisCommand.c_str(), "clear")==0)
 	{
 		return new clearcommand();
 	}
-	if (SDL_strcasecmp(thisCommand.c_str(), "colour"))
+	else if (SDL_strcasecmp(thisCommand.c_str(), "colour")==0)
 	{
 		return new colourCommand();
 	}
-	if (SDL_strcasecmp(thisCommand.c_str(), "drawto"))
+	else if (SDL_strcasecmp(thisCommand.c_str(), "drawto")==0)
 	{
 		return new drawToCommand();
 	}
-	if (SDL_strcasecmp(thisCommand.c_str(), "fill"))
+	else if (SDL_strcasecmp(thisCommand.c_str(), "fill")==0)
 	{
 		return new fillCommand();
 	}
-	if (SDL_strcasecmp(thisCommand.c_str(), "pospen"))
+	else if (SDL_strcasecmp(thisCommand.c_str(), "pospen")==0)
 	{
 		return new PosPencommand();
 	}
-	if (SDL_strcasecmp(thisCommand.c_str(), "rectangle"))
+	else if (SDL_strcasecmp(thisCommand.c_str(), "rectangle")==0)
 	{
 		return new rectangleCommand(); 
 	}
-	if (SDL_strcasecmp(thisCommand.c_str(), "reset"))
+	else if (SDL_strcasecmp(thisCommand.c_str(), "reset")==0)
 	{
 		return new rectangleCommand(); 
 	}

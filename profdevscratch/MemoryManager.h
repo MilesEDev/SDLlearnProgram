@@ -10,13 +10,16 @@ class MemoryManager
 private:
 	
 	dataChecker* myChecker = new dataChecker();
-	std::vector<Page> PageList;
+	std::vector<Page*> PageTable;
 	
 	Page* pageToAdd;
 public:
 	void addToMemory(Page newPage);
 
 	void createPage(std::string varName, std::string varValue);
+
+	std::string returnValue(std::string varName);
+
 	
 	
 

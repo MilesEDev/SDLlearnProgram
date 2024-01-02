@@ -18,6 +18,8 @@ bool PosPencommand::syntaxcheck(std::vector<std::string> commandArgs)
 		}
 		else
 		{
+			throw nonnumberexception("you have put in an incorrect data type for pospenCommand please enter a float with the format(number)"
+				"e.g pospen 50 50");
 			error = true;
 		}
 		

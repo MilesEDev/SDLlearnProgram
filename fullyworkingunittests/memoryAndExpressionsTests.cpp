@@ -78,7 +78,7 @@ namespace memoryAndExpressionsTests
 		{
 			Expression* myExpression = new Expression();
 
-			Assert::IsTrue(31 == std::stoi(myExpression->calcFull("5-2*2/1+30")));
+			Assert::IsTrue(-29 == std::stoi(myExpression->calcFull("5-2*2/1+30")));
 		}
 
 

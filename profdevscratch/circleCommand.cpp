@@ -17,7 +17,8 @@ bool circleCommand::syntaxcheck(std::vector<std::string> commandArgs)
 	}
 	else
 	{
-		throw nonnumberexception("you have entered a non number as a parameter for circle");
+		throw nonnumberexception("you have put in an incorrect data type for colourCommand please enter a float with the format(number)"
+			"e.g circle 54");
 		return false;
 	}
 	

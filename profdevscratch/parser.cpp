@@ -73,6 +73,11 @@ std::string parser::syntaxCheckAll()
 
 		}
 	}
+
+	catch (nonStringException& e)
+	{
+		return e.returnError() + " on line " + std::to_string(line);
+	}
 	catch (nonnumberexception& e)
 	{
 		return e.returnError() + " on line "+std::to_string(line);

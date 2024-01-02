@@ -3,13 +3,15 @@
 bool fillCommand::syntaxcheck(std::vector<std::string> commandArgs)
 {
     std::string onOrOff = commandArgs.at(0);
-    if (SDL_strcasecmp(onOrOff.c_str(), "on") == 0 || SDL_strcasecmp(onOrOff.c_str(), "off") == 0) {
+    if (SDL_strcasecmp(onOrOff.c_str(), "on") == 0 || SDL_strcasecmp(onOrOff.c_str(), "off") == 0
+        || SDL_strcasecmp(onOrOff.c_str(),"true") ==0|| SDL_strcasecmp(onOrOff.c_str(),"false")==0)
+    {
 
         return true;
     }
     else
     {
-        throw nonfillvalue("you have entered an incorrect value for fill please enter on or off");
+        throw nonfillvalue("you have entered an incorrect value for fill please enter on or off or true or false e.g fill on");
         return false;
     }
 

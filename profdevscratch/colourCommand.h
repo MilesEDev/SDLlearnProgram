@@ -5,6 +5,8 @@
 #include "Commands.h"
 #include "IArgManager.h"
 #include "notcolourexception.h"
+#include "dataConverter.h"
+#include "nonStringException.h"
 /**
  * .the bridge between user and renderer for setting colour 
  */

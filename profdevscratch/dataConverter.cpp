@@ -23,11 +23,11 @@ std::string dataConverter::boolToString(bool myBool)
 {
     if (myBool) 
     {
-        return "true";
+        return "true";;
     }
     else
     {
-        return "false"
+        return "false";
     }
 }
 

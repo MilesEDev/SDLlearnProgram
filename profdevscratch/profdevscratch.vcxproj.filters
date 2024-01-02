@@ -55,6 +55,12 @@
     <Filter Include="Source Files\commands\sub-commands">
       <UniqueIdentifier>{a83070bb-529b-456c-95f2-1836828aaa69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="dataManipulators">
+      <UniqueIdentifier>{6b81edb4-b967-4767-ba51-fefa8eea7f43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Memory">
+      <UniqueIdentifier>{e6357bb1-17a4-4e0b-8c4a-0810e08537e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="profdevscratch.cpp">
@@ -189,6 +195,9 @@
     <ClCompile Include="dataConverter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="nonStringException.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\imgui\imgui.h">
@@ -293,19 +302,22 @@
     <ClInclude Include="Expression.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="dataChecker.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MemoryManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Page.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="operationNotSupportDataType.h">
       <Filter>Header Files\exceptions</Filter>
     </ClInclude>
+    <ClInclude Include="dataChecker.h">
+      <Filter>dataManipulators</Filter>
+    </ClInclude>
     <ClInclude Include="dataConverter.h">
+      <Filter>dataManipulators</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryManager.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Page.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="nonStringException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
