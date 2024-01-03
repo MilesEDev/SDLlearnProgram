@@ -2,7 +2,7 @@
 #include "Render.h"
 
 
-
+ 
 circleCommand::circleCommand()
 {
 	parameterno = 1;

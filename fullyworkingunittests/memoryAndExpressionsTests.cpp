@@ -80,6 +80,11 @@ namespace memoryAndExpressionsTests
 
 			Assert::IsTrue(-29 == std::stoi(myExpression->calcFull("5-2*2/1+30")));
 		}
+		TEST_METHOD(stringToString)
+		{
+			Expression* myExpression = new Expression();
+			Assert::IsTrue("\"helloworld\"" == myExpression->calcFull("\"hello\"+\"world\""));
+		}
 
 
 

@@ -160,6 +160,7 @@
     <ClCompile Include="notcolourexception.cpp" />
     <ClCompile Include="notcommandexception.cpp" />
     <ClCompile Include="operationNotSupportDataType.cpp" />
+    <ClCompile Include="operators.cpp" />
     <ClCompile Include="Page.cpp" />
     <ClCompile Include="parser.cpp" />
     <ClCompile Include="PosPencommand.cpp" />
@@ -170,6 +171,8 @@
     <ClCompile Include="renderTexture.cpp" />
     <ClCompile Include="resetCommand.cpp" />
     <ClCompile Include="shape.cpp" />
+    <ClCompile Include="circleRun.cpp" />
+    <ClCompile Include="specialChar.cpp" />
     <ClCompile Include="triangle.cpp" />
     <ClCompile Include="triangleCommand.cpp" />
     <ClCompile Include="window.cpp" />
@@ -206,6 +209,7 @@
     <ClInclude Include="notcolourexception.h" />
     <ClInclude Include="notcommandexception.h" />
     <ClInclude Include="operationNotSupportDataType.h" />
+    <ClInclude Include="operators.h" />
     <ClInclude Include="Page.h" />
     <ClInclude Include="parser.h" />
     <ClInclude Include="PosPencommand.h" />
@@ -215,6 +219,7 @@
     <ClInclude Include="renderTexture.h" />
     <ClInclude Include="resetCommand.h" />
     <ClInclude Include="shape.h" />
+    <ClInclude Include="specialChar.h" />
     <ClInclude Include="triangle.h" />
     <ClInclude Include="triangleCommand.h" />
     <ClInclude Include="window.h" />

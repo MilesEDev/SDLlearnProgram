@@ -34,6 +34,8 @@ void colourCommand::setAttributes(std::vector<std::string> commandArgs)
 {
     std::string colour = commandArgs.at(0);
     colours.clear();
+    dataConverter* myConverter = new dataConverter();
+    colour = myConverter->sliceQoutes(colour);
     if (SDL_strcasecmp(colour.c_str(), "red") == 0)
     {
         colours.push_back(255);

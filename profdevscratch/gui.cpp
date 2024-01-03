@@ -4,6 +4,7 @@
 
 gui::gui() 
 {
+	
 	window* mywindow = new window(); 
 	mySDLWindow = mywindow->getSDLWindow();
 	SDL_GLContext gl_context = SDL_GL_CreateContext(mySDLWindow);

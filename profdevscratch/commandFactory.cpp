@@ -15,7 +15,7 @@ Commands* commandFactory::getCommand(std::string thisCommand)
 	{
 		return new clearcommand();
 	}
-	else if (SDL_strcasecmp(thisCommand.c_str(), "colour")==0)
+	else if (SDL_strcasecmp(thisCommand.c_str(), "pen")==0)
 	{
 		return new colourCommand();
 	}
@@ -27,7 +27,7 @@ Commands* commandFactory::getCommand(std::string thisCommand)
 	{
 		return new fillCommand();
 	}
-	else if (SDL_strcasecmp(thisCommand.c_str(), "pospen")==0)
+	else if (SDL_strcasecmp(thisCommand.c_str(), "moveto")==0)
 	{
 		return new PosPencommand();
 	}
@@ -37,7 +37,7 @@ Commands* commandFactory::getCommand(std::string thisCommand)
 	}
 	else if (SDL_strcasecmp(thisCommand.c_str(), "reset")==0)
 	{
-		return new rectangleCommand(); 
+		return new resetCommand(); 
 	}
 	
 }

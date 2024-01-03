@@ -7,6 +7,7 @@ class Expression
 {
 private:
 	dataChecker* myChecker = new dataChecker;
+	std::string priorites[4] = { "/","*","+","-" };
 	
 	/**
 	 * .this is used to add terms together be they strings or intergers
@@ -61,7 +62,7 @@ public:
 	std::string calcFull(std::string expr);
 
 
-	
+	bool isExpression(std::string exprOrVal);
 
 };
 

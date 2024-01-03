@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL_stdinc.h>
 #include <string>
+#include "specialChar.h"
 class dataConverter
 {
 public:
@@ -12,6 +13,7 @@ public:
 
     std::string addQoutes(std::string stringToAdd);
 
-    
+    std::string removeSpecialChars(std::string stringToRemove);
+
 
 };

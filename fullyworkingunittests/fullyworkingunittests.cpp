@@ -33,9 +33,12 @@ namespace fullyworkingunittests
 
 			
 
+			std::string error = myparser->syntaxCheckAll();
+			int line = 0;
 
-			auto func = [myparser] { myparser->syntaxCheckAll(); };
-			Assert::ExpectException<nonnumberexception>(func);
+			Assert::IsTrue(error == "you have put in an incorrect data type for colourCommand please enter a float with the format(number)e.g circle 54 on line 1");
+
+
 			
 
 		}
@@ -140,11 +143,12 @@ namespace fullyworkingunittests
 
 			myparser->splitToCommands("rectangle 100");
 
+			
 
-
-
-			auto func = [myparser] { myparser->syntaxCheckAll(); };
-			Assert::ExpectException<InvalidParameters>(func);
+			std::string error = myparser->syntaxCheckAll();
+			int line = 0;
+		
+			Assert::IsTrue(error == "you have entered the incorrect number of parameters on line 1");
 
 
 		}
@@ -157,13 +161,16 @@ namespace fullyworkingunittests
 		{
 			parser* myparser = new parser();
 
-			myparser->splitToCommands("Triangle 100");
+			myparser->splitToCommands("triangle 100");
 
 
 
+			std::string error = myparser->syntaxCheckAll();
+			int line = 0;
 
-			auto func = [myparser] { myparser->syntaxCheckAll(); };
-			Assert::ExpectException<InvalidParameters>(func);
+			Assert::IsTrue(error == "you have entered the incorrect number of parameters on line 1");
+
+
 
 
 		}
@@ -199,11 +206,12 @@ namespace fullyworkingunittests
 
 			myparser->splitToCommands("fill beef");
 
+			std::string error = myparser->syntaxCheckAll();
+			int line = 0;
+
+			Assert::IsTrue(error == "you have entered an incorrect value for fill please enter on or off or true or false e.g fill on on line 1");
 
 
-
-			auto func = [myparser] { myparser->syntaxCheckAll(); };
-			Assert::ExpectException<nonfillvalue>(func);
 
 
 		}
@@ -239,7 +247,7 @@ namespace fullyworkingunittests
 		{
 			parser* myparser = new parser();
 
-			myparser->splitToCommands("pen green");
+			myparser->splitToCommands("pen \"green\"");
 
 			Render* myrenderer = new Render();
 			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);

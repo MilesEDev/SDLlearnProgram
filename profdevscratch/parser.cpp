@@ -124,7 +124,7 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 
 		std::vector<std::string> commandArgs;
 				
-		if (!current_Command->correctParamsCount(0)) 
+		if (!current_Command->correctParamsCount(0))
 		{
 			for (int i = 1; i < command.size(); i++)
 			{
@@ -133,9 +133,9 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 			}
 			IArgManager* argChecker = dynamic_cast<IArgManager*>(current_Command);
 			argChecker->setAttributes(commandArgs);
-
-			current_Command->runCommand(myrenderer, myrenderer->getPen());
 		}
+			current_Command->runCommand(myrenderer, myrenderer->getPen());
+		
 		
 	}
 	myrenderer->removeAnyTargets();

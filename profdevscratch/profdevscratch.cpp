@@ -9,6 +9,7 @@
 #include "eventfactory.h"
 #include "parser.h"
 #include "Expression.h"
+#include "dataConverter.h"
 #undef main
 
 
@@ -42,7 +43,13 @@ int main()
     */
     Expression* myexpression = new Expression();
     
-    myexpression->calcFull("\"he+llo\"+\"world\"");
+    myexpression->calcFull("\"hello\"+\"world\"");
+    /*
+    dataConverter* myConverter = new dataConverter();
+    dataChecker* myChecker = new dataChecker();
+
+    myChecker->wholeCheckForBadSpecialChar("\\\\hi ho\\w \\\"");
+    */
     
     
 

@@ -45,10 +45,19 @@ public:
 	 * 
 	 * \param commandArgs takes in commandArgs and checks syntax on it for circle 
 	 * \return is good syntax or not 
+	 * 
+	 * \example CircleCommSyntax.cpp
+	 * 
 	 */
 	bool syntaxcheck(std::vector<std::string> commandArgs) override; 
 	
-	
+	/**
+	 * .this is ued to set the attributes within the circle class 
+	 * 
+	 * \param commandArgs
+	 * 
+	 * \example circleCommSetAttr.cpp
+	 */
 	void setAttributes(std::vector<std::string> commandArgs) override;
 
 

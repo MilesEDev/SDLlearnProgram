@@ -65,3 +65,51 @@ bool dataChecker::isString(std::string myString)
 	}
 }
 
+bool dataChecker::isSpecialChar(std::string myString, int charIndex)
+{
+	specialCharManager* mySpecialChar = new specialCharManager();
+	std::string specialChar;
+	int key = true; 
+	for (int i = 0; i < mySpecialChar->getNumChars();i++)
+	{
+		key = true;
+		specialChar = mySpecialChar->getSingleSpecialChar(i);
+		for (int j = 0; j < specialChar.size(); j++)
+		{
+			char test = myString[charIndex+j];
+			if (myString[charIndex + j] != specialChar[j])
+			{
+				key = false; 
+				break; 
+			}
+
+		}
+		if (key)
+		{
+			return true;
+		}
+
+	}
+	return false;
+}
+
+bool dataChecker::wholeCheckForBadSpecialChar(std::string myString)
+{
+	for (int i = 0; i < myString.size(); i++)
+	{
+		char test = myString[i];
+		if (myString[i] == '\\')
+		{
+			if (!isSpecialChar(myString, i))
+			{
+				return false;
+			}
+			i++;
+			
+				
+		}
+
+	}
+	return true; 
+}
+
