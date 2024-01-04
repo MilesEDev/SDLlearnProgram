@@ -64,5 +64,7 @@ public:
 
 	bool isExpression(std::string exprOrVal);
 
+	bool isAnyOperation(std::string expr, int subStr);
+
 };
 

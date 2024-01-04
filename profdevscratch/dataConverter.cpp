@@ -83,3 +83,15 @@ std::string dataConverter::removeSpecialChars(std::string stringToRemove)
     
     return stringToRemove;
 }
+
+std::string dataConverter::doubleNegative(std::string argument)
+{
+    if (argument[0] == '-')
+    {
+        if (argument[1] == '-')
+        {
+            return argument.substr(2, argument.size() - 3);
+        }
+    }
+    return argument;
+}

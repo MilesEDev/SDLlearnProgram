@@ -15,5 +15,7 @@ public:
 
     std::string removeSpecialChars(std::string stringToRemove);
 
+    std::string doubleNegative(std::string argument);
+
 
 };

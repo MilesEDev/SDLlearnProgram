@@ -43,7 +43,7 @@ int main()
     */
     Expression* myexpression = new Expression();
     
-    myexpression->calcFull("\"hello\"+\"world\"");
+    myexpression->calcFull("2--1+-1/1/-2");
     /*
     dataConverter* myConverter = new dataConverter();
     dataChecker* myChecker = new dataChecker();

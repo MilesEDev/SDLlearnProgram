@@ -74,7 +74,31 @@ std::string Expression::calcFull(std::string expr)
     {
         for (i = 0; i < expr.size(); i++)
         {
+            char breakTest = expr[i];
+            if (expr[i] == '\"')
+            {
+                int j = i + 1;
+                while (j < expr.size())
+                {
+                    breakTest = expr[j];
+                    if (expr[j] == '\\')
+                    {
+                        j++;
+                    }
+                    if (expr[j] == '\"')
+                    {
+                        i = j;
+                        break;
+                    }
+                    j++;
+                }
+
+            }
             key = isOperation(expr, i, operation);
+            if (expr[0] == '-' && i == 0)
+            {
+                key = false;
+            }
             if (key)
             {
                 
@@ -97,7 +121,10 @@ std::string Expression::calcFull(std::string expr)
                             while (j < expr.size())
                             {
                                 breakTest = expr[j];
-                                
+                                if (expr[j] == '\\') 
+                                {
+                                    j++;
+                                }
                                 if (expr[j] == '\"')
                                 {
                                     i = j;
@@ -110,7 +137,11 @@ std::string Expression::calcFull(std::string expr)
                         if (isOperation(expr, i, operation))
                         {
                             key2 = true;
-                            if (i > start)
+                            if (isAnyOperation(expr, i - 1))
+                            {
+                                
+                            }
+                            else if (i > start)
                             {
                                 start = i + 1;
                             }
@@ -129,24 +160,38 @@ std::string Expression::calcFull(std::string expr)
                     bool key2 = false;
                     while (i > opLocation)
                     {
+                        char breakTest = expr[i];
                         if (expr[i] == '\"')
                         {
                             int j = i - 1;
                             while (j > 0)
                             {
-                                j--;
-                                if (j == '\"')
+                                char breakTest = expr[j];
+                                char breaktest2 = expr[j - 1];
+                                if (expr[j-1] == '\\')
+                                {
+                                    
+                                }
+                                else if (expr[j] == '\"')
                                 {
                                     i = j;
                                     break;
                                 }
+                                j--;
                             }
-
+                            
                         }
+                        
                         if (isOperation(expr, i, operation))
                         {
                             key2 = true;
-                            if (i < end)
+                            char breakTest2 = expr[i];
+                            char breakTest3 = expr[i-1];
+                            if (isAnyOperation(expr, i - 1))
+                            {
+
+                            }
+                            else if (i < end)
                             {
                                 end = i;
                             }
@@ -217,8 +262,36 @@ bool Expression::isExpression(std::string exprOrVal)
    
 }
 
+bool Expression::isAnyOperation(std::string expr, int subStr)
+{
+    bool key = true;
+    for (std::string operation:priorites) {
+        key = true;
+        for (int j = 0; j < operation.size(); j++)
+        {
+            if (subStr <= expr.size())
+            {
+                if (expr[subStr + j] != operation[j])
+                {
+                    key = false;
+                }
+            }
+
+        }
+        if (key)
+        {
+            return true;
+        }
+        
+    }
+    return false;
+    
+
+}
+
 bool Expression::isOperation(std::string expr, int subStr, std::string operation)
 {
+   
     for (int j = 0; j < operation.size(); j++)
     {
         if (subStr <= expr.size())
@@ -230,5 +303,4 @@ bool Expression::isOperation(std::string expr, int subStr, std::string operation
         }
     }
     
-    return true;
 }
