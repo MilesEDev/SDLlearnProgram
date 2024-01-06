@@ -17,7 +17,7 @@ bool circleCommand::syntaxcheck(std::vector<std::string> commandArgs)
 	}
 	else
 	{
-		throw nonnumberexception("you have put in an incorrect data type for colourCommand please enter a float with the format(number)"
+		throw nonnumberexception("you have put in an incorrect data type for circleCommand please enter a float with the format(number)"
 			"e.g circle 54");
 		return false;
 	}
@@ -28,6 +28,7 @@ void circleCommand::setAttributes(std::vector<std::string> commandArgs)
 {
 	parsedAttributes.push_back(std::stoi(commandArgs.at(0)));
 }
+
 
 std::string circleCommand::runCommand(Render* renderer,std::pair<float,float> Pen)
 {

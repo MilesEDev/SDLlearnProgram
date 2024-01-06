@@ -44,33 +44,59 @@ void parser::clearAllLists()
 
 std::string parser::syntaxCheckAll()
 {
+	
 	commandFactory* myFactory = new commandFactory();
+	programmingConstructsFactory* constructFactory = new programmingConstructsFactory();
 	line = 0;
 	try
 	{
-		for (std::vector<std::string> command : commands)
+		for (int pcr = 0; pcr < commands.size(); pcr++)
 		{
+			std::vector<std::string> command = commands.at(pcr);
 			line++;
+			commandCatFactory* myfact = new commandCatFactory();
 
-			Commands* current_Command = myFactory->getCommand(command.front());
+			commandCat* abstractCommand = myfact->getCommand(command.at(0));
+		
+
+			
 			int size = command.size() - 1;
-			if (!current_Command->correctParamsCount(size))
+			if (!abstractCommand->correctParamsCount(size))
 			{
 				throw InvalidParameters("you have entered the incorrect number of parameters");
 			}
 			if (size > 0)
 			{
-				IArgManager* argChecker = dynamic_cast<IArgManager*>(current_Command);
+
+				IArgManager* argChecker = dynamic_cast<IArgManager*>(abstractCommand);
 				std::vector<std::string> commandArgs;
 				for (int i = 1; i < command.size(); i++)
 				{
 					commandArgs.push_back(command.at(i));
 
 				}
+
 				argChecker->syntaxcheck(commandArgs);
+				if (constructFactory->hasKey(command.front(), "body"))
+				{
+					programmingBodies* mybody = dynamic_cast<programmingBodies*>(abstractCommand);
+					bodyPCRs.push_back(mybody);
+				}
+				if (constructFactory->hasKey(command.front(), "bodyend"))
+				{
+					bodyEnd* myBodyEnd = dynamic_cast<bodyEnd*>(abstractCommand);
+					myBodyEnd->checkCorrectEnd(bodyPCRs);
+					myBodyEnd->setCurrentBodyPCR(bodyPCRs);
+					bodyPCRs = myBodyEnd->popFromBodyList(bodyPCRs);//if any bodies left chuck error at end
+
+				}
+			
+
+				
+
 			}
 
-
+			
 		}
 	}
 
@@ -107,36 +133,81 @@ std::string parser::syntaxCheckAll()
 SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 {
 	
+
 	
 	SDL_SetRenderTarget(myrenderer->getSDLRenderer(), mytext);
 	SDL_SetRenderDrawColor(myrenderer->getSDLRenderer(), 255, 255, 255, 255);
 	SDL_RenderClear(myrenderer->getSDLRenderer());
 	SDL_SetRenderDrawColor(myrenderer->getSDLRenderer(), 0, 0,0, 0);
 	commandFactory* myComFactory = new commandFactory(); 
-		
-
+	programmingConstructsFactory* constructFactory = new programmingConstructsFactory();
+	bool execution = true;
+	executorManager* myExecutor = nullptr;
+	bodyEnd* myBodyEnd = nullptr;
+	
 	
 
-	for (std::vector<std::string> command : commands)
+	for (int pcr = 0; pcr < commands.size(); pcr++)
 	{
+		std::vector<std::string> command = commands.at(pcr);
 
-		Commands* current_Command = myComFactory->getCommand(command.at(0));
+		commandCatFactory* myfact = new commandCatFactory();
+		commandCat* abstractCommand = myfact->getCommand(command.at(0));
 
 		std::vector<std::string> commandArgs;
 				
-		if (!current_Command->correctParamsCount(0))
+		if (!abstractCommand->correctParamsCount(0))
 		{
 			for (int i = 1; i < command.size(); i++)
 			{
 				commandArgs.push_back(command.at(i));
 
 			}
-			IArgManager* argChecker = dynamic_cast<IArgManager*>(current_Command);
+			IArgManager* argChecker = dynamic_cast<IArgManager*>(abstractCommand);
 			argChecker->setAttributes(commandArgs);
 		}
+
+
+		if (constructFactory->hasKey(command.front(), "body"))
+		{
+			programmingBodies* mybody = dynamic_cast<programmingBodies*>(abstractCommand);
+			bodyPCRs.push_back(mybody);
+		}
+		if (constructFactory->hasKey(command.front(), "bodyend"))
+		{
+			myBodyEnd = dynamic_cast<bodyEnd*>(abstractCommand);
+			myBodyEnd->checkCorrectEnd(bodyPCRs);
+			myBodyEnd->setCurrentBodyPCR(bodyPCRs);
+			bodyPCRs = myBodyEnd->popFromBodyList(bodyPCRs);//if any bodies left chuck error at end
+
+		}
+		if (constructFactory->hasKey(command.front(), "execute"))
+		{
+			myExecutor = dynamic_cast<executorManager*>(abstractCommand);
+			myExecutor->setLocalExecution(execution);
+			
+
+		}
+		if (myComFactory->getCommand(command.at(0)) != nullptr)
+		{
+			Commands* current_Command = dynamic_cast<Commands*>(abstractCommand);
 			current_Command->runCommand(myrenderer, myrenderer->getPen());
-		
-		
+		}
+
+		else if (constructFactory->getCommand(command.at(0)) != nullptr)
+		{
+			programmingConstructs* currentConstruct = dynamic_cast<programmingConstructs*>(abstractCommand);
+			currentConstruct->runCommand();
+		}
+		if (constructFactory->hasKey(command.front(), "execute"))
+		{
+			execution = myExecutor->getLocalExecution();
+		}
+		if (constructFactory->hasKey(command.front(), "bodyend"))
+		{
+			pcr = myBodyEnd->getNewPCr(pcr);
+
+		}
 	}
 	myrenderer->removeAnyTargets();
 	return mytext;

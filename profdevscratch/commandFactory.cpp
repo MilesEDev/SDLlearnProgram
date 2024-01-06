@@ -39,5 +39,9 @@ Commands* commandFactory::getCommand(std::string thisCommand)
 	{
 		return new resetCommand(); 
 	}
+	else
+	{
+		return nullptr;
+	}
 	
 }

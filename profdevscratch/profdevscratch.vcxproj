@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -137,18 +137,25 @@
     <ClCompile Include="..\imgui\imgui_tables.cpp" />
     <ClCompile Include="..\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\imgui\misc\cpp\imgui_stdlib.cpp" />
+    <ClCompile Include="bodyEnd.cpp" />
     <ClCompile Include="circle.cpp" />
     <ClCompile Include="circleCommand.cpp" />
     <ClCompile Include="clearcommand.cpp" />
     <ClCompile Include="colourCommand.cpp" />
+    <ClCompile Include="commandCat.cpp" />
+    <ClCompile Include="commandCatFactory.cpp" />
     <ClCompile Include="commandFactory.cpp" />
     <ClCompile Include="Commands.cpp" />
+    <ClCompile Include="constructsFactory.cpp" />
     <ClCompile Include="contextalreadyset.cpp" />
     <ClCompile Include="dataChecker.cpp" />
     <ClCompile Include="dataConverter.cpp" />
     <ClCompile Include="drawToCommand.cpp" />
+    <ClCompile Include="endWhile.cpp" />
     <ClCompile Include="eventfactory.cpp" />
+    <ClCompile Include="executorManager.cpp" />
     <ClCompile Include="Expression.cpp" />
+    <ClCompile Include="factoryEntry.cpp" />
     <ClCompile Include="fillCommand.cpp" />
     <ClCompile Include="gui.cpp" />
     <ClCompile Include="IArgManager.cpp" />
@@ -165,6 +172,9 @@
     <ClCompile Include="parser.cpp" />
     <ClCompile Include="PosPencommand.cpp" />
     <ClCompile Include="profdevscratch.cpp" />
+    <ClCompile Include="programmingBodies.cpp" />
+    <ClCompile Include="programmingConstructs.cpp" />
+    <ClCompile Include="programmingConstructsFactory.cpp" />
     <ClCompile Include="rectangle.cpp" />
     <ClCompile Include="rectangleCommand.cpp" />
     <ClCompile Include="Render.cpp" />
@@ -175,6 +185,7 @@
     <ClCompile Include="specialChar.cpp" />
     <ClCompile Include="triangle.cpp" />
     <ClCompile Include="triangleCommand.cpp" />
+    <ClCompile Include="whileCommand.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -187,17 +198,24 @@
     <ClInclude Include="..\imgui\backends\imgui_impl_sdlrenderer2.h" />
     <ClInclude Include="..\imgui\imgui.h" />
     <ClInclude Include="..\imgui\misc\cpp\imgui_stdlib.h" />
+    <ClInclude Include="bodyEnd.h" />
     <ClInclude Include="circle.h" />
     <ClInclude Include="circleCommand.h" />
     <ClInclude Include="clearcommand.h" />
     <ClInclude Include="colourCommand.h" />
+    <ClInclude Include="commandCat.h" />
+    <ClInclude Include="commandCatFactory.h" />
     <ClInclude Include="commandFactory.h" />
     <ClInclude Include="Commands.h" />
+    <ClInclude Include="constructsFactory.h" />
     <ClInclude Include="contextalreadyset.h" />
     <ClInclude Include="dataChecker.h" />
     <ClInclude Include="dataConverter.h" />
     <ClInclude Include="drawToCommand.h" />
+    <ClInclude Include="endWhile.h" />
+    <ClInclude Include="executorManager.h" />
     <ClInclude Include="Expression.h" />
+    <ClInclude Include="factoryEntry.h" />
     <ClInclude Include="fillCommand.h" />
     <ClInclude Include="gui.h" />
     <ClInclude Include="IArgManager.h" />
@@ -213,6 +231,9 @@
     <ClInclude Include="Page.h" />
     <ClInclude Include="parser.h" />
     <ClInclude Include="PosPencommand.h" />
+    <ClInclude Include="programmingBodies.h" />
+    <ClInclude Include="programmingConstructs.h" />
+    <ClInclude Include="programmingConstructsFactory.h" />
     <ClInclude Include="rectangle.h" />
     <ClInclude Include="rectangleCommand.h" />
     <ClInclude Include="Render.h" />
@@ -222,6 +243,7 @@
     <ClInclude Include="specialChar.h" />
     <ClInclude Include="triangle.h" />
     <ClInclude Include="triangleCommand.h" />
+    <ClInclude Include="whileCommand.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>

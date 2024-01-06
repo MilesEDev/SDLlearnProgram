@@ -12,6 +12,7 @@
 class commandFactory
 {
 public:
+
 	Commands* getCommand(std::string thisCommand);
 };
 

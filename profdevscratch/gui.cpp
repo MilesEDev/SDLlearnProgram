@@ -194,11 +194,8 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 			{
 				myparser->clearAllLists();
 				myrenderer->setPen(0, 0);
-				if (!runner(myrenderer, mytext, strmultiline, myparser)) 
-				{
-					ImGui::OpenPopup("ThePopup");
-					
-				}
+				runner(myrenderer, mytext, strmultiline, myparser);
+				
 			}
 			else if (!str.empty())
 			{

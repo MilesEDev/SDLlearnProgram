@@ -15,7 +15,12 @@
 #include "notcolourexception.h"
 #include "notcommandexception.h"
 #include "commandFactory.h"
-
+#include "commandCatFactory.h"
+#include "commandCat.h"
+#include "programmingConstructs.h"
+#include "programmingConstructsFactory.h"
+#include "programmingBodies.h"
+#include "bodyEnd.h"
 /**
  * 
  * .parses the commands and runs them 
@@ -36,6 +41,7 @@ private:
 	 * 
 	 * .this is the line number for returning error 
 	 */
+	std::vector<programmingBodies*> bodyPCRs;
 	int line = 0;
 public:
 	/**

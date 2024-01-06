@@ -4,18 +4,11 @@
 #include <vector>
 #include "Render.h"
 #include "dataChecker.h"
+#include "commandCat.h"
 /**  base class for commands */
-class Commands
+class Commands:public commandCat
 {
-protected:
-	/**
-	 * .params taken for sub class commands
-	 */
-	int parameterno = 0;
 
-	dataChecker* myChecker = new dataChecker();
-
-	std::vector<int> parsedAttributes;
 public:
 	/**
 	 * .empty constructor
@@ -37,7 +30,7 @@ public:
 	 * \param numParams
 	 * \return is param count correct
 	 */
-	bool correctParamsCount(int numParams);
+	
 
 	
 	virtual std::string runCommand(Render* renderer, std::pair<float, float> Pen) = 0;

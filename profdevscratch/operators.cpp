@@ -1,6 +1,6 @@
 #include "operators.h"
 
-bool operators::greaterThan(std::string term1, std::string term2)
+bool comparator::greaterThan(std::string term1, std::string term2)
 {
     dataChecker* myChecker = new dataChecker();
     if (myChecker->isString(term1) && myChecker->isString(term2))
@@ -46,7 +46,7 @@ bool operators::greaterThan(std::string term1, std::string term2)
 
 }
 
-bool operators::greaterThanEqual(std::string term1, std::string term2)
+bool comparator::greaterThanEqual(std::string term1, std::string term2)
 {
     if (!greaterThan(term1, term2))
     {
@@ -58,7 +58,7 @@ bool operators::greaterThanEqual(std::string term1, std::string term2)
     }
 }
 
-bool operators::lesserThan(std::string term1, std::string term2)
+bool comparator::lesserThan(std::string term1, std::string term2)
 {
     dataChecker* myChecker = new dataChecker();
     if (myChecker->isString(term1) && myChecker->isString(term2))
@@ -103,7 +103,7 @@ bool operators::lesserThan(std::string term1, std::string term2)
 
 }
 
-bool operators::lesserThanEqual(std::string term1, std::string term2)
+bool comparator::lesserThanEqual(std::string term1, std::string term2)
 {
     if (!lesserThan(term1, term2))
     {
@@ -115,7 +115,7 @@ bool operators::lesserThanEqual(std::string term1, std::string term2)
     }
 }
 
-bool operators::equalTo(std::string term1, std::string term2)
+bool comparator::equalTo(std::string term1, std::string term2)
 {
     if (term1 == term2) 
     {
@@ -126,4 +126,43 @@ bool operators::equalTo(std::string term1, std::string term2)
     {
         return false; 
     }
+}
+
+bool comparator::validComparator(std::string comparator)
+{
+    if (comparator == ">" || comparator == ">=" || comparator == "<" || comparator == "=<"
+        || comparator == "==")
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+}
+
+bool comparator::evaluateComparison(std::string term1, std::string comparator, std::string term2)
+{
+    if (comparator == ">")
+    {
+        return greaterThan(term1, term2);
+    }
+    if (comparator == ">=")
+    {
+        return greaterThanEqual(term1, term2);
+    }
+    if (comparator == "<")
+    {
+        return lesserThan(term1, term2);
+    }
+    if (comparator == "=<")
+    {
+        return lesserThanEqual(term1, term2);
+    }
+    if (comparator == "==")
+    {
+        return equalTo(term1, term2);
+    }
+
 }

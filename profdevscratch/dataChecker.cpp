@@ -19,7 +19,7 @@ bool dataChecker::isFloat(std::string mystring)
 	{
 		for (int i = 0; i < strlen(mystring.c_str()); i++)
 		{
-			if (!isdigit(mystring.c_str()[i]) && (i > 0 && mystring[0] != '-'))
+			if (!isdigit(mystring.c_str()[i]) && (i == 0 && mystring[0] != '-'))
 			{
 
 				error = true;
