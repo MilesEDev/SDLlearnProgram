@@ -103,7 +103,7 @@ std::string parser::syntaxCheckAll()
 				std::string statement = command.front();
 				if (myExpression->isAssignment(statement))
 				{
-					if (myExpression->checkAssignment(statement))
+					if (myExpression->checkAssignment(statement,programMemory))
 					{
 						if (programMemory->isGoodVarName(myExpression->getVarName(statement)))
 						{
@@ -269,7 +269,7 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 			std::string statement = command.front();
 			if (myExpression->isAssignment(statement))
 			{
-				if (myExpression->checkAssignment(statement))
+				if (myExpression->checkAssignment(statement,programMemory))
 				{
 					if (programMemory->isGoodVarName(myExpression->getVarName(statement)))
 					{

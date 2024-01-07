@@ -64,7 +64,7 @@ std::string Expression::divide(std::string num1, std::string num2)
 }
 
 
-std::string Expression::calcFull(std::string expr)
+std::string Expression::calcFull(std::string expr,MemoryManager* myManager)
 {
     bool key = false;
     int i = 0;
@@ -201,8 +201,16 @@ std::string Expression::calcFull(std::string expr)
 
                 }
                 std::string arg2 = expr.substr(opLocation + 1, end - (opLocation + 1));
+                if (myManager->pageExist(arg1))
+                {
+                   arg1= myManager->returnValue(arg1);
+                }
+                if (myManager->pageExist(arg2))
+                {
+                    arg2 = myManager->returnValue(arg2);
+                }
+
                 
-            
                 
                 std::string result;
                 if (operation == "+")
@@ -356,23 +364,23 @@ std::string Expression::getVarName(std::string exprOrVal)
 }
 void Expression::performAssignment(std::string assignmentStatement,MemoryManager* memory)
 {
-    if (checkAssignment(assignmentStatement))
+    if (checkAssignment(assignmentStatement,memory))
     {
         std::string varName = getVarName(assignmentStatement);
         std::string value = assignmentStatement.substr(varName.size()+1, assignmentStatement.size());
         
-        value = calcFull(value);
+        value = calcFull(value,memory);
         
         memory->pageCreationAndUpdate(varName,value);
     }
 }
-bool Expression::checkAssignment(std::string assignmentStatement)
+bool Expression::checkAssignment(std::string assignmentStatement,MemoryManager* memory)
 {
     std::string varName = getVarName(assignmentStatement);
     std::string value = assignmentStatement.substr(varName.size()+1, assignmentStatement.size());
     if (isExpression(value))
     {
-        value = calcFull(value);
+        value = calcFull(value,memory);
     }
     if (myChecker->isValue(value))
     {

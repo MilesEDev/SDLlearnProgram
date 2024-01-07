@@ -61,7 +61,7 @@ public:
 	 * \param expr this is the expression that will be input by the user
 	 * \return the output of the expression 
 	 */
-	std::string calcFull(std::string expr);
+	std::string calcFull(std::string expr,MemoryManager* myManager);
 
 
 	bool isExpression(std::string exprOrVal);
@@ -74,6 +74,6 @@ public:
 
 	void performAssignment(std::string assignmentStatement,MemoryManager* memory);
 
-	bool checkAssignment(std::string assignmentStatement);
+	bool checkAssignment(std::string assignmentStatement,MemoryManager* memory);
 };
 
