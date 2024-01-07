@@ -9,9 +9,10 @@ class programmingConstructsFactory
 private:
 	std::vector<factoryEntry*> factoryEntries;
 	
-public:
+	static programmingConstructsFactory* myProgConFactory;
 
 	programmingConstructsFactory();
+public:
 
 	factoryEntry* getCommand(std::string thisCommand);
 
@@ -20,6 +21,8 @@ public:
 	bool hasKey(std::string thisCommand,std::string key);
 
 	void populateFactoryEntries();
+
+	static programmingConstructsFactory* getInstance();
 
 };
 

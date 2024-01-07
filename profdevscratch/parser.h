@@ -21,6 +21,9 @@
 #include "programmingConstructsFactory.h"
 #include "programmingBodies.h"
 #include "bodyEnd.h"
+#include "MemoryManager.h"
+#include "Expression.h"
+#include "variableIsUndefined.h"
 /**
  * 
  * .parses the commands and runs them 
@@ -42,7 +45,12 @@ private:
 	 * .this is the line number for returning error 
 	 */
 	std::vector<programmingBodies*> bodyPCRs;
+	/**
+	 * .this is the line count 
+	 */
 	int line = 0;
+	
+	MemoryManager* programMemory = new MemoryManager();
 public:
 	/**
 	 * .this is empty constructor
@@ -95,12 +103,13 @@ public:
 	 */
 	std::string loadFromTxt(std::string programName);
 	
+	void checkForVars(std::vector<std::string> &command, MemoryManager* myManager,int inputIndex);
 	
 	
 	
+	bool checkForValue(std::vector<std::string> &command,int inputIndex);
 
-
-	
+	void checkForAll(std::vector<std::string> &command, MemoryManager* myManager);
 
 
 

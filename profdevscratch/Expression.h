@@ -3,10 +3,12 @@
 #include "dataChecker.h"
 #include "operationNotSupportDataType.h"
 #include  "dataConverter.h"
+#include "MemoryManager.h"
 class Expression
 {
 private:
-	dataChecker* myChecker = new dataChecker;
+	dataChecker* myChecker = dataChecker::getInstance();
+	dataConverter* myConverter = dataConverter::getInstance();
 	std::string priorites[4] = { "/","*","+","-" };
 	
 	/**
@@ -66,5 +68,12 @@ public:
 
 	bool isAnyOperation(std::string expr, int subStr);
 
+	bool isAssignment(std::string exprOrVal);
+
+	std::string getVarName(std::string exprOrVal); 
+
+	void performAssignment(std::string assignmentStatement,MemoryManager* memory);
+
+	bool checkAssignment(std::string assignmentStatement);
 };
 

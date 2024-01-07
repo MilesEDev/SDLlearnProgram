@@ -2,13 +2,17 @@
 #include "dataChecker.h"
 #include <typeinfo>
 #include <vector>
-
+#include "dataConverter.h"
 class commandCat
 {
 protected:
 	int parameterno = 0;
 
-	dataChecker* myChecker = new dataChecker();
+	dataChecker* myChecker = dataChecker::getInstance();
+
+
+
+	dataConverter* myConverter = dataConverter::getInstance(); 
 
 	std::vector<int> parsedAttributes;
 public:

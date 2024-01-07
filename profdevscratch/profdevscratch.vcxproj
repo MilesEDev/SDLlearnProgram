@@ -146,12 +146,12 @@
     <ClCompile Include="commandCatFactory.cpp" />
     <ClCompile Include="commandFactory.cpp" />
     <ClCompile Include="Commands.cpp" />
-    <ClCompile Include="constructsFactory.cpp" />
     <ClCompile Include="contextalreadyset.cpp" />
     <ClCompile Include="dataChecker.cpp" />
     <ClCompile Include="dataConverter.cpp" />
     <ClCompile Include="drawToCommand.cpp" />
     <ClCompile Include="endWhile.cpp" />
+    <ClCompile Include="erroneousVarName.cpp" />
     <ClCompile Include="eventfactory.cpp" />
     <ClCompile Include="executorManager.cpp" />
     <ClCompile Include="Expression.cpp" />
@@ -161,6 +161,7 @@
     <ClCompile Include="IArgManager.cpp" />
     <ClCompile Include="invalidParameters.cpp" />
     <ClCompile Include="MemoryManager.cpp" />
+    <ClCompile Include="memoryUnsupportedType.cpp" />
     <ClCompile Include="nonfillvalue.cpp" />
     <ClCompile Include="nonnumberexception.cpp" />
     <ClCompile Include="nonStringException.cpp" />
@@ -185,6 +186,7 @@
     <ClCompile Include="specialChar.cpp" />
     <ClCompile Include="triangle.cpp" />
     <ClCompile Include="triangleCommand.cpp" />
+    <ClCompile Include="variableIsUndefined.cpp" />
     <ClCompile Include="whileCommand.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
@@ -207,12 +209,12 @@
     <ClInclude Include="commandCatFactory.h" />
     <ClInclude Include="commandFactory.h" />
     <ClInclude Include="Commands.h" />
-    <ClInclude Include="constructsFactory.h" />
     <ClInclude Include="contextalreadyset.h" />
     <ClInclude Include="dataChecker.h" />
     <ClInclude Include="dataConverter.h" />
     <ClInclude Include="drawToCommand.h" />
     <ClInclude Include="endWhile.h" />
+    <ClInclude Include="erroneousVarName.h" />
     <ClInclude Include="executorManager.h" />
     <ClInclude Include="Expression.h" />
     <ClInclude Include="factoryEntry.h" />
@@ -221,6 +223,7 @@
     <ClInclude Include="IArgManager.h" />
     <ClInclude Include="invalidParameters.h" />
     <ClInclude Include="MemoryManager.h" />
+    <ClInclude Include="memoryUnsupportedType.h" />
     <ClInclude Include="nonfillvalue.h" />
     <ClInclude Include="nonnumberexception.h" />
     <ClInclude Include="nonStringException.h" />
@@ -243,6 +246,7 @@
     <ClInclude Include="specialChar.h" />
     <ClInclude Include="triangle.h" />
     <ClInclude Include="triangleCommand.h" />
+    <ClInclude Include="variableIsUndefined.h" />
     <ClInclude Include="whileCommand.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>

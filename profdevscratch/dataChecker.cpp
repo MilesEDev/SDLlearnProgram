@@ -1,6 +1,11 @@
 #include "dataChecker.h"
 #include <SDL_stdinc.h>
 
+
+dataChecker* dataChecker::myChecker = nullptr;
+
+dataChecker::dataChecker(){}
+
 bool dataChecker::isFloat(std::string mystring)
 {
 	bool error = false;
@@ -43,7 +48,7 @@ bool dataChecker::isFloat(std::string mystring)
 
 bool dataChecker::isBool(std::string myString)
 {
-	if (SDL_strcasecmp(myString.c_str(), "true") || SDL_strcasecmp(myString.c_str(), "false"))
+	if (SDL_strcasecmp(myString.c_str(), "true") ==0|| SDL_strcasecmp(myString.c_str(), "false")==0)
 	{
 		return true;
 	}
@@ -55,6 +60,7 @@ bool dataChecker::isBool(std::string myString)
 
 bool dataChecker::isString(std::string myString)
 {
+	char testChar = myString[myString.size()];
 	if (myString[0] == '\"' && myString[myString.size()-1] == '\"')
 	{
 		return true;
@@ -105,11 +111,32 @@ bool dataChecker::wholeCheckForBadSpecialChar(std::string myString)
 				return false;
 			}
 			i++;
-			
-				
+
+
 		}
 
 	}
-	return true; 
+	return true;
+}
+
+bool dataChecker::isValue(std::string toCheck)
+{
+	if (isString(toCheck) || isBool(toCheck) || isFloat(toCheck))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+dataChecker* dataChecker::getInstance()
+{
+	if (myChecker == nullptr)
+	{
+		myChecker = new dataChecker;
+	}
+	return myChecker;
 }
 

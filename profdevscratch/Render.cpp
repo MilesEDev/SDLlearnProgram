@@ -40,6 +40,11 @@ void Render::setPen(float x, float y)
 void Render::drawTo(float x, float y) 
 {
 	SDL_RenderDrawLine(myrenderer, penStartCordinate.first, penStartCordinate.second, x, y);
+
+	
+	
+
+
 	setPen(x, y);
 	
 }

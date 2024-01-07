@@ -85,7 +85,104 @@ namespace memoryAndExpressionsTests
 			Expression* myExpression = new Expression();
 			Assert::IsTrue("\"helloworld\"" == myExpression->calcFull("\"hello\"+\"world\""));
 		}
+		TEST_METHOD(stringWithSpecial)
+		{
+			Expression* myExpression = new Expression();
+			Assert::IsTrue("\"hel\\\"loworld\"" == myExpression->calcFull("\"hel\\\"lo\"+\"world\""));
+		}
+		TEST_METHOD(isExpressionStandard)
+		{
+			Expression* myExpression = new Expression();
+			bool passes = myExpression->isExpression("5+4");
+			Assert::IsTrue(true == passes);
+		}
+		TEST_METHOD(isExpressiondoubleplus)
+		{
+			Expression* myExpression = new Expression();
+			bool passes = myExpression->isExpression("5+4+5");
+			Assert::IsTrue(true == passes);
+		}
+		TEST_METHOD(isExpressionminus)
+		{
+			Expression* myExpression = new Expression();
+			bool passes = myExpression->isExpression("5-4");
+			Assert::IsTrue(true == passes);
+		}
+		TEST_METHOD(isExpressionnot)
+		{
+			Expression* myExpression = new Expression();
+			bool passes = myExpression->isExpression("54");
+			Assert::IsTrue(false == passes);
+		}
+		TEST_METHOD(isExpressionstr)
+		{
+			Expression* myExpression = new Expression();
+			bool passes = myExpression->isExpression("\"hello\"+\"world\"");
+			Assert::IsTrue(true == passes);
+		}
+		TEST_METHOD(isExpressionOperationInStr)
+		{
+			Expression* myExpression = new Expression();
+			bool passes = myExpression->isExpression("\"hello+\"+\"world\"");
+			Assert::IsTrue(true == passes);
+		}
+		TEST_METHOD(isExpressionOperationInStrFalse)
+		{
+			Expression* myExpression = new Expression();
+			bool passes = myExpression->isExpression("\"hello+\"\"world\"");
+			Assert::IsTrue(false == passes);
+		}
+		TEST_METHOD(isAssignmentStandard)
+		{
+			Expression* myExpression = new Expression();
+			bool passes = myExpression->isAssignment("hello=roar");
+			Assert::IsTrue(true == passes);
+		}
+		TEST_METHOD(isAssignmentInString)
+		{
+			Expression* myExpression = new Expression();
+			bool passes = myExpression->isAssignment("\"hello=roar\"");
+			Assert::IsTrue(false == passes);
+		}
+		TEST_METHOD(isAssignmentInStringEqualsFirst)
+		{
+			Expression* myExpression = new Expression();
+			bool passes = myExpression->isAssignment("=hi");
+			Assert::IsTrue(false == passes);
+		}
+		TEST_METHOD(isAssignmentInStringEqualsLast)
+		{
+			Expression* myExpression = new Expression();
+			bool passes = myExpression->isAssignment("hi=");
+			Assert::IsTrue(false == passes);
+		}
+		TEST_METHOD(checkAssingmentToValidValue)
+		{
+			Expression* myExpression = new Expression();
+			bool passes = myExpression->checkAssignment("myVar=50");
+			Assert::IsTrue(true == passes);
+		}
+		TEST_METHOD(checkAssingmentToValidExpression)
+		{
+			Expression* myExpression = new Expression();
+			bool passes = myExpression->checkAssignment("myVar=50+40");
+			Assert::IsTrue(true == passes);
+		}
+		TEST_METHOD(checkAssingmentToInvalidValue)
+		{
+			Expression* myExpression = new Expression();
+			bool passes = myExpression->checkAssignment("myVar=abur");
+			Assert::IsTrue(false == passes);
+		}
+		
 
+
+
+
+		
+
+
+		
 
 
 

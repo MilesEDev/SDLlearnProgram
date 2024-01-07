@@ -8,8 +8,7 @@ whileCommand::whileCommand()
 
 void whileCommand::runCommand()
 {
-	comparator* myComparator = new comparator();
-
+	
 	if (myComparator->evaluateComparison(localArguments.at(0), localArguments.at(1), localArguments.at(2)))
 	{
 		localExecution = true;
@@ -30,8 +29,7 @@ void whileCommand::setAttributes(std::vector<std::string> commandArgs)
 
 bool whileCommand::syntaxcheck(std::vector<std::string> commandArgs)
 {
-	dataChecker* myChecker = new dataChecker();
-	comparator* myComparator = new comparator();
+	
 	if (myComparator->validComparator(commandArgs.at(1)))
 	{
 		if (myChecker->isString(commandArgs.at(0)) && myChecker->isString(commandArgs.at(2)))

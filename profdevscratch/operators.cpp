@@ -1,8 +1,12 @@
 #include "operators.h"
 
+comparator* comparator::myComparator = nullptr;
+
+
+comparator::comparator() {}
 bool comparator::greaterThan(std::string term1, std::string term2)
 {
-    dataChecker* myChecker = new dataChecker();
+    dataChecker* myChecker = dataChecker::getInstance();
     if (myChecker->isString(term1) && myChecker->isString(term2))
     {
         if (term1 > term2)
@@ -60,7 +64,7 @@ bool comparator::greaterThanEqual(std::string term1, std::string term2)
 
 bool comparator::lesserThan(std::string term1, std::string term2)
 {
-    dataChecker* myChecker = new dataChecker();
+    dataChecker* myChecker = dataChecker::getInstance();
     if (myChecker->isString(term1) && myChecker->isString(term2))
     {
         if (term1 < term2)
@@ -140,6 +144,15 @@ bool comparator::validComparator(std::string comparator)
         return false;
     }
 
+}
+
+comparator* comparator::getInstance()
+{
+    if (myComparator == nullptr)
+    {
+        myComparator = new comparator; 
+    }
+    return myComparator; 
 }
 
 bool comparator::evaluateComparison(std::string term1, std::string comparator, std::string term2)

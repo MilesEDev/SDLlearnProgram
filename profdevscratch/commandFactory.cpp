@@ -1,5 +1,8 @@
 #include "commandFactory.h"
 
+commandFactory* commandFactory::myComFactory = nullptr;
+
+commandFactory::commandFactory() {};
 Commands* commandFactory::getCommand(std::string thisCommand)
 {
 	if (SDL_strcasecmp(thisCommand.c_str(),"circle")==0)
@@ -44,4 +47,13 @@ Commands* commandFactory::getCommand(std::string thisCommand)
 		return nullptr;
 	}
 	
+}
+
+commandFactory* commandFactory::getInstance()
+{
+	if (commandFactory::myComFactory == nullptr)
+	{
+		commandFactory::myComFactory = new commandFactory;
+	}
+	return commandFactory::myComFactory;
 }

@@ -4,6 +4,11 @@
 #include "specialChar.h"
 class dataConverter
 {
+private:
+    static dataConverter* myConverter;
+
+    dataConverter();
+    
 public:
     bool stringToBool(std::string myStr);
 
@@ -16,6 +21,8 @@ public:
     std::string removeSpecialChars(std::string stringToRemove);
 
     std::string doubleNegative(std::string argument);
+
+    static dataConverter* getInstance();
 
 
 };

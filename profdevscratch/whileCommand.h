@@ -8,6 +8,8 @@ class whileCommand :public programmingBodies,public programmingConstructs,public
 {
 private:
 std::vector<std::string> localArguments;
+comparator* myComparator = comparator::getInstance();
+
 public:
 	whileCommand();
 

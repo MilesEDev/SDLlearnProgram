@@ -1,5 +1,11 @@
 #include "dataConverter.h"
 
+dataConverter* dataConverter::myConverter = nullptr;
+
+
+dataConverter::dataConverter(){
+
+};
 
 bool dataConverter::stringToBool(std::string myStr)
 {
@@ -94,4 +100,14 @@ std::string dataConverter::doubleNegative(std::string argument)
         }
     }
     return argument;
+}
+
+dataConverter* dataConverter::getInstance()
+{
+   
+    if (dataConverter::myConverter == nullptr)
+    {
+        dataConverter::myConverter = new dataConverter;
+    }
+    return dataConverter::myConverter;
 }

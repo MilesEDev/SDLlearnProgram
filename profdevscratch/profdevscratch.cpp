@@ -10,12 +10,13 @@
 #include "parser.h"
 #include "Expression.h"
 #include "dataConverter.h"
+#include "MemoryManager.h"
 #undef main
 
 
 int main()
 {
-    
+ 
     Render* myrenderer = new Render(); 
     window* mywindow = new window();
     mywindow->showWindow();
@@ -40,6 +41,13 @@ int main()
     
     mygui->makeDefaultFrame(myrenderer,mytext,myrenderer->getSDLRenderer());
     SDL_Delay(5000);
+
+    
+
+
+
+
+
     
 
     

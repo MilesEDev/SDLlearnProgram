@@ -3,12 +3,11 @@
 #include "dataConverter.h"
 std::string Expression::add(std::string term1, std::string term2)
 {
-    dataConverter* dataConv = new dataConverter();
-    dataChecker* myChecker = new dataChecker();
+   
     if (myChecker->isString(term1) && myChecker->isString(term2))
     {
-        std::string result =  dataConv->sliceQoutes(term1) + dataConv->sliceQoutes(term2);
-        return dataConv->addQoutes(result);
+        std::string result =  myConverter->sliceQoutes(term1) + myConverter->sliceQoutes(term2);
+        return myConverter->addQoutes(result);
     }
         
     else if (myChecker->isFloat(term1) && myChecker->isFloat(term2))
@@ -18,7 +17,7 @@ std::string Expression::add(std::string term1, std::string term2)
     }
     else
     {
-        //throw operationNotSupportDataType("you have entered in an argument with an unsupported datatype for addition");
+        throw operationNotSupportDataType("you have entered in an argument with an unsupported datatype for addition");
     }
         
     
@@ -85,7 +84,7 @@ std::string Expression::calcFull(std::string expr)
                     {
                         j++;
                     }
-                    if (expr[j] == '\"')
+                    else if (expr[j] == '\"')
                     {
                         i = j;
                         break;
@@ -238,30 +237,153 @@ std::string Expression::calcFull(std::string expr)
 
 bool Expression::isExpression(std::string exprOrVal)
 {
-    dataChecker* myChecker = new dataChecker();
-    if (myChecker->isString(exprOrVal))
+    int i = 0;
+    bool key = false;
+    for (std::string operation : priorites)
     {
-        return false; 
-    }
-    else 
-    {
-        for (std::string operation : priorites)
+        if (key)
         {
-            for (int i = 0; i < exprOrVal.size(); i++)
+            break;
+        }
+        i = 0;
+        while (i < exprOrVal.size())
+        {
+            char breakTest = exprOrVal[i];
+            if (exprOrVal[i] == '\"')
             {
-
-                if (isOperation(exprOrVal, i, operation))
+                int j = i + 1;
+                while (j < exprOrVal.size())
                 {
-                    return true;
+                    breakTest = exprOrVal[j];
+                    if (exprOrVal[j] == '\\')
+                    {
+                        j++;
+                    }
+                    if (exprOrVal[j] == '\"')
+                    {
+                        i = j;
+                        break;
+                    }
+                    j++;
                 }
             }
+            if (isOperation(exprOrVal, i, operation))
+            {
+                key = true;
+                break;
+            }
+            i++;
         }
-        return false; 
+       
     }
-   
-   
+    int opPos = i;
+    if (opPos >= exprOrVal.size())
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
+bool Expression::isAssignment(std::string exprOrVal)
+{
+    int i = 0;
+    while (i < exprOrVal.size())
+    {
+        char breakTest = exprOrVal[i];
+        if (exprOrVal[i] == '\"')
+        {
+            int j = i + 1;
+            while (j < exprOrVal.size())
+            {
+                breakTest = exprOrVal[j];
+                if (exprOrVal[j] == '\\')
+                {
+                    j++;
+                }
+                if (exprOrVal[j] == '\"')
+                {
+                    i = j;
+                    break;
+                }
+                j++;
+            }
+        }
+        if (exprOrVal[i] == '=' && i>0 && i < exprOrVal.size()-1)
+        {
+            return true;
+        }
+        i++;
+    }
+    return false;
+    
 
+
+}
+std::string Expression::getVarName(std::string exprOrVal)
+{
+    int i = 0;
+    while (i < exprOrVal.size())
+    {
+        char breakTest = exprOrVal[i];
+        if (exprOrVal[i] == '\"')
+        {
+            int j = i + 1;
+            while (j < exprOrVal.size())
+            {
+                breakTest = exprOrVal[j];
+                if (exprOrVal[j] == '\\')
+                {
+                    j++;
+                }
+                if (exprOrVal[j] == '\"')
+                {
+                    i = j;
+                    break;
+                }
+                j++;
+            }
+        }
+        if (exprOrVal[i] == '=')
+        {
+            std::string varName = exprOrVal.substr(0, i);
+            return varName;
+        }
+        i++;
+    }
+    
+}
+void Expression::performAssignment(std::string assignmentStatement,MemoryManager* memory)
+{
+    if (checkAssignment(assignmentStatement))
+    {
+        std::string varName = getVarName(assignmentStatement);
+        std::string value = assignmentStatement.substr(varName.size()+1, assignmentStatement.size());
+        
+        value = calcFull(value);
+        
+        memory->pageCreationAndUpdate(varName,value);
+    }
+}
+bool Expression::checkAssignment(std::string assignmentStatement)
+{
+    std::string varName = getVarName(assignmentStatement);
+    std::string value = assignmentStatement.substr(varName.size()+1, assignmentStatement.size());
+    if (isExpression(value))
+    {
+        value = calcFull(value);
+    }
+    if (myChecker->isValue(value))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
+}
 bool Expression::isAnyOperation(std::string expr, int subStr)
 {
     bool key = true;
@@ -288,6 +410,8 @@ bool Expression::isAnyOperation(std::string expr, int subStr)
     
 
 }
+
+
 
 bool Expression::isOperation(std::string expr, int subStr, std::string operation)
 {

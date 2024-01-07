@@ -30,6 +30,7 @@ void triangleCommand::setAttributes(std::vector<std::string> commandArgs)
 {
 	for (int i = 0; i < 4; i++)
 	{
+		std::string arg = commandArgs.at(i);
 		parsedAttributes.push_back(std::stoi(commandArgs.at(i)));
 	}
 }
@@ -37,7 +38,7 @@ void triangleCommand::setAttributes(std::vector<std::string> commandArgs)
 
 std::string triangleCommand::runCommand(Render* renderer, std::pair<float, float> Pen)
 {
-	renderer->drawShapeToText(new triangle(Pen.first,Pen.second,x1,y1,x2,y2));
+	renderer->drawShapeToText(new triangle(Pen.first,Pen.second,parsedAttributes.at(0), parsedAttributes.at(1), parsedAttributes.at(2),parsedAttributes.at(3)));
 	return SDL_GetError();
 }
 

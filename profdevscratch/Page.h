@@ -8,6 +8,8 @@ private:
 	std::string dataType;
 
 	void* varPtr;
+
+	int size; 
 public:
 	void setVarName(std::string newName);
 
@@ -17,9 +19,13 @@ public:
 
 	std::string getDataType();
 
-	void setVarPtr(void* newPtr);
+	void setVarPtr(void* &newPtr);
 
 	void* getVarPtr();
+
+	void setVarSize(int size);
+
+	int getVarSize();
 
 
 

@@ -11,8 +11,11 @@
 #include "fillCommand.h"
 class commandFactory
 {
+private:
+	commandFactory();
 public:
-
+	static commandFactory* myComFactory;
 	Commands* getCommand(std::string thisCommand);
+	static commandFactory* getInstance();
 };
 

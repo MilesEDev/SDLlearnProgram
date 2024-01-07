@@ -8,8 +8,7 @@ colourCommand::colourCommand()
 bool colourCommand::syntaxcheck(std::vector<std::string> commandArgs)
 {
   
-    dataConverter* myConverter = new dataConverter(); 
-    dataChecker* myChecker = new dataChecker(); 
+    
     std::string colour = commandArgs.at(0);
     if (!myChecker->isString(colour))
     {
@@ -34,7 +33,7 @@ void colourCommand::setAttributes(std::vector<std::string> commandArgs)
 {
     std::string colour = commandArgs.at(0);
     colours.clear();
-    dataConverter* myConverter = new dataConverter();
+    
     colour = myConverter->sliceQoutes(colour);
     if (SDL_strcasecmp(colour.c_str(), "red") == 0)
     {

@@ -1,6 +1,8 @@
 #include "programmingConstructsFactory.h"
 
 //could use sets
+programmingConstructsFactory* programmingConstructsFactory::myProgConFactory = nullptr;
+
 
 
 
@@ -28,6 +30,10 @@ programmingConstructs* programmingConstructsFactory::getPointer(std::string this
 	{
 		return entry->getPointer();
 	}
+	else
+	{
+		return nullptr;
+	}
 }
 
 bool programmingConstructsFactory::hasKey(std::string thisCommand,std::string key)
@@ -52,4 +58,13 @@ void programmingConstructsFactory::populateFactoryEntries()
 	
 	
 
+}
+
+programmingConstructsFactory* programmingConstructsFactory::getInstance()
+{
+	if (programmingConstructsFactory::myProgConFactory == nullptr)
+	{
+		programmingConstructsFactory::myProgConFactory = new programmingConstructsFactory();
+	}
+	return programmingConstructsFactory::myProgConFactory;
 }

@@ -20,14 +20,24 @@ std::string Page::getDataType()
 	return dataType;
 }
 
-void Page::setVarPtr(void* newPtr)
+void Page::setVarPtr(void* &newPtr)
 {
-	varPtr = newPtr;
+	varPtr = *&newPtr;
 }
 
 void* Page::getVarPtr()
 {
 	return varPtr;
+}
+
+void Page::setVarSize(int size)
+{
+	this->size = size; 
+}
+
+int Page::getVarSize()
+{
+	return this->size;
 }
 
 

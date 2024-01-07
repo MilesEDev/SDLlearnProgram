@@ -55,14 +55,38 @@
     <Filter Include="Source Files\commands\sub-commands">
       <UniqueIdentifier>{a83070bb-529b-456c-95f2-1836828aaa69}</UniqueIdentifier>
     </Filter>
-    <Filter Include="dataManipulators">
-      <UniqueIdentifier>{6b81edb4-b967-4767-ba51-fefa8eea7f43}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Memory">
-      <UniqueIdentifier>{e6357bb1-17a4-4e0b-8c4a-0810e08537e8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\exampleFIles">
       <UniqueIdentifier>{3946edbd-f7dc-4cde-8ba5-8d7c5e4e4e67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\commands\sub-commands\GUIcommand">
+      <UniqueIdentifier>{8b42a8cc-5367-464b-b995-dabaa0d69a3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\commands\sub-commands\programmingConstruct">
+      <UniqueIdentifier>{22af131f-e014-4d60-bb9b-9be4e8ae283e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\dataManipulators">
+      <UniqueIdentifier>{c0d3d3f8-6dba-4055-8436-e41497b805d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Memory">
+      <UniqueIdentifier>{8a2ffb97-e561-4e0d-97cd-b86538e2d6d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\expressions">
+      <UniqueIdentifier>{4550f926-7d15-4914-abaf-390957f955a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\commands\sub-commands\GUICommands">
+      <UniqueIdentifier>{96569e93-96b7-4250-b804-b7f404e40a2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\commands\sub-commands\programmingConstructs">
+      <UniqueIdentifier>{3423571f-8131-4220-8f37-6d9ddad62946}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Expressions">
+      <UniqueIdentifier>{ba4bf745-1ff7-4654-b777-e53e7fa1b724}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Memory">
+      <UniqueIdentifier>{2ffcf540-fff9-4a22-b4f9-d13d6efff906}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\dataManipulators">
+      <UniqueIdentifier>{c5b04132-0c89-40d1-93e7-f5faf172e287}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -141,32 +165,8 @@
     <ClCompile Include="notcommandexception.cpp">
       <Filter>Source Files\exceptions</Filter>
     </ClCompile>
-    <ClCompile Include="circleCommand.cpp">
-      <Filter>Source Files\commands\sub-commands</Filter>
-    </ClCompile>
-    <ClCompile Include="clearcommand.cpp">
-      <Filter>Source Files\commands\sub-commands</Filter>
-    </ClCompile>
-    <ClCompile Include="colourCommand.cpp">
-      <Filter>Source Files\commands\sub-commands</Filter>
-    </ClCompile>
-    <ClCompile Include="drawToCommand.cpp">
-      <Filter>Source Files\commands\sub-commands</Filter>
-    </ClCompile>
-    <ClCompile Include="fillCommand.cpp">
-      <Filter>Source Files\commands\sub-commands</Filter>
-    </ClCompile>
     <ClCompile Include="IArgManager.cpp">
       <Filter>Source Files\commands\supporting classes</Filter>
-    </ClCompile>
-    <ClCompile Include="rectangleCommand.cpp">
-      <Filter>Source Files\commands\sub-commands</Filter>
-    </ClCompile>
-    <ClCompile Include="PosPencommand.cpp">
-      <Filter>Source Files\commands\sub-commands</Filter>
-    </ClCompile>
-    <ClCompile Include="resetCommand.cpp">
-      <Filter>Source Files\commands\sub-commands</Filter>
     </ClCompile>
     <ClCompile Include="Commands.cpp">
       <Filter>Source Files\commands\supporting classes</Filter>
@@ -177,71 +177,101 @@
     <ClCompile Include="commandFactory.cpp">
       <Filter>Source Files\commands\supporting classes</Filter>
     </ClCompile>
-    <ClCompile Include="triangleCommand.cpp">
-      <Filter>Source Files\commands\sub-commands</Filter>
-    </ClCompile>
-    <ClCompile Include="Expression.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dataChecker.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operationNotSupportDataType.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MemoryManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Page.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dataConverter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="nonStringException.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="operators.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="circleRun.cpp">
       <Filter>Source Files\exampleFIles</Filter>
     </ClCompile>
-    <ClCompile Include="specialChar.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="circleCommand.cpp">
+      <Filter>Source Files\commands\sub-commands\GUIcommand</Filter>
+    </ClCompile>
+    <ClCompile Include="clearcommand.cpp">
+      <Filter>Source Files\commands\sub-commands\GUIcommand</Filter>
+    </ClCompile>
+    <ClCompile Include="colourCommand.cpp">
+      <Filter>Source Files\commands\sub-commands\GUIcommand</Filter>
+    </ClCompile>
+    <ClCompile Include="drawToCommand.cpp">
+      <Filter>Source Files\commands\sub-commands\GUIcommand</Filter>
+    </ClCompile>
+    <ClCompile Include="fillCommand.cpp">
+      <Filter>Source Files\commands\sub-commands\GUIcommand</Filter>
+    </ClCompile>
+    <ClCompile Include="PosPencommand.cpp">
+      <Filter>Source Files\commands\sub-commands\GUIcommand</Filter>
+    </ClCompile>
+    <ClCompile Include="rectangleCommand.cpp">
+      <Filter>Source Files\commands\sub-commands\GUIcommand</Filter>
+    </ClCompile>
+    <ClCompile Include="resetCommand.cpp">
+      <Filter>Source Files\commands\sub-commands\GUIcommand</Filter>
+    </ClCompile>
+    <ClCompile Include="triangleCommand.cpp">
+      <Filter>Source Files\commands\sub-commands\GUIcommand</Filter>
     </ClCompile>
     <ClCompile Include="commandCat.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="constructsFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="programmingBodies.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="programmingConstructs.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="whileCommand.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\commands\supporting classes</Filter>
     </ClCompile>
     <ClCompile Include="commandCatFactory.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\commands\supporting classes</Filter>
     </ClCompile>
-    <ClCompile Include="programmingConstructsFactory.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="dataChecker.cpp">
+      <Filter>Source Files\dataManipulators</Filter>
     </ClCompile>
-    <ClCompile Include="executorManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="bodyEnd.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="factoryEntry.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="dataConverter.cpp">
+      <Filter>Source Files\dataManipulators</Filter>
     </ClCompile>
     <ClCompile Include="endWhile.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\commands\sub-commands\programmingConstruct</Filter>
+    </ClCompile>
+    <ClCompile Include="erroneousVarName.cpp">
+      <Filter>Source Files\exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="executorManager.cpp">
+      <Filter>Source Files\commands\supporting classes</Filter>
+    </ClCompile>
+    <ClCompile Include="factoryEntry.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryManager.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="memoryUnsupportedType.cpp">
+      <Filter>Source Files\exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="nonStringException.cpp">
+      <Filter>Source Files\exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="operationNotSupportDataType.cpp">
+      <Filter>Source Files\exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="Expression.cpp">
+      <Filter>Source Files\expressions</Filter>
+    </ClCompile>
+    <ClCompile Include="operators.cpp">
+      <Filter>Source Files\expressions</Filter>
+    </ClCompile>
+    <ClCompile Include="Page.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="programmingBodies.cpp">
+      <Filter>Source Files\commands\supporting classes</Filter>
+    </ClCompile>
+    <ClCompile Include="programmingConstructs.cpp">
+      <Filter>Source Files\commands\supporting classes</Filter>
+    </ClCompile>
+    <ClCompile Include="programmingConstructsFactory.cpp">
+      <Filter>Source Files\commands\supporting classes</Filter>
+    </ClCompile>
+    <ClCompile Include="specialChar.cpp">
+      <Filter>Source Files\dataManipulators</Filter>
+    </ClCompile>
+    <ClCompile Include="variableIsUndefined.cpp">
+      <Filter>Source Files\exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="whileCommand.cpp">
+      <Filter>Source Files\commands\sub-commands\programmingConstruct</Filter>
+    </ClCompile>
+    <ClCompile Include="bodyEnd.cpp">
+      <Filter>Source Files\commands\supporting classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -308,101 +338,107 @@
     <ClInclude Include="invalidParameters.h">
       <Filter>Header Files\exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="circleCommand.h">
-      <Filter>Header Files\commands\sub-commands</Filter>
-    </ClInclude>
-    <ClInclude Include="clearcommand.h">
-      <Filter>Header Files\commands\sub-commands</Filter>
-    </ClInclude>
-    <ClInclude Include="colourCommand.h">
-      <Filter>Header Files\commands\sub-commands</Filter>
-    </ClInclude>
     <ClInclude Include="commandFactory.h">
       <Filter>Header Files\commands\supporting classes</Filter>
     </ClInclude>
     <ClInclude Include="Commands.h">
       <Filter>Header Files\commands\supporting classes</Filter>
     </ClInclude>
-    <ClInclude Include="drawToCommand.h">
-      <Filter>Header Files\commands\sub-commands</Filter>
-    </ClInclude>
-    <ClInclude Include="fillCommand.h">
-      <Filter>Header Files\commands\sub-commands</Filter>
-    </ClInclude>
     <ClInclude Include="IArgManager.h">
       <Filter>Header Files\commands\supporting classes</Filter>
-    </ClInclude>
-    <ClInclude Include="PosPencommand.h">
-      <Filter>Header Files\commands\sub-commands</Filter>
-    </ClInclude>
-    <ClInclude Include="rectangleCommand.h">
-      <Filter>Header Files\commands\sub-commands</Filter>
-    </ClInclude>
-    <ClInclude Include="resetCommand.h">
-      <Filter>Header Files\commands\sub-commands</Filter>
-    </ClInclude>
-    <ClInclude Include="triangleCommand.h">
-      <Filter>Header Files\commands\sub-commands</Filter>
-    </ClInclude>
-    <ClInclude Include="Expression.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="operationNotSupportDataType.h">
       <Filter>Header Files\exceptions</Filter>
     </ClInclude>
-    <ClInclude Include="dataChecker.h">
-      <Filter>dataManipulators</Filter>
+    <ClInclude Include="circleCommand.h">
+      <Filter>Header Files\commands\sub-commands\GUICommands</Filter>
     </ClInclude>
-    <ClInclude Include="dataConverter.h">
-      <Filter>dataManipulators</Filter>
+    <ClInclude Include="clearcommand.h">
+      <Filter>Header Files\commands\sub-commands\GUICommands</Filter>
     </ClInclude>
-    <ClInclude Include="MemoryManager.h">
-      <Filter>Memory</Filter>
+    <ClInclude Include="colourCommand.h">
+      <Filter>Header Files\commands\sub-commands\GUICommands</Filter>
     </ClInclude>
-    <ClInclude Include="Page.h">
-      <Filter>Memory</Filter>
+    <ClInclude Include="drawToCommand.h">
+      <Filter>Header Files\commands\sub-commands\GUICommands</Filter>
     </ClInclude>
-    <ClInclude Include="nonStringException.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="fillCommand.h">
+      <Filter>Header Files\commands\sub-commands\GUICommands</Filter>
     </ClInclude>
-    <ClInclude Include="operators.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PosPencommand.h">
+      <Filter>Header Files\commands\sub-commands\GUICommands</Filter>
     </ClInclude>
-    <ClInclude Include="specialChar.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="rectangleCommand.h">
+      <Filter>Header Files\commands\sub-commands\GUICommands</Filter>
+    </ClInclude>
+    <ClInclude Include="resetCommand.h">
+      <Filter>Header Files\commands\sub-commands\GUICommands</Filter>
+    </ClInclude>
+    <ClInclude Include="triangleCommand.h">
+      <Filter>Header Files\commands\sub-commands\GUICommands</Filter>
     </ClInclude>
     <ClInclude Include="commandCat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="constructsFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="programmingBodies.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="programmingConstructs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="whileCommand.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\commands\supporting classes</Filter>
     </ClInclude>
     <ClInclude Include="commandCatFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="programmingConstructsFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="executorManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bodyEnd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="factoryEntry.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\commands\supporting classes</Filter>
     </ClInclude>
     <ClInclude Include="endWhile.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\commands\sub-commands\programmingConstructs</Filter>
+    </ClInclude>
+    <ClInclude Include="erroneousVarName.h">
+      <Filter>Header Files\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="executorManager.h">
+      <Filter>Header Files\commands\supporting classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Expression.h">
+      <Filter>Header Files\Expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="factoryEntry.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="memoryUnsupportedType.h">
+      <Filter>Header Files\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="nonStringException.h">
+      <Filter>Header Files\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="operators.h">
+      <Filter>Header Files\Expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="programmingBodies.h">
+      <Filter>Header Files\commands\supporting classes</Filter>
+    </ClInclude>
+    <ClInclude Include="programmingConstructs.h">
+      <Filter>Header Files\commands\supporting classes</Filter>
+    </ClInclude>
+    <ClInclude Include="programmingConstructsFactory.h">
+      <Filter>Header Files\commands\supporting classes</Filter>
+    </ClInclude>
+    <ClInclude Include="variableIsUndefined.h">
+      <Filter>Header Files\Expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="whileCommand.h">
+      <Filter>Header Files\commands\sub-commands\programmingConstructs</Filter>
+    </ClInclude>
+    <ClInclude Include="bodyEnd.h">
+      <Filter>Header Files\commands\supporting classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Page.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryManager.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="dataChecker.h">
+      <Filter>Header Files\dataManipulators</Filter>
+    </ClInclude>
+    <ClInclude Include="dataConverter.h">
+      <Filter>Header Files\dataManipulators</Filter>
+    </ClInclude>
+    <ClInclude Include="specialChar.h">
+      <Filter>Header Files\dataManipulators</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
