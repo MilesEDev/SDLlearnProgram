@@ -21,6 +21,7 @@ namespace fullyworkingunittests
 			std::vector<std::string> commandArgs = {"2",">","1"};
 			whileCommand* myWhile = new whileCommand();
 			myWhile->setLocalExecution(execution);
+			myWhile->setAttributes(commandArgs);
 			myWhile->runCommand();
 			Assert::IsTrue(true == myWhile->getLocalExecution());
 
