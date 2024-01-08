@@ -125,8 +125,8 @@ bool MemoryManager::BannedVarNames(std::string varName)
 
 bool MemoryManager::BannedChars(std::string varName)
 {
-	 std::regex banChar("/^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]+$/g");
-	if (std::regex_match(varName,banChar))
+	std::regex banChar("[@_!#$%^&*()<>?/|}{~:]");
+	if (std::regex_search(varName,banChar))
 	{
 		return false;
 	}

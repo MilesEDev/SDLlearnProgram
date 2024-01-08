@@ -4,6 +4,8 @@
 #include "whileCommand.h"
 #include "factoryEntry.h"
 #include "endWhile.h"
+#include "ifCommand.h"
+#include "endif.h"
 class programmingConstructsFactory
 {
 private:

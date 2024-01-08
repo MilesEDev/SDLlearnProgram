@@ -228,9 +228,6 @@
     <ClCompile Include="executorManager.cpp">
       <Filter>Source Files\commands\supporting classes</Filter>
     </ClCompile>
-    <ClCompile Include="factoryEntry.cpp">
-      <Filter>Source Files\Memory</Filter>
-    </ClCompile>
     <ClCompile Include="MemoryManager.cpp">
       <Filter>Source Files\Memory</Filter>
     </ClCompile>
@@ -271,6 +268,15 @@
       <Filter>Source Files\commands\sub-commands\programmingConstruct</Filter>
     </ClCompile>
     <ClCompile Include="bodyEnd.cpp">
+      <Filter>Source Files\commands\supporting classes</Filter>
+    </ClCompile>
+    <ClCompile Include="ifCommand.cpp">
+      <Filter>Source Files\commands\sub-commands\programmingConstruct</Filter>
+    </ClCompile>
+    <ClCompile Include="endif.cpp">
+      <Filter>Source Files\commands\sub-commands\programmingConstruct</Filter>
+    </ClCompile>
+    <ClCompile Include="factoryEntry.cpp">
       <Filter>Source Files\commands\supporting classes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -395,9 +401,6 @@
     <ClInclude Include="Expression.h">
       <Filter>Header Files\Expressions</Filter>
     </ClInclude>
-    <ClInclude Include="factoryEntry.h">
-      <Filter>Header Files\Memory</Filter>
-    </ClInclude>
     <ClInclude Include="memoryUnsupportedType.h">
       <Filter>Header Files\exceptions</Filter>
     </ClInclude>
@@ -439,6 +442,15 @@
     </ClInclude>
     <ClInclude Include="specialChar.h">
       <Filter>Header Files\dataManipulators</Filter>
+    </ClInclude>
+    <ClInclude Include="ifCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="endif.h">
+      <Filter>Header Files\commands\sub-commands\programmingConstructs</Filter>
+    </ClInclude>
+    <ClInclude Include="factoryEntry.h">
+      <Filter>Header Files\commands\supporting classes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

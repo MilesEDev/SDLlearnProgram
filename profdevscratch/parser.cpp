@@ -207,6 +207,7 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 		commandCat* abstractCommand = myfact->getCommand(command.at(0));
 
 		std::vector<std::string> commandArgs;
+		commandArgs.clear();
 		if (abstractCommand != nullptr)
 		{
 			checkForAll(command, programMemory);
@@ -242,17 +243,21 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 
 
 			}
-			if (myComFactory->getCommand(command.at(0)) != nullptr)
+			if (execution || (bodyPCRs.size() == 1 && constructFactory->hasKey(command.front(), "bodyend")))
 			{
-				Commands* current_Command = dynamic_cast<Commands*>(abstractCommand);
-				current_Command->runCommand(myrenderer, myrenderer->getPen());
+				if (myComFactory->getCommand(command.at(0)) != nullptr)
+				{
+					Commands* current_Command = dynamic_cast<Commands*>(abstractCommand);
+					current_Command->runCommand(myrenderer, myrenderer->getPen());
+				}
+
+				else if (constructFactory->getCommand(command.at(0)) != nullptr)
+				{
+					programmingConstructs* currentConstruct = dynamic_cast<programmingConstructs*>(abstractCommand);
+					currentConstruct->runCommand();
+				}
 			}
 
-			else if (constructFactory->getCommand(command.at(0)) != nullptr)
-			{
-				programmingConstructs* currentConstruct = dynamic_cast<programmingConstructs*>(abstractCommand);
-				currentConstruct->runCommand();
-			}
 			if (constructFactory->hasKey(command.front(), "execute"))
 			{
 				execution = myExecutor->getLocalExecution();
@@ -280,6 +285,9 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 		}
 	}
 	myrenderer->removeAnyTargets();
+	bodyPCRs.clear();
+	execution = true;
+	programMemory->deletePagetable();
 	return mytext;
 
 
@@ -386,11 +394,10 @@ void parser::checkForAll(std::vector<std::string>& command, MemoryManager* myMan
 {
 	for (int i = 1; i < command.size(); i++)
 	{
-		if (!checkForValue(command, i))
-		{
-			checkForVars(command, myManager, i);
-		}
-
+			if (!checkForValue(command, i) && myManager->BannedChars(command.at(i)))
+			{
+				checkForVars(command, myManager, i);
+			}
 
 	}
 }

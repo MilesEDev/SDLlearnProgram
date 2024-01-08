@@ -55,6 +55,10 @@ void programmingConstructsFactory::populateFactoryEntries()
 	factoryEntries.push_back(new factoryEntry(foreignKeys,new whileCommand(),"while"));
 	foreignKeys = { "bodyend","execute" };
 	factoryEntries.push_back(new factoryEntry(foreignKeys, new endWhile(), "endwhile"));
+	foreignKeys = { "body","execute" };
+	factoryEntries.push_back(new factoryEntry(foreignKeys, new ifCommand(), "if"));
+	foreignKeys = { "bodyend","execute" };
+	factoryEntries.push_back(new factoryEntry(foreignKeys, new endIf(), "endif"));
 	
 	
 

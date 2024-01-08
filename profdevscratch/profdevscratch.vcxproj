@@ -150,6 +150,7 @@
     <ClCompile Include="dataChecker.cpp" />
     <ClCompile Include="dataConverter.cpp" />
     <ClCompile Include="drawToCommand.cpp" />
+    <ClCompile Include="endif.cpp" />
     <ClCompile Include="endWhile.cpp" />
     <ClCompile Include="erroneousVarName.cpp" />
     <ClCompile Include="eventfactory.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="fillCommand.cpp" />
     <ClCompile Include="gui.cpp" />
     <ClCompile Include="IArgManager.cpp" />
+    <ClCompile Include="ifCommand.cpp" />
     <ClCompile Include="invalidParameters.cpp" />
     <ClCompile Include="MemoryManager.cpp" />
     <ClCompile Include="memoryUnsupportedType.cpp" />
@@ -213,6 +215,7 @@
     <ClInclude Include="dataChecker.h" />
     <ClInclude Include="dataConverter.h" />
     <ClInclude Include="drawToCommand.h" />
+    <ClInclude Include="endif.h" />
     <ClInclude Include="endWhile.h" />
     <ClInclude Include="erroneousVarName.h" />
     <ClInclude Include="executorManager.h" />
@@ -221,6 +224,7 @@
     <ClInclude Include="fillCommand.h" />
     <ClInclude Include="gui.h" />
     <ClInclude Include="IArgManager.h" />
+    <ClInclude Include="ifCommand.h" />
     <ClInclude Include="invalidParameters.h" />
     <ClInclude Include="MemoryManager.h" />
     <ClInclude Include="memoryUnsupportedType.h" />
