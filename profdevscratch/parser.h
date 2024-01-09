@@ -93,7 +93,7 @@ public:
 	 * \param mytext texture to load rendering into 
 	 * \return sdl texture
 	 */
-	SDL_Texture* runForAll(Render* myrenderer,SDL_Texture* mytext);
+	std::pair < SDL_Texture*,std::string> runForAll(Render* myrenderer, SDL_Texture* mytext);
 	/**
 	 * .split line into arugments
 	 * 

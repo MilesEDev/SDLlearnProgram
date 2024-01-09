@@ -20,6 +20,7 @@ private:
 
 	bool equalTo(std::string term1, std::string term2);
 
+	bool notEqualTo(std::string term1, std::string term2);
 	
 public:
 	bool evaluateComparison(std::string term1, std::string comparator, std::string term2);

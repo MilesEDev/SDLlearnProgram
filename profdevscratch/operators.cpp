@@ -132,6 +132,22 @@ bool comparator::equalTo(std::string term1, std::string term2)
     }
 }
 
+bool comparator::notEqualTo(std::string term1, std::string term2)
+{
+    {
+        if (term1 != term2)
+        {
+            return true;
+
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+}
+
 bool comparator::validComparator(std::string comparator)
 {
     if (comparator == ">" || comparator == ">=" || comparator == "<" || comparator == "=<"
@@ -176,6 +192,10 @@ bool comparator::evaluateComparison(std::string term1, std::string comparator, s
     if (comparator == "==")
     {
         return equalTo(term1, term2);
+    }
+    if (comparator == "!=")
+    {
+        return notEqualTo(term1, term2);
     }
 
 }

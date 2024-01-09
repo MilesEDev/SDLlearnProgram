@@ -55,7 +55,7 @@ std::string parser::syntaxCheckAll()
 		try
 		{
 			std::vector<std::string> command = commands.at(pcr);
-			line++;
+			line = pcr+1;
 
 			commandCatFactory* myfact = new commandCatFactory();
 
@@ -252,7 +252,7 @@ std::string parser::syntaxCheckAll()
 
 
 
-SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
+std::pair < SDL_Texture*, std::string> parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 {
 	
 
@@ -262,6 +262,8 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 	myrenderer->setPenColourRGBA(0, 0, 0, 0);
 	myrenderer->setFill(false);
 	
+	std::string error = "";
+	int line = 0;
 	commandFactory* myComFactory = commandFactory::getInstance(); 
 	programmingConstructsFactory* constructFactory = programmingConstructsFactory::getInstance();
 	bool execution = true;
@@ -271,155 +273,215 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 
 	for (int pcr = 0; pcr < commands.size(); pcr++)
 	{
-		std::vector<std::string> command = commands.at(pcr);
-
-		commandCatFactory* myfact = new commandCatFactory();
-		commandCat* abstractCommand = myfact->getCommand(command.at(0));
-
-		std::vector<std::string> commandArgs;
-		commandArgs.clear();
-		if (abstractCommand != nullptr)
+		try
 		{
-			if (execution)
+			line = pcr + 1;
+			std::vector<std::string> command = commands.at(pcr);
+
+			commandCatFactory* myfact = new commandCatFactory();
+			commandCat* abstractCommand = myfact->getCommand(command.at(0));
+
+			std::vector<std::string> commandArgs;
+			commandArgs.clear();
+			if (abstractCommand != nullptr)
 			{
-			checkForAll(command, programMemory);
-			
-				if (!abstractCommand->correctParamsCount(0))
+				if (execution)
 				{
-					for (int i = 1; i < command.size(); i++)
+					checkForAll(command, programMemory);
+
+					if (!abstractCommand->correctParamsCount(0))
 					{
-						commandArgs.push_back(command.at(i));
-
-					}
-				
-				
-					IArgManager* argChecker = dynamic_cast<IArgManager*>(abstractCommand);
-					if (argChecker->syntaxcheck(commandArgs))
-					{
-						argChecker->setAttributes(commandArgs);
-					}
-				}
-			
-
-			}
-		
-
-
-			if (constructFactory->hasKey(command.front(), "body"))
-			{
-				programmingBodies* mybody = dynamic_cast<programmingBodies*>(abstractCommand);
-				mybody->setProgramCounterPos(pcr);
-				bodyPCRs.push_back(mybody);
-			}
-			if (constructFactory->hasKey(command.front(), "bodyend"))
-			{
-				myBodyEnd = dynamic_cast<bodyEnd*>(abstractCommand);
-				myBodyEnd->checkCorrectEnd(bodyPCRs);
-				myBodyEnd->setCurrentBodyPCR(bodyPCRs);
-				bodyPCRs = myBodyEnd->popFromBodyList(bodyPCRs);//if any bodies left chuck error at end
-
-			}
-			if (constructFactory->hasKey(command.front(), "execute"))
-			{
-				myExecutor = dynamic_cast<executorManager*>(abstractCommand);
-				myExecutor->setLocalExecution(execution);
-
-
-			}
-			if (execution || (bodyPCRs.size() == 0 && constructFactory->hasKey(command.front(), "bodyend")))
-			{
-				if (myComFactory->getCommand(command.at(0)) != nullptr)
-				{
-					Commands* current_Command = dynamic_cast<Commands*>(abstractCommand);
-					current_Command->runCommand(myrenderer, myrenderer->getPen());
-				}
-
-				else if (constructFactory->getCommand(command.at(0)) != nullptr)
-				{
-					programmingConstructs* currentConstruct = dynamic_cast<programmingConstructs*>(abstractCommand);
-					currentConstruct->runCommand();
-				}
-			}
-
-			if (constructFactory->hasKey(command.front(), "execute"))
-			{
-				execution = myExecutor->getLocalExecution();
-			}
-			if (constructFactory->hasKey(command.front(), "bodyend"))
-			{
-				pcr = myBodyEnd->getNewPCr(pcr);
-
-			}
-			if (command.front() == "method")
-			{
-				Function* newFunc = new Function(command.at(1));
-				oldMemory = programMemory;
-				programMemory = newFunc->updateMemory();
-				newFunc->setMethodDefPcr(pcr);
-				callTable.push_back(newFunc);
-				
-
-			}
-			if (constructFactory->hasKey(command.front(), "memory"))
-			{
-				MemoryRestorer* myMemory = dynamic_cast<MemoryRestorer*>(abstractCommand);
-				if (myMemory->getClearFlag())
-				{
-					myMemory->clearNew(programMemory);
-				}
-				if (myMemory->getRestoreFlag())
-				{
-					programMemory = myMemory->oldToNew(oldMemory);
-				}
-
-			}
-		}
-		else
-		{
-			if (execution)
-			{
-				Function* newFunc = isFunc(callTable, command.at(0));
-				Expression* myExpression = new Expression();
-				std::string statement = command.front();
-				if (myExpression->isAssignment(statement))
-				{
-					std::string value = myExpression->getAssignmentValue(statement);
-
-					if (myExpression->checkAssignmentValue(value, programMemory))
-					{
-						if (programMemory->isGoodVarName(myExpression->getVarName(statement)))
+						for (int i = 1; i < command.size(); i++)
 						{
-							myExpression->performAssignment(statement, programMemory);
+							commandArgs.push_back(command.at(i));
+
+						}
+
+
+						IArgManager* argChecker = dynamic_cast<IArgManager*>(abstractCommand);
+						if (argChecker->syntaxcheck(commandArgs))
+						{
+							argChecker->setAttributes(commandArgs);
 						}
 					}
-				}
-				else if (newFunc != nullptr)
-				{
 
-					newFunc->setArgs(command.at(0));
-					newFunc->addArgsToMemory();
-					methodCommand* methoCom = new methodCommand();
-					methoCom->setProgramCounterPos(pcr + 1);
-					bodyPCRs.push_back(methoCom);
-					pcr = newFunc->getMethodDefPcr();
+
+				}
+
+
+
+				if (constructFactory->hasKey(command.front(), "body"))
+				{
+					programmingBodies* mybody = dynamic_cast<programmingBodies*>(abstractCommand);
+					mybody->setProgramCounterPos(pcr);
+					bodyPCRs.push_back(mybody);
+				}
+				if (constructFactory->hasKey(command.front(), "bodyend"))
+				{
+					myBodyEnd = dynamic_cast<bodyEnd*>(abstractCommand);
+					myBodyEnd->checkCorrectEnd(bodyPCRs);
+					myBodyEnd->setCurrentBodyPCR(bodyPCRs);
+					bodyPCRs = myBodyEnd->popFromBodyList(bodyPCRs);//if any bodies left chuck error at end
+
+				}
+				if (constructFactory->hasKey(command.front(), "execute"))
+				{
+					myExecutor = dynamic_cast<executorManager*>(abstractCommand);
+					myExecutor->setLocalExecution(execution);
+
+
+				}
+				if (execution || (bodyPCRs.size() == 0 && constructFactory->hasKey(command.front(), "bodyend")))
+				{
+					if (myComFactory->getCommand(command.at(0)) != nullptr)
+					{
+						Commands* current_Command = dynamic_cast<Commands*>(abstractCommand);
+						current_Command->runCommand(myrenderer, myrenderer->getPen());
+					}
+
+					else if (constructFactory->getCommand(command.at(0)) != nullptr)
+					{
+						programmingConstructs* currentConstruct = dynamic_cast<programmingConstructs*>(abstractCommand);
+						currentConstruct->runCommand();
+					}
+				}
+
+				if (constructFactory->hasKey(command.front(), "execute"))
+				{
+					execution = myExecutor->getLocalExecution();
+				}
+				if (constructFactory->hasKey(command.front(), "bodyend"))
+				{
+					pcr = myBodyEnd->getNewPCr(pcr);
+
+				}
+				if (command.front() == "method")
+				{
+					Function* newFunc = new Function(command.at(1));
 					oldMemory = programMemory;
 					programMemory = newFunc->updateMemory();
+					newFunc->setMethodDefPcr(pcr);
+					callTable.push_back(newFunc);
 
 
 				}
+				if (constructFactory->hasKey(command.front(), "memory"))
+				{
+					MemoryRestorer* myMemory = dynamic_cast<MemoryRestorer*>(abstractCommand);
+					if (myMemory->getClearFlag())
+					{
+						myMemory->clearNew(programMemory);
+					}
+					if (myMemory->getRestoreFlag())
+					{
+						programMemory = myMemory->oldToNew(oldMemory);
+					}
+
+				}
+			}
+			else
+			{
+				if (execution)
+				{
+					Function* newFunc = isFunc(callTable, command.at(0));
+					Expression* myExpression = new Expression();
+					std::string statement = command.front();
+					if (myExpression->isAssignment(statement))
+					{
+						std::string value = myExpression->getAssignmentValue(statement);
+
+						if (myExpression->checkAssignmentValue(value, programMemory))
+						{
+							if (programMemory->isGoodVarName(myExpression->getVarName(statement)))
+							{
+								myExpression->performAssignment(statement, programMemory);
+							}
+						}
+					}
+					else if (newFunc != nullptr)
+					{
+
+						newFunc->setArgs(command.at(0));
+						newFunc->addArgsToMemory();
+						methodCommand* methoCom = new methodCommand();
+						methoCom->setProgramCounterPos(pcr + 1);
+						bodyPCRs.push_back(methoCom);
+						pcr = newFunc->getMethodDefPcr();
+						oldMemory = programMemory;
+						programMemory = newFunc->updateMemory();
+
+
+					}
+
+				}
+
 
 			}
-			
+		}
+
+		catch (nonStringException& e)
+		{
+
+			error = error + "run time error " + e.returnError() + " on line " + std::to_string(line) + "\n";
 
 		}
+		catch (nonnumberexception& e)
+		{
+
+			error = error + "run time error " + e.returnError() + " on line " + std::to_string(line) + "\n";
+		}
+		catch (InvalidParameters& e)
+		{
+
+			error = error + "run time error " + e.returnError() + " on line " + std::to_string(line) + "\n";
+		}
+		catch (nonfillvalue& e)
+		{
+
+			error = error + "run time error " + e.returnError() + " on line " + std::to_string(line) + "\n";
+		}
+		catch (operationNotSupportDataType& e)
+		{
+
+			error = error + "run time error " + e.returnError() + " on line " + std::to_string(line) + "\n";
+		}
+		catch (memoryUnsupportedType& e)
+		{
+
+			error = error + "run time error " + e.returnError() + " on line " + std::to_string(line) + "\n";
+		}
+		catch (erreneousVarName& e)
+		{
+
+			error = error + "run time error " + e.returnError() + " on line " + std::to_string(line) + "\n";
+		}
+		catch (variableIsUndefined& e)
+		{
+
+			error = error + "run time error " + e.returnError() + " on line " + std::to_string(line) + "\n";
+		}
+		catch (notcommandexception& e)
+		{
+
+			error = error + "run time error " + e.returnError() + " on line " + std::to_string(line) + "\n";
+		}
 	}
+
+	
 
 	myrenderer->removeAnyTargets();
 	callTable.clear();
 	bodyPCRs.clear();
 	execution = true;
 	programMemory->deletePagetable();
-	return mytext;
+	if (error == "")
+	{
+		error = "ok";
+	}
+	std::pair < SDL_Texture*, std::string > runData;
+
+	runData = std::make_pair(mytext,error);
+	return runData;
 
 
 }

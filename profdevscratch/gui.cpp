@@ -309,16 +309,22 @@ bool gui::runner(Render* myrenderer, SDL_Texture* mytext, std::string mystring, 
 
 
 	myparser->splitToCommands(mystring);
+
+	std::string tempError = myparser->syntaxCheckAll();
 	
-	std::string syntax = myparser->syntaxCheckAll();
-	
-	if (syntax == "ok") 
+	if (tempError == "ok") 
 	{
-		mytext = myparser->runForAll(myrenderer, mytext);
+		
+		std::pair<SDL_Texture*,std::string> runData;
+		runData = myparser->runForAll(myrenderer, mytext);
+		tempError = runData.second;
+
+
 	}
-	else
+	
+	if(tempError != "ok")
 	{
-		error = syntax;
+		error = tempError;
 		ImGui::OpenPopup("ThePopup");
 	}
 	myparser->clearAllLists();

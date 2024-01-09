@@ -58,10 +58,13 @@ namespace fullyworkingunittests
 
 			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
 
-			SDL_Texture* mytext2;
-			mytext2 = myparser->runForAll(myrenderer,mytext);
-
-			Assert::IsTrue(mytext == mytext2);
+			
+			std::string tempError;
+			std::pair<SDL_Texture*, std::string> runData;
+			runData = myparser->runForAll(myrenderer, mytext);
+			tempError = runData.second;
+			
+			Assert::IsTrue(tempError == "ok");
 
 		}
 
@@ -81,11 +84,12 @@ namespace fullyworkingunittests
 
 			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
 
-			SDL_Texture* mytext2;
-			mytext2 = myparser->runForAll(myrenderer, mytext);
+			std::string tempError;
+			std::pair<SDL_Texture*, std::string> runData;
+			runData = myparser->runForAll(myrenderer, mytext);
+			tempError = runData.second;
 
-			Assert::IsTrue(mytext == mytext2);
-
+			Assert::IsTrue(tempError == "ok");
 		}
 		/**
 		 * .test to see if triangle with valid data can be created
@@ -103,10 +107,12 @@ namespace fullyworkingunittests
 
 			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
 
-			SDL_Texture* mytext2;
-			mytext2 = myparser->runForAll(myrenderer, mytext);
+			std::string tempError;
+			std::pair<SDL_Texture*, std::string> runData;
+			runData = myparser->runForAll(myrenderer, mytext);
+			tempError = runData.second;
 
-			Assert::IsTrue(mytext == mytext2);
+			Assert::IsTrue(tempError == "ok");
 
 		}
 		/**
@@ -125,11 +131,12 @@ namespace fullyworkingunittests
 
 			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
 
-			SDL_Texture* mytext2;
-			mytext2 = myparser->runForAll(myrenderer, mytext);
+			std::string tempError;
+			std::pair<SDL_Texture*, std::string> runData;
+			runData = myparser->runForAll(myrenderer, mytext);
+			tempError = runData.second;
 
-			Assert::IsTrue(mytext == mytext2);
-
+			Assert::IsTrue(tempError == "ok");
 		}
 		
 		/**
@@ -330,11 +337,12 @@ namespace fullyworkingunittests
 				mygui->setMultiLine("circle 60");
 				newparser->splitToCommands(mygui->getMultiLine());
 			}
-			SDL_Texture* mytext2;
-			mytext2 = newparser->runForAll(myrenderer, mytext);
+			std::string tempError;
+			std::pair<SDL_Texture*, std::string> runData;
+			runData = newparser->runForAll(myrenderer, mytext);
+			tempError = runData.second;
 
-			Assert::IsTrue(mytext == mytext2);
-
+			Assert::IsTrue(tempError == "ok");
 
 
 		}
@@ -354,11 +362,12 @@ namespace fullyworkingunittests
 
 			newparser->splitToCommands(mygui->getConsoleInput());
 
-			SDL_Texture* mytext2;
-			mytext2 = newparser->runForAll(myrenderer, mytext);
-
-			Assert::IsTrue(mytext == mytext2);
-
+			std::string tempError;
+			std::pair<SDL_Texture*, std::string> runData;
+			runData = newparser->runForAll(myrenderer, mytext);
+			tempError = runData.second;
+			
+			Assert::IsTrue(tempError == "ok");
 
 
 
