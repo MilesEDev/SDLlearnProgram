@@ -151,7 +151,7 @@ bool comparator::notEqualTo(std::string term1, std::string term2)
 bool comparator::validComparator(std::string comparator)
 {
     if (comparator == ">" || comparator == ">=" || comparator == "<" || comparator == "=<"
-        || comparator == "==")
+        || comparator == "==" || comparator =="!=")
     {
         return true;
     }

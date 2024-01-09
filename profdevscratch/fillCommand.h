@@ -19,12 +19,25 @@ private:
 	bool fill = false;
 public: 
 
+	/**
+	 * .this performs a syntax check on the arguments added so it can check to see if the command can run with
+	 * the entered arguments
+	 * 
+	 * \param commandArgs this stores the arguments to be syntax checked
+	 * \return this returns the succsess of the syntax check if true it means command can run if false it means 
+	 * it can not
+	 */
 	bool syntaxcheck(std::vector<std::string> commandArgs) override;
 
-
-	void setAttributes(std::vector<std::string> commandArgs) override;
 	/**
-	 * .sets noparametrs
+	 * .sets arguments up so that it can  be used in the run commands with assurance that the arguments
+	 * have all been correctly parsed
+	 *
+	 */
+	void setAttributes(std::vector<std::string> commandArgs) override;
+	
+	/**
+	 * .this is the fill constructor to set up the parameter count 
 	 * 
 	 */
 	fillCommand();

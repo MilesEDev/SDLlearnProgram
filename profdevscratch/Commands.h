@@ -31,7 +31,9 @@ public:
 	 * \return is param count correct
 	 */
 	
-
+	/**
+	 * .the run command that all gui commands must follow 
+	 */
 	
 	virtual std::string runCommand(Render* renderer, std::pair<float, float> Pen) = 0;
 

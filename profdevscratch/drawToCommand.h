@@ -25,7 +25,9 @@ public:
 	 * \return is good syntax or not
 	 */
 	bool syntaxcheck(std::vector<std::string> commandArgs) override;
-
+	/**
+	 * .this is used to set the argumnets send to drawto into floats so that they can be used in the run command
+	 */
 
 	void setAttributes(std::vector<std::string> commandArgs) override;
 	/**

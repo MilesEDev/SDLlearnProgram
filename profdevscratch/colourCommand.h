@@ -31,11 +31,15 @@ public:
 	 * .checks syntax for colour command 
 	 * 
 	 * \param commandArgs the arguments to be checked 
-	 * \return 
+	 * \return this returns the succesfullness of the syntax check 
 	 */
 	bool syntaxcheck(std::vector<std::string> commandArgs) override;
 
-
+	/**
+	 * .this converts the colour name that the user has entered to RGB values so that they can be used in colour command
+	 * 
+	 * \param commandArgs the user arguments to be parsed 
+	 */
 	void setAttributes(std::vector<std::string> commandArgs) override;
 	/**
 	 * .runs  colour command

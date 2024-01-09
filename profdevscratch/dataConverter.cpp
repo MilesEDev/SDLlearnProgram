@@ -50,7 +50,7 @@ std::string dataConverter::addQoutes(std::string stringToAdd)
 std::string dataConverter::removeSpecialChars(std::string stringToRemove)
 {
     bool key = true;
-    specialCharManager* mySpecialChar = new specialCharManager(); 
+    specialCharManager* mySpecialChar = specialCharManager::getInstance(); 
    
     std::string* specialChars = mySpecialChar->getSpecialChars();
         

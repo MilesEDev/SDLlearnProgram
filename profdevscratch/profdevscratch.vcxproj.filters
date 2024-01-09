@@ -31,9 +31,6 @@
     <Filter Include="Source Files\graphics">
       <UniqueIdentifier>{4860ceec-33a7-464c-ba1e-9565bd75db72}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\graphics">
-      <UniqueIdentifier>{d8fb3c94-6057-4692-bc6b-30081f14e30c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\shapes">
       <UniqueIdentifier>{8923d080-a356-4115-9a22-3122fdcc17c7}</UniqueIdentifier>
     </Filter>
@@ -87,6 +84,9 @@
     </Filter>
     <Filter Include="Header Files\dataManipulators">
       <UniqueIdentifier>{c5b04132-0c89-40d1-93e7-f5faf172e287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\exceptions\graphics">
+      <UniqueIdentifier>{d8fb3c94-6057-4692-bc6b-30081f14e30c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -324,16 +324,16 @@
       <Filter>Header Files\exceptions</Filter>
     </ClInclude>
     <ClInclude Include="gui.h">
-      <Filter>Header Files\graphics</Filter>
+      <Filter>Header Files\exceptions\graphics</Filter>
     </ClInclude>
     <ClInclude Include="Render.h">
-      <Filter>Header Files\graphics</Filter>
+      <Filter>Header Files\exceptions\graphics</Filter>
     </ClInclude>
     <ClInclude Include="renderTexture.h">
-      <Filter>Header Files\graphics</Filter>
+      <Filter>Header Files\exceptions\graphics</Filter>
     </ClInclude>
     <ClInclude Include="window.h">
-      <Filter>Header Files\graphics</Filter>
+      <Filter>Header Files\exceptions\graphics</Filter>
     </ClInclude>
     <ClInclude Include="triangle.h">
       <Filter>Header Files\shapes</Filter>
@@ -455,26 +455,26 @@
     <ClInclude Include="specialChar.h">
       <Filter>Header Files\dataManipulators</Filter>
     </ClInclude>
-    <ClInclude Include="ifCommand.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="endif.h">
       <Filter>Header Files\commands\sub-commands\programmingConstructs</Filter>
     </ClInclude>
     <ClInclude Include="factoryEntry.h">
       <Filter>Header Files\commands\supporting classes</Filter>
     </ClInclude>
-    <ClInclude Include="Function.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="endMethod.h">
+      <Filter>Header Files\commands\sub-commands\programmingConstructs</Filter>
     </ClInclude>
-    <ClInclude Include="methodCommand.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Function.h">
+      <Filter>Header Files\commands\sub-commands\programmingConstructs</Filter>
+    </ClInclude>
+    <ClInclude Include="ifCommand.h">
+      <Filter>Header Files\commands\sub-commands\programmingConstructs</Filter>
     </ClInclude>
     <ClInclude Include="MemoryRestorer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\commands\supporting classes</Filter>
     </ClInclude>
-    <ClInclude Include="endMethod.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="methodCommand.h">
+      <Filter>Header Files\commands\sub-commands\programmingConstructs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

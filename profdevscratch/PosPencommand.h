@@ -24,9 +24,19 @@ public:
 	 */
 	PosPencommand();
 	
+	/**
+	 * .performs syntax check for the pos pen command 
+	 * 
+	 * \param commandArgs these are the arguments to be syntax checked 
+	 * \return whether the syntax check was correct or  not 
+	 */
 	bool syntaxcheck(std::vector<std::string> commandArgs) override;
 
-
+	/**
+	 * .this is used to make sure that all arguments are parsed before they are used in run command 
+	 * 
+	 * \param commandArgs these are the arguments that the user enters to be parsed and ran in the function 
+	 */
 	void setAttributes(std::vector<std::string> commandArgs) override;
 	/**
 	 * .runs set pen command

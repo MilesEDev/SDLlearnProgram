@@ -52,7 +52,7 @@ public:
 	bool syntaxcheck(std::vector<std::string> commandArgs) override; 
 	
 	/**
-	 * .this is ued to set the attributes within the circle class 
+	 * .this is used to parse the circle argument to that it is a float so it can be used in runcommand
 	 * 
 	 * \param commandArgs
 	 * 

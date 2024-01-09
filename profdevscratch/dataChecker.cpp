@@ -74,7 +74,7 @@ bool dataChecker::isString(std::string myString)
 
 bool dataChecker::isSpecialChar(std::string myString, int charIndex)
 {
-	specialCharManager* mySpecialChar = new specialCharManager();
+	specialCharManager* mySpecialChar = specialCharManager::getInstance();
 	std::string specialChar;
 	int key = true; 
 	for (int i = 0; i < mySpecialChar->getNumChars();i++)
