@@ -167,6 +167,7 @@
     </ClCompile>
     <ClCompile Include="memoryAndExpressionsTests.cpp" />
     <ClCompile Include="programmingConstructs.cpp" />
+    <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
