@@ -5,6 +5,7 @@
 #include <fstream>
 #include "whileCommand.h"
 #include "Function.h"
+#include "ifCommand.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -33,7 +34,14 @@ namespace fullyworkingunittests
 		}
 		TEST_METHOD(ifTest)
 		{
-			Function* thisFunc = new Function("myMethod(myparamA,myparamB)");
+			bool execution = false;
+			std::vector<std::string> commandArgs = { "2",">","1" };
+			ifCommand* myIf = new ifCommand();
+			myIf->setLocalExecution(execution);
+			myIf->setAttributes(commandArgs);
+			myIf->runCommand();
+			Assert::IsTrue(true == myIf->getLocalExecution());
+
 		}
 	
 
