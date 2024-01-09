@@ -15,7 +15,10 @@ namespace fullyworkingunittests
 	TEST_CLASS(programmingConstructs)
 	{
 	public:
-
+		/**
+		 * .tests to see if while loop works
+		 * 
+		 */
 		TEST_METHOD(whileLoopTest)
 		{
 			bool execution = false;
@@ -28,6 +31,10 @@ namespace fullyworkingunittests
 
 
 		}
+		/**
+		 * .tests to see if the function test works 
+		 * 
+		 */
 		TEST_METHOD(functionTest)
 		{
 			bool assert = false;
@@ -48,6 +55,10 @@ namespace fullyworkingunittests
 			
 
 		}
+		/**
+		 * .test to see the if command works 
+		 * 
+		 */
 		TEST_METHOD(ifTest)
 		{
 			bool execution = false;
