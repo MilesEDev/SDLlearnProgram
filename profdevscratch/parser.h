@@ -29,6 +29,7 @@
 #include <semaphore>
 #include "SDL.h"
 #include <thread>
+#include "ThreadManager.h"
 /**
  * 
  * .parses the commands and runs them 
@@ -100,7 +101,7 @@ public:
 	 * \param line the line to split to arguments
 	 */
 
-	SDL_Texture* runForAllThread(Render* myrenderer, SDL_Texture* mytext,std::binary_semaphore &sharedSema, SDL_Rect* texRect);
+	std::pair<SDL_Texture*, std::string> runForAllThread(Render* myrenderer,std::binary_semaphore &sharedSema,Render* myThreadRenderer,std::binary_semaphore &mainToThread,ThreadManager* threadManager);
 	void splitToArguments(std::string line);
 	/**
 	 * .save program to a txt 

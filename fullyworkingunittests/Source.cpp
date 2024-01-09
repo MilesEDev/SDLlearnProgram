@@ -9,6 +9,10 @@ namespace fullyworkingunittests
 {
 	TEST_CLASS(designPattern)
 	{
+		/**
+		 * .checks factory pattern used well
+		 * 
+		 */
 		TEST_METHOD(factoryTest)
 		{
 			commandFactory* myFactory = commandFactory::getInstance();
@@ -16,5 +20,15 @@ namespace fullyworkingunittests
 			Assert::IsTrue(myCommand != nullptr);
 
 		}
+		/**
+		 * .checks singleton pattern has been used 
+		 * 
+		 */
+		TEST_METHOD(SingletonTest)
+		{
+			commandFactory* myFactory = commandFactory::getInstance();
+			Assert::IsTrue(myFactory != nullptr);
+		}
+
 	};
 }

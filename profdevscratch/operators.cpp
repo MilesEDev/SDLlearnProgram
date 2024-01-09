@@ -121,6 +121,11 @@ bool comparator::lesserThanEqual(std::string term1, std::string term2)
 
 bool comparator::equalTo(std::string term1, std::string term2)
 {
+    if (myChecker->isFloat(term1) && myChecker->isFloat(term2))
+    {
+        int decimals = myChecker->getDecimalAccuracy(term2);
+        term1 = term1.substr(0,myChecker->getWholeNumLength(term1)+decimals);
+    }
     if (term1 == term2) 
     {
         return true;
@@ -134,17 +139,21 @@ bool comparator::equalTo(std::string term1, std::string term2)
 
 bool comparator::notEqualTo(std::string term1, std::string term2)
 {
+    if (myChecker->isFloat(term1) && myChecker->isFloat(term2))
     {
-        if (term1 != term2)
-        {
-            return true;
-
-        }
-        else
-        {
-            return false;
-        }
+        int decimals = myChecker->getDecimalAccuracy(term2);
+        term1 = term1.substr(0, myChecker->getWholeNumLength(term1) + decimals);
     }
+    if (term1 != term2)
+    {
+        return true;
+
+    }
+    else
+    {
+        return false;
+    }
+    
 
 }
 
@@ -173,6 +182,7 @@ comparator* comparator::getInstance()
 
 bool comparator::evaluateComparison(std::string term1, std::string comparator, std::string term2)
 {
+
     if (comparator == ">")
     {
         return greaterThan(term1, term2);

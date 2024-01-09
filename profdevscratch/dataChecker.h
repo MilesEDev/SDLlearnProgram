@@ -76,7 +76,17 @@ public:
 	 * 
 	 * \return 
 	 */
+
 	static dataChecker* getInstance();
 
+	int getDecimalAccuracy(std::string strNum);
+	/**
+	 * .gets the length of the non decimal values in string
+	 * 
+	 * \return the length of non decimal num
+	 */
+	int getWholeNumLength(std::string strNum);
+
 };
+
 

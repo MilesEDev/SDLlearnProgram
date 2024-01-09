@@ -9,6 +9,11 @@ private:
 	 * .the singleton intance for comparator
 	 */
 	static comparator* myComparator; 
+
+	/**
+	 * .data checker used for checking data 
+	 */
+	dataChecker* myChecker = dataChecker::getInstance();
 	/**
 	 * .empty constructor
 	 */

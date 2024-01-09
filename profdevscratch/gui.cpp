@@ -69,9 +69,13 @@ void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer*
 	SDL_Texture* mytextbackground = SDL_CreateTexture(sdlrend, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 600, 500);
 	
 	SDL_SetRenderTarget(sdlrend, mytextbackground);
+	std::cout << "Render target is now: " << mytextbackground << std::endl;
+
 	SDL_SetRenderDrawColor(sdlrend, 0, 0, 0, 255);
 	SDL_RenderClear(sdlrend);
 	SDL_SetRenderTarget(sdlrend, nullptr);
+	std::cout << "Render target is now: " << "nullptr" << std::endl;
+
 	std::string errorth1;
 	std::string errorth2;
 	
@@ -82,17 +86,20 @@ void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer*
 		//counter++;
 		//myrenderer->drawTo(50, 100);
 
-		
+
 		while (SDL_PollEvent(&event))
 		{
 			if (event.type == SDL_QUIT) break;
 			ImGui_ImplSDL2_ProcessEvent(&event);
 
 		}
-		if (!threaded)
+		if (!threadsRunning)
 		{
-			SDL_RenderCopy(sdlrend, mytextbackground, nullptr, srcRectBlack);
-			SDL_RenderCopy(sdlrend, mytext, nullptr, srcRect);
+			//SDL_RenderCopy(sdlrend, mytextbackground, nullptr, srcRectBlack);
+			//std::cout << mytextbackground<< "mybackground" << std::endl;
+			//SDL_RenderCopy(sdlrend, mytext, nullptr, srcRect);
+			//std::cout << mytext << "copeing to background" << std::endl;
+			//mainToThread.release();
 		}
 		else
 		{
@@ -101,13 +108,55 @@ void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer*
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplSDL2_NewFrame();
 
-
-
 		ImGui::NewFrame();
 		ImGui::SetNextWindowSize(ImVec2(windowx / 5, windowy), ImGuiCond_Once);
 
 		ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);
 		ImGui::Begin("Hello, world!");
+
+		//std::cout << "Is thread1runnning? " << (thread1Running) << std::endl;
+
+		//thread1Running = true;
+		//if (thread1Running)
+		//{
+
+			//std::cout << "Is getToRun null?: " << (myThreadManager->getToRun() == nullptr) << std::endl;
+		if (!thread1Running && !thread2Running)
+		{
+			std::cout << "Draw to screen" << std::endl;
+			SDL_RenderCopy(sdlrend, mytextbackground, nullptr, srcRectBlack);
+			//std::cout << mytextbackground<< "mybackground" << std::endl;
+			SDL_RenderCopy(sdlrend, mytext, nullptr, srcRect);
+		}
+		while (thread1Running || thread2Running)
+		{
+			if (myThreadManager->getToRun() != nullptr)
+			{
+				std::cout << mytext << std::endl;
+				SDL_SetRenderTarget(myrenderer->getSDLRenderer(), mytext);
+				myThreadManager->getToRun()->runCommand(myrenderer, myrenderer->getPen());
+				myThreadManager->setToRun(nullptr);
+				myrenderer->removeAnyTargets();
+				SDL_RenderCopy(myrenderer->getSDLRenderer(), mytext, nullptr, srcRect);
+
+				std::cout << "hello world" << std::endl;
+
+
+				std::cout << "main thread release" << std::endl;
+				mainToThread.release();
+
+			}
+			else {
+				std::cout << "Draw to screen" << std::endl;
+				SDL_RenderCopy(sdlrend, mytextbackground, nullptr, srcRectBlack);
+				//std::cout << mytextbackground<< "mybackground" << std::endl;
+				SDL_RenderCopy(sdlrend, mytext, nullptr, srcRect);
+			}
+		}
+		//}
+		
+
+
 		if (this->commandLine == "run") {
 
 
@@ -182,7 +231,7 @@ void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer*
 		}
 			
 	
-			
+
 		if (ImGui::BeginPopupModal("ThePopup")) {
 			ImGui::Text(error.c_str());
 			if (ImGui::Button("ok", buttonsize))
@@ -223,21 +272,48 @@ void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer*
 			}
 
 		}
+
+
 		if (ImGui::Button("runThreads", buttonsize))//make multi thread changes too
 		{
 			
-			SDL_SetRenderTarget(myrenderer->getSDLRenderer(), mytext);
 
+			SDL_SetRenderTarget(myrenderer->getSDLRenderer(), mytext);
+			std::cout << "Render target is now: " << mytext << std::endl;
+
+
+			SDL_SetRenderDrawColor(myrenderer->getSDLRenderer(), 255, 255, 255, 255);
+			std::cout << "did text clear" << std::endl;
+			SDL_RenderClear(myrenderer->getSDLRenderer());
+			myrenderer->setPenColourRGBA(0, 0, 0, 0);
+			myrenderer->setFill(false);
+			myrenderer->setPen(0, 0);
+			
+			myrenderer->removeAnyTargets();
+			threadsRunning = true;
+			/*
 			Render myrenderer2 = *myrenderer;
 			
 			std::vector<Render*> renderers = { myrenderer , &myrenderer2 };
 			for (int i = 0; i < renderers.size(); ++i) {
 				renderers[i]->setFinished(false);
 			}
-
-			std::thread thread_runner1(&gui::superSimpleThread,this, myrenderer);
-			std::thread thread_runner2(&gui::superSimpleThread, this, &myrenderer2);
+			*/
 			
+			
+			std::string newStr = strmultiline;
+			std::string newStr2 = thread2;
+			std::thread thread_runner1(&gui::runnerThreaded,this, myrenderer,newStr,std::ref(errorth1), std::ref(thread1Running));
+			thread_runner1.detach();
+			threadsRunning = true;
+			
+			
+			
+			//thread_runner1.join();
+			std::thread thread_runner2(&gui::runnerThreaded,this,myrenderer,newStr2,std::ref(errorth2),std::ref(thread2Running));
+			thread_runner2.detach();
+			threadsRunning = true;
+			/*
 			bool allRenderersFinished = false;
 
 			while (!allRenderersFinished) {
@@ -268,16 +344,23 @@ void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer*
 			error = errorth1 + errorth2;
 
 			//ImGui::OpenPopup("ThePopup");
+			*/
 			
 		}
-		ImGui::End();
+		
 
+
+		ImGui::End();
+	
 
 		ImGui::Render();
+	
 
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
+	
 		SDL_GL_SwapWindow(mySDLWindow);
+
+
 	}
 				
 			
@@ -335,26 +418,29 @@ bool gui::runner(Render* myrenderer, SDL_Texture* mytext, std::string mystring, 
 }
 
 
-bool gui::runnerThreaded(Render* myrenderer, SDL_Texture* mytext,std::string program,std::string &errorth)
+bool gui::runnerThreaded(Render* myrenderer,std::string program,std::string &errorth,bool &isrunning)
 {
+	isrunning = true;
 	Render* myThreadRenderer = new Render();
 	myThreadRenderer->setSDLRenderer(myrenderer->getSDLRenderer());
 	parser* myparser = new parser();
 	myparser->splitToCommands(program);
-	std::string syntax = myparser->syntaxCheckAll();
+	std::string tempError = myparser->syntaxCheckAll();
 
-	if (syntax == "ok")
+	if (tempError == "ok")
 	{
-		mytext = myparser->runForAllThread(myrenderer, mytext,semaphoreToShare,srcRect);
+		std::pair<SDL_Texture*, std::string> runData;
+		myparser->runForAllThread(myrenderer, threadToThread, myThreadRenderer, mainToThread, myThreadManager);
+
 	}
 	else
 	{
-		errorth = syntax;
-		
+		errorth = tempError;
 	}
+	
 	myparser->clearAllLists();
-
-
+	isrunning = false;
+	
 	return true;
 }
 

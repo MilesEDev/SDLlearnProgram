@@ -41,9 +41,6 @@ void Render::drawTo(float x, float y)
 {
 	SDL_RenderDrawLine(myrenderer, penStartCordinate.first, penStartCordinate.second, x, y);
 
-	
-	
-
 
 	setPen(x, y);
 	
@@ -120,7 +117,11 @@ std::vector<Uint8> Render::getPenColour() {
 
 	return penRGBA;
 }
-bool Render::getFill() 
+void Render::setPenColour(std::vector<Uint8> newColour)
+{
+	penRGBA = newColour;
+}
+bool Render::getFill()
 {
 	return fill;
 }

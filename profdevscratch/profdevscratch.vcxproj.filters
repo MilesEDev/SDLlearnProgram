@@ -291,6 +291,9 @@
     <ClCompile Include="endMethod.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ThreadManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\imgui\imgui.h">
@@ -475,6 +478,9 @@
     </ClInclude>
     <ClInclude Include="methodCommand.h">
       <Filter>Header Files\commands\sub-commands\programmingConstructs</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

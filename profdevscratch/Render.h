@@ -27,6 +27,9 @@ private:
 	 * .any function errors to be returned
 	 */
 	std::string error;
+	/**
+	 * .colour stored
+	 */
 	std::vector<Uint8> penRGBA = { 255,255,255,255 };
 
 	std::array<float, 4> renderBackground = { 1,1,1,1 };
@@ -47,9 +50,12 @@ private:
 	 * .the sdl renderer to render shapes with
 	 */
 	SDL_Renderer* myrenderer;
-
+	/**
+	 * .window to link to 
+	 */
 	window* renderWindow;
 
+	
 
 
 public:
@@ -150,6 +156,9 @@ public:
 	 * 
 	 * \return the fill bool 
 	 */
+
+	void setPenColour(std::vector<Uint8> newColour);
+
 	bool getFill();
 	/**
 	 * .gets fill value
@@ -184,6 +193,8 @@ public:
 	 * 
 	 */
 	void removeAnyTargets();
+
+	
 
 
 	void setBackgroundColour(std::array<float,4> colour);

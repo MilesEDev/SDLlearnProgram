@@ -154,3 +154,32 @@ dataChecker* dataChecker::getInstance()
 	return myChecker;
 }
 
+int dataChecker::getDecimalAccuracy(std::string strNum)
+{
+	
+	int i = 0;
+	int decimals = 0;
+	while (strNum[i] != '.' && i < strNum.size())
+	{
+		i++;
+	}
+	while (i < strNum.size())
+	{
+		decimals++;
+		i++;
+	}
+	return decimals;
+}
+
+int dataChecker::getWholeNumLength(std::string strNum)
+{
+	int wholeNumSize = 0;
+	int i = 0;
+	while (strNum[i] != '.' && i < strNum.size())
+	{
+		wholeNumSize++;
+		i++;
+	}
+	return wholeNumSize;
+}
+

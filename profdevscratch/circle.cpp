@@ -50,6 +50,7 @@ std::pair<float,float> circle::renderself(SDL_Renderer* myrenderer, std::vector<
 
 		}
 	}
+	std::cout << "draw for circle done" << std::endl;
 	return pen;
 
 }

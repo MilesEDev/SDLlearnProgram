@@ -191,6 +191,7 @@
     <ClCompile Include="shape.cpp" />
     <ClCompile Include="circleRun.cpp" />
     <ClCompile Include="specialChar.cpp" />
+    <ClCompile Include="ThreadManager.cpp" />
     <ClCompile Include="triangle.cpp" />
     <ClCompile Include="triangleCommand.cpp" />
     <ClCompile Include="variableIsUndefined.cpp" />
@@ -257,6 +258,7 @@
     <ClInclude Include="resetCommand.h" />
     <ClInclude Include="shape.h" />
     <ClInclude Include="specialChar.h" />
+    <ClInclude Include="ThreadManager.h" />
     <ClInclude Include="triangle.h" />
     <ClInclude Include="triangleCommand.h" />
     <ClInclude Include="variableIsUndefined.h" />

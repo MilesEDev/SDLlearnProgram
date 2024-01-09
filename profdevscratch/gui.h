@@ -14,6 +14,7 @@
 #include "parser.h"
 #include <thread>
 #include <semaphore>
+#include "ThreadManager.h"
 
 
 
@@ -24,7 +25,7 @@ class gui
 {
 private:
 	
-
+	ThreadManager* myThreadManager = new ThreadManager();
 	/**
 	 * .single line str to take in
 	 */
@@ -52,10 +53,20 @@ private:
 	std::string thread2 = "";
 
 	std::binary_semaphore
-		semaphoreToShare{1};
+		threadToThread{1};
 
+	std::binary_semaphore
+		mainToThread{ 0 };
 	SDL_Rect* srcRect;
 
+
+	bool thread1Running = false;
+
+	bool thread2Running = false;
+
+	bool threadsRunning = false;
+	
+	
 public:
 
 	
@@ -93,7 +104,7 @@ public:
 	 */
 	bool runner(Render* myrenderer,SDL_Texture* mytext,std::string mystring,parser* myparser);
 
-	bool runnerThreaded(Render* myrenderer, SDL_Texture* mytext, std::string program,std::string &errorth);
+	bool runnerThreaded(Render* myrenderer, std::string program,std::string &erroth,bool &isRunning);
 	/**
 	 * .gets the line from console
 	 * 
