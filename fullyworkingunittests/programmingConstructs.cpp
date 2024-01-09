@@ -30,7 +30,23 @@ namespace fullyworkingunittests
 		}
 		TEST_METHOD(functionTest)
 		{
+			bool assert = false;
+			MemoryManager* funcMem;
 			Function* thisFunc = new Function("myMethod(myparamA,myparamB)");
+			thisFunc->setArgs("myMethod(50,60)");
+			thisFunc->addArgsToMemory();
+			funcMem = thisFunc->updateMemory();
+			std::string arg1 = funcMem->returnValue("myparamA");
+			std::string arg2 = funcMem->returnValue("myparamB");
+			if (arg1 == "50.000000" && arg2 == "60.000000")
+			{
+				assert = true;
+			}
+			Assert::IsTrue(assert == true);
+
+
+			
+
 		}
 		TEST_METHOD(ifTest)
 		{
