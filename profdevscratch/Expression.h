@@ -74,6 +74,11 @@ public:
 
 	void performAssignment(std::string assignmentStatement,MemoryManager* memory);
 
-	bool checkAssignment(std::string assignmentStatement,MemoryManager* memory);
+	bool checkAssignmentValue(std::string value,MemoryManager* memory);
+
+	std::string getAssignmentValue(std::string assignmentStatement);
+
+	bool hasToDefines(std::string expression,MemoryManager* toDefinesChecker);
+
 };
 

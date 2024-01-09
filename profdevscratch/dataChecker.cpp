@@ -24,7 +24,8 @@ bool dataChecker::isFloat(std::string mystring)
 	{
 		for (int i = 0; i < strlen(mystring.c_str()); i++)
 		{
-			if (!isdigit(mystring.c_str()[i]) && (i == 0 && mystring[0] != '-'))
+			char breakTest = mystring[i];
+			if (!isdigit(mystring.c_str()[i]) && !(mystring.c_str()[0] =='-' && i==0))
 			{
 
 				error = true;
@@ -129,6 +130,19 @@ bool dataChecker::isValue(std::string toCheck)
 	{
 		return false;
 	}
+}
+
+std::string dataChecker::readFuncName(std::string funcStatement)
+{
+	int i = 0;
+	std::string functionName = "";
+	
+	while (funcStatement[i] != '(' && i < funcStatement.size())
+	{
+		functionName = functionName + funcStatement[i];
+		i++;
+	}
+	return functionName;
 }
 
 dataChecker* dataChecker::getInstance()

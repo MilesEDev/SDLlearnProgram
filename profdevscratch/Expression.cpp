@@ -33,7 +33,7 @@ std::string Expression::subtract(std::string num1, std::string num2)
     }
     else
     {
-        //throw operationNotSupportDataType("you have entered in an argument with an unsupported datatype for subtraction");
+        throw operationNotSupportDataType("you have entered in an argument with an unsupported datatype for subtraction");
     }
 }
 
@@ -46,7 +46,7 @@ std::string Expression::multiply(std::string num1, std::string num2)
     }
     else
     {
-        //throw operationNotSupportDataType("you have entered in an argument with an unsupported datatype for multiplication");
+        throw operationNotSupportDataType("you have entered in an argument with an unsupported datatype for multiplication");
     }
 }
 
@@ -59,7 +59,7 @@ std::string Expression::divide(std::string num1, std::string num2)
     }
     else
     {
-        //throw operationNotSupportDataType("you have entered in an argument with an unsupported datatype for divide");
+        throw operationNotSupportDataType("you have entered in an argument with an unsupported datatype for divide");
     }
 }
 
@@ -201,6 +201,8 @@ std::string Expression::calcFull(std::string expr,MemoryManager* myManager)
 
                 }
                 std::string arg2 = expr.substr(opLocation + 1, end - (opLocation + 1));
+                std::string result;
+                
                 if (myManager->pageExist(arg1))
                 {
                    arg1= myManager->returnValue(arg1);
@@ -212,7 +214,8 @@ std::string Expression::calcFull(std::string expr,MemoryManager* myManager)
 
                 
                 
-                std::string result;
+               
+
                 if (operation == "+")
                 {
                     result = add(arg1, arg2);
@@ -364,25 +367,38 @@ std::string Expression::getVarName(std::string exprOrVal)
 }
 void Expression::performAssignment(std::string assignmentStatement,MemoryManager* memory)
 {
-    if (checkAssignment(assignmentStatement,memory))
+    std::string value = getAssignmentValue(assignmentStatement);
+    if (checkAssignmentValue(value,memory))
     {
         std::string varName = getVarName(assignmentStatement);
-        std::string value = assignmentStatement.substr(varName.size()+1, assignmentStatement.size());
-        
+        std::string value = assignmentStatement.substr(varName.size()+1, assignmentStatement.size()-varName.size());
+        if (memory->pageExist(value))
+        {
+            value = memory->returnValue(value);
+        }
         value = calcFull(value,memory);
-        
+       
         memory->pageCreationAndUpdate(varName,value);
     }
 }
-bool Expression::checkAssignment(std::string assignmentStatement,MemoryManager* memory)
+bool Expression::checkAssignmentValue(std::string value,MemoryManager* memory)
 {
-    std::string varName = getVarName(assignmentStatement);
-    std::string value = assignmentStatement.substr(varName.size()+1, assignmentStatement.size());
+    
+    
     if (isExpression(value))
     {
-        value = calcFull(value,memory);
+       
+        
+            value = calcFull(value, memory);
+            return true;
+        
     }
-    if (myChecker->isValue(value))
+    else if(memory->pageExist(value))
+    {
+
+        return true;
+    }
+    else if (myChecker->isValue(value))
     {
         return true;
     }
@@ -390,6 +406,54 @@ bool Expression::checkAssignment(std::string assignmentStatement,MemoryManager* 
     {
         return false;
     }
+
+}
+std::string Expression::getAssignmentValue(std::string assignmentStatement)
+{
+    std::string varName = getVarName(assignmentStatement);
+    std::string value = assignmentStatement.substr(varName.size() + 1, assignmentStatement.size());
+    return value;
+}
+bool Expression::hasToDefines(std::string expression,MemoryManager* ToDefinesChecker)
+{
+    int i = 0;
+    int opLocation = 0;
+    for (std::string operation : priorites)
+    {
+        opLocation = 0;
+        i = 0;
+        while (i < expression.size())
+        {
+            char breakTest = expression[i];
+            if (expression[i] == '\"')
+            {
+                int j = i + 1;
+                while (j < expression.size())
+                {
+                    breakTest = expression[j];
+                    if (expression[j] == '\\')
+                    {
+                        j++;
+                    }
+                    if (expression[j] == '\"')
+                    {
+                        i = j;
+                        break;
+                    }
+                    j++;
+                }
+            }
+            if (isOperation(expression, i, operation) && i > 0 && i < expression.size() - 1)
+            {
+                if (ToDefinesChecker->isToDefine(expression.substr(opLocation, i - opLocation)))
+                {
+                    return true;
+                }
+            }
+            i++;
+        }
+    }
+    return false;
 
 }
 bool Expression::isAnyOperation(std::string expr, int subStr)

@@ -10,7 +10,8 @@ protected:
 public:
 	int getProgramCounterPos();
 
-	
+	void setProgramCounterPos(int pcr);
+
 	std::string getName();
 
 	

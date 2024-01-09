@@ -6,6 +6,8 @@
 #include "endWhile.h"
 #include "ifCommand.h"
 #include "endif.h"
+#include "methodCommand.h"
+#include "endMethod.h"
 class programmingConstructsFactory
 {
 private:

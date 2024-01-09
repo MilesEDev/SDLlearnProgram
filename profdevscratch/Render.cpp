@@ -61,6 +61,10 @@ void Render::setPenColourRGBA(Uint8 R, Uint8 G, Uint8 B, Uint8 A)
 	
 
 }
+void Render::resetSDLColours() 
+{
+	SDL_SetRenderDrawColor(myrenderer, penRGBA[0], penRGBA[1], penRGBA[2], penRGBA[3]);
+}
 void Render::setPenColourString(std::string colour) 
 {
 	if (colour == "red")
@@ -147,3 +151,53 @@ void Render::removeAnyTargets()
 	SDL_SetRenderTarget(myrenderer, nullptr);
 }
 
+
+void Render::setFinished(bool finished) {
+	rendererFinished = finished;
+}
+
+
+bool Render::isFinished() {
+	return rendererFinished;
+}
+
+
+
+bool Render::getRequiresUpdate() {
+	return requiresDrawUpdate;
+}
+
+
+std::array<float, 4> Render::getBackgroundColour() {
+	return renderBackground;
+}
+
+
+void Render::setBackgroundColour(std::array<float,4> colour){
+	renderBackground = colour;
+}
+
+
+void Render::waitForRenderUpdate() {
+
+	requiresDrawUpdate = true;
+	while (!requiresDrawUpdate) {
+		SDL_Delay(10);
+	}
+	
+}
+
+void Render::doDraw() {
+
+	SDL_SetRenderDrawColor(
+		getSDLRenderer(), 
+		renderBackground[0], 
+		renderBackground[1], 
+		renderBackground[2],
+		renderBackground[3]
+	);
+
+	SDL_RenderClear(getSDLRenderer());
+
+	requiresDrawUpdate = false;
+}

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include "whileCommand.h"
-
+#include "Function.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -27,6 +27,15 @@ namespace fullyworkingunittests
 
 
 		}
+		TEST_METHOD(functionTest)
+		{
+			Function* thisFunc = new Function("myMethod(myparamA,myparamB)");
+		}
+		TEST_METHOD(ifTest)
+		{
+			Function* thisFunc = new Function("myMethod(myparamA,myparamB)");
+		}
+	
 
 
 

@@ -8,7 +8,7 @@ endIf::endIf()
 
 bool endIf::checkCorrectEnd(std::vector<programmingBodies*> bodyPCRs)
 {
-    if (bodyPCRs.back()->getName() == "while")
+    if (bodyPCRs.back()->getName() == "if")
     {
         return true;
     }

@@ -18,11 +18,19 @@
 class Render
 {
 private:
+
+	bool requiresDrawUpdate = false;
+
+	bool rendererFinished = false;
+
 	/**
 	 * .any function errors to be returned
 	 */
 	std::string error;
 	std::vector<Uint8> penRGBA = { 255,255,255,255 };
+
+	std::array<float, 4> renderBackground = { 1,1,1,1 };
+
 	/**
 	 * .the cordinate of the pen
 	 */
@@ -177,5 +185,21 @@ public:
 	 */
 	void removeAnyTargets();
 
+
+	void setBackgroundColour(std::array<float,4> colour);
+
+	std::array<float, 4> getBackgroundColour();
+
+	void setFinished(bool finished);
+
+	bool isFinished();
+
+	void waitForRenderUpdate();
+
+	void doDraw();
+
+	bool getRequiresUpdate();
+
+	void resetSDLColours();
 };
 

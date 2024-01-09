@@ -195,6 +195,58 @@ void MemoryManager::deletePagetable()
 	PageTable.clear();
 }
 
+bool MemoryManager::isToDefine(std::string value)
+{
+	for (std::string toDefine : varsToDefine)
+	{
+		if (value == toDefine)
+		{
+			return true;
+		}
+		
+	}
+	return false;
+}
+
+bool MemoryManager::isAnyToDefine(std::vector<std::string> values)
+{
+	for (std::string value : values)
+	{
+		if (isToDefine(value))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+void MemoryManager::setToDefine(std::vector<std::string> newToDefine)
+{
+	varsToDefine = newToDefine;
+}
+
+void MemoryManager::addVarToToDefines(std::string varName)
+{
+	varsToDefine.push_back(varName);
+}
+
+void MemoryManager::deleteToDefineEntry(std::string varName)
+{
+	for (int i = 0; i < varsToDefine.size(); i++)
+	{
+		if (varsToDefine[i] == varName)
+		{
+			varsToDefine.erase(varsToDefine.begin()+i);
+		}
+	}
+}
+
+void MemoryManager::clearToDefine()
+{
+	varsToDefine.clear();
+}
+
+
 bool MemoryManager::pageCreationAndUpdate(std::string varName,std::string varValue)
 {
 	if (!isGoodVarName(varName))

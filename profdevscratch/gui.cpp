@@ -1,12 +1,14 @@
 #include "gui.h"
 #include "window.h"
-
+#include <future>
+#include <algorithm>
 
 gui::gui() 
 {
 	
 	window* mywindow = new window(); 
 	mySDLWindow = mywindow->getSDLWindow();
+	
 	SDL_GLContext gl_context = SDL_GL_CreateContext(mySDLWindow);
 
 	SDL_GL_MakeCurrent(mySDLWindow, gl_context);
@@ -35,9 +37,10 @@ gui::gui(window* mywindow)
 	int SDL_GL_SetSwapInterval(1);
 	
 }
-void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* sdlrend)
+void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer* sdlrend)
 {
-	
+
+	bool threaded = false;
 	parser* myparser = new parser();
 	std::string filename;
 	
@@ -58,31 +61,43 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 	srcRectBlack->y = 0;
 	srcRectBlack->w = windowx/5;
 	srcRectBlack->h = windowy;
-	SDL_Rect* srcRect = new SDL_Rect();
+	srcRect = new SDL_Rect();
 	srcRect->x = windowx/5;
 	srcRect->y = 0;
 	srcRect->w = windowx-windowx/5;
 	srcRect->h = windowy;
 	SDL_Texture* mytextbackground = SDL_CreateTexture(sdlrend, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 600, 500);
+	
 	SDL_SetRenderTarget(sdlrend, mytextbackground);
 	SDL_SetRenderDrawColor(sdlrend, 0, 0, 0, 255);
 	SDL_RenderClear(sdlrend);
 	SDL_SetRenderTarget(sdlrend, nullptr);
-	while (true)
+	std::string errorth1;
+	std::string errorth2;
+	
+	SDL_Event event = SDL_Event();
+	while (event.type != SDL_QUIT)
 	{
 
 		//counter++;
 		//myrenderer->drawTo(50, 100);
 
-		SDL_Event event;
+		
 		while (SDL_PollEvent(&event))
 		{
+			if (event.type == SDL_QUIT) break;
 			ImGui_ImplSDL2_ProcessEvent(&event);
 
 		}
-
-		SDL_RenderCopy(sdlrend, mytextbackground, nullptr, srcRectBlack);
-		SDL_RenderCopy(sdlrend, mytext, nullptr, srcRect);
+		if (!threaded)
+		{
+			SDL_RenderCopy(sdlrend, mytextbackground, nullptr, srcRectBlack);
+			SDL_RenderCopy(sdlrend, mytext, nullptr, srcRect);
+		}
+		else
+		{
+			threaded = false;
+		}
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplSDL2_NewFrame();
 
@@ -138,6 +153,7 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 		//ImGui::InputText()
 		ImGui::InputTextMultiline("##label", &strmultiline);
 		ImGui::InputText("###label", &str);
+		ImGui::InputTextMultiline("thread", &thread2);
 
 
 		if (ImGui::Button("syntax", buttonsize))
@@ -165,7 +181,7 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 			}
 		}
 			
-
+	
 			
 		if (ImGui::BeginPopupModal("ThePopup")) {
 			ImGui::Text(error.c_str());
@@ -207,6 +223,53 @@ void gui::makeDefaultFrame(Render* myrenderer,SDL_Texture* mytext,SDL_Renderer* 
 			}
 
 		}
+		if (ImGui::Button("runThreads", buttonsize))//make multi thread changes too
+		{
+			
+			SDL_SetRenderTarget(myrenderer->getSDLRenderer(), mytext);
+
+			Render myrenderer2 = *myrenderer;
+			
+			std::vector<Render*> renderers = { myrenderer , &myrenderer2 };
+			for (int i = 0; i < renderers.size(); ++i) {
+				renderers[i]->setFinished(false);
+			}
+
+			std::thread thread_runner1(&gui::superSimpleThread,this, myrenderer);
+			std::thread thread_runner2(&gui::superSimpleThread, this, &myrenderer2);
+			
+			bool allRenderersFinished = false;
+
+			while (!allRenderersFinished) {
+
+				allRenderersFinished = true;
+
+				for (auto& renderer : renderers) {
+
+					if (!renderer->isFinished()) allRenderersFinished = false;
+
+					if (renderer->getRequiresUpdate()) {
+						renderer->doDraw();
+					}
+				}				
+			}
+			
+			
+			std::cout << "Thread is joinable" << std::endl;
+			thread_runner1.join();
+			thread_runner2.join();
+			std::cout << "Thread joined" << std::endl;
+			//thread_runner2.join();
+
+			
+			SDL_SetRenderTarget(myrenderer->getSDLRenderer(), nullptr);
+			SDL_RenderCopy(myrenderer->getSDLRenderer(), mytext, nullptr, nullptr);
+
+			error = errorth1 + errorth2;
+
+			//ImGui::OpenPopup("ThePopup");
+			
+		}
 		ImGui::End();
 
 
@@ -246,6 +309,7 @@ bool gui::runner(Render* myrenderer, SDL_Texture* mytext, std::string mystring, 
 
 
 	myparser->splitToCommands(mystring);
+	
 	std::string syntax = myparser->syntaxCheckAll();
 	
 	if (syntax == "ok") 
@@ -259,9 +323,33 @@ bool gui::runner(Render* myrenderer, SDL_Texture* mytext, std::string mystring, 
 	}
 	myparser->clearAllLists();
 	
-
+	
 	return true;
 
+}
+
+
+bool gui::runnerThreaded(Render* myrenderer, SDL_Texture* mytext,std::string program,std::string &errorth)
+{
+	Render* myThreadRenderer = new Render();
+	myThreadRenderer->setSDLRenderer(myrenderer->getSDLRenderer());
+	parser* myparser = new parser();
+	myparser->splitToCommands(program);
+	std::string syntax = myparser->syntaxCheckAll();
+
+	if (syntax == "ok")
+	{
+		mytext = myparser->runForAllThread(myrenderer, mytext,semaphoreToShare,srcRect);
+	}
+	else
+	{
+		errorth = syntax;
+		
+	}
+	myparser->clearAllLists();
+
+
+	return true;
 }
 
 std::string gui::getConsoleInput()
@@ -278,9 +366,30 @@ std::string gui::getMultiLine()
 	return strmultiline;
 }
 
+
 void gui::setMultiLine(std::string newmulti)
 {
 	strmultiline = newmulti;
+}
+
+
+void gui::superSimpleThread(Render* renderer)
+{
+	renderer->setBackgroundColour({ 255,0,0,255 });
+	renderer->waitForRenderUpdate();
+
+	/*
+	std::cout << "Make text red" << std::endl;
+	
+	SDL_SetRenderDrawColor(myrenderer->getSDLRenderer(), 255, 0, 0, 255);
+	SDL_RenderClear(myrenderer->getSDLRenderer());
+	SDL_Delay(2000);
+	//std::this_thread::sleep_for(std::chrono::seconds(10));
+
+	*/
+
+	std::cout << "Thread end" << std::endl;
+	renderer->setFinished(true);
 }
 
 

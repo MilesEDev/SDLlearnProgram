@@ -10,29 +10,14 @@
 int main()
 {
 
-	SDL_Window* mywindow = SDL_CreateWindow("", 500, 50, 800, 500, SDL_WINDOW_OPENGL);
-	SDL_Renderer* myrenderer = SDL_CreateRenderer(mywindow, 3, 0);
-	SDL_SetRenderDrawColor(myrenderer, 255, 0, 0, 255);
-
-	SDL_Vertex vertex_1 = {{400,400},{255, 0, 0, 255},{1, 1}};
-
-
-	SDL_Vertex vertex_2 = {{500,500},{255, 0, 0, 255},{1, 1}};
-	SDL_Vertex vertex_3 = {{600, 600},{255, 0, 0, 255},{1, 1}};
-
-	SDL_Vertex vertices[3] = {vertex_1,vertex_2,vertex_3};
-	SDL_RenderGeometry(myrenderer,nullptr, vertices, 3, NULL, 0);
-
+	RenderTest* myRender = new RenderTest();
 	
-	
-	//SDL_RenderClear(myrenderer);
-	SDL_RenderPresent(myrenderer);
-	SDL_Delay(5000);
+	//std::thread thread_runner1(&RenderTest::drawToer,&b,5,10);
+	//std::thread thread_runner2(&RenderTest::diffcol, &b);
 
-	
-
-
-
+	//thread_runner1.join();
+	//thread_runner2.join();
+	myRender->startThreadsInternally();
 	
 
 	

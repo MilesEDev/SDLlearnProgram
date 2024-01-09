@@ -1,7 +1,7 @@
 #pragma once
 #include "SDL.h"
 #include <thread>
-/*#include <semaphore> 
+#include <semaphore> 
 
 
 
@@ -9,30 +9,38 @@
 
 class RenderTest
 {
-public:
+private:
+	SDL_Renderer* myrendererth12;
 	SDL_Window* mywindow;
-	SDL_Window* mywindow2;
-	SDL_Renderer* myrendererth1;
-	SDL_Renderer* myrendererth2;
+
+
+
 	SDL_Texture* mytext;
-	SDL_Texture* mytext2;
-	std::binary_semaphore mySemaphore{ 1 },
-	mySemaphoreth2{ 0 };
+public:
+	
+
+	std::binary_semaphore mySemaphore{ 1 };
+	
 	
 
 	RenderTest();
 
 	void drawToer(int line, int line2);
 	
-	void simpleThread(int &num);
+	
 
 	void diffcol();
 
 	void presentText();
 
-	void presentText2();
+	void RenderPassOn(SDL_Renderer* &toPass);
+
+	void RenderPassOnT2(SDL_Renderer* &toPass);
+
+	void startThreadsInternally();
+	
+	
 
 
 };
 
-*/

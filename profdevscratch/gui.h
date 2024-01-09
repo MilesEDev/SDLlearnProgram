@@ -13,6 +13,7 @@
 #include "Render.h"
 #include "parser.h"
 #include <thread>
+#include <semaphore>
 
 
 
@@ -22,6 +23,8 @@
 class gui
 {
 private:
+	
+
 	/**
 	 * .single line str to take in
 	 */
@@ -46,7 +49,17 @@ private:
 	 */
 	std::thread* mythread;
 
+	std::string thread2 = "";
+
+	std::binary_semaphore
+		semaphoreToShare{1};
+
+	SDL_Rect* srcRect;
+
 public:
+
+	
+
 	/**
 	 * .error to be displayed from exceptions
 	 */
@@ -80,6 +93,7 @@ public:
 	 */
 	bool runner(Render* myrenderer,SDL_Texture* mytext,std::string mystring,parser* myparser);
 
+	bool runnerThreaded(Render* myrenderer, SDL_Texture* mytext, std::string program,std::string &errorth);
 	/**
 	 * .gets the line from console
 	 * 
@@ -99,6 +113,7 @@ public:
 
 	void setMultiLine(std::string newmulti);
 
+	void superSimpleThread(Render* renderer);
 
 
 

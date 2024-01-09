@@ -24,6 +24,8 @@ public:
 
 	bool isValue(std::string toCheck);
 
+	std::string readFuncName(std::string funcStatement);
+
 	static dataChecker* getInstance();
 
 };

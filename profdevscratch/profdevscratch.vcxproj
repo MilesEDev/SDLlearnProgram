@@ -105,6 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Users\Miles\source\repos\profdevscratch\imgui\misc\cpp;C:\Users\Miles\source\repos\profdevscratch\imgui\backends;C:\Users\Miles\source\repos\profdevscratch\imgui</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,6 +152,7 @@
     <ClCompile Include="dataConverter.cpp" />
     <ClCompile Include="drawToCommand.cpp" />
     <ClCompile Include="endif.cpp" />
+    <ClCompile Include="endMethod.cpp" />
     <ClCompile Include="endWhile.cpp" />
     <ClCompile Include="erroneousVarName.cpp" />
     <ClCompile Include="eventfactory.cpp" />
@@ -158,12 +160,15 @@
     <ClCompile Include="Expression.cpp" />
     <ClCompile Include="factoryEntry.cpp" />
     <ClCompile Include="fillCommand.cpp" />
+    <ClCompile Include="Function.cpp" />
     <ClCompile Include="gui.cpp" />
     <ClCompile Include="IArgManager.cpp" />
     <ClCompile Include="ifCommand.cpp" />
     <ClCompile Include="invalidParameters.cpp" />
     <ClCompile Include="MemoryManager.cpp" />
+    <ClCompile Include="MemoryRestorer.cpp" />
     <ClCompile Include="memoryUnsupportedType.cpp" />
+    <ClCompile Include="methodCommand.cpp" />
     <ClCompile Include="nonfillvalue.cpp" />
     <ClCompile Include="nonnumberexception.cpp" />
     <ClCompile Include="nonStringException.cpp" />
@@ -216,18 +221,22 @@
     <ClInclude Include="dataConverter.h" />
     <ClInclude Include="drawToCommand.h" />
     <ClInclude Include="endif.h" />
+    <ClInclude Include="endMethod.h" />
     <ClInclude Include="endWhile.h" />
     <ClInclude Include="erroneousVarName.h" />
     <ClInclude Include="executorManager.h" />
     <ClInclude Include="Expression.h" />
     <ClInclude Include="factoryEntry.h" />
     <ClInclude Include="fillCommand.h" />
+    <ClInclude Include="Function.h" />
     <ClInclude Include="gui.h" />
     <ClInclude Include="IArgManager.h" />
     <ClInclude Include="ifCommand.h" />
     <ClInclude Include="invalidParameters.h" />
     <ClInclude Include="MemoryManager.h" />
+    <ClInclude Include="MemoryRestorer.h" />
     <ClInclude Include="memoryUnsupportedType.h" />
+    <ClInclude Include="methodCommand.h" />
     <ClInclude Include="nonfillvalue.h" />
     <ClInclude Include="nonnumberexception.h" />
     <ClInclude Include="nonStringException.h" />

@@ -22,11 +22,12 @@ void endWhile::runCommand()
 {
     if (localExecution == false)
     {
+        newPCR = -1;
         localExecution = true;
     }
     else
     {
         newPCR = lastBodyPCR;
-        localExecution = false;
+        localExecution = true;
     }
 }

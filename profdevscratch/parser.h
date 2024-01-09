@@ -24,6 +24,11 @@
 #include "MemoryManager.h"
 #include "Expression.h"
 #include "variableIsUndefined.h"
+#include "Function.h"
+#include "methodCommand.h"
+#include <semaphore>
+#include "SDL.h"
+#include <thread>
 /**
  * 
  * .parses the commands and runs them 
@@ -35,6 +40,8 @@ private:
 	/**
 	 * .command arguments to be stored
 	 */
+
+
 	std::vector<std::string> arguments;
 	/**
 	 * .whole commands to be stored in neat string
@@ -51,6 +58,10 @@ private:
 	int line = 0;
 	
 	MemoryManager* programMemory = new MemoryManager();
+	MemoryManager* oldMemory;
+	std::vector<Function*> callTable;
+
+	dataChecker* myChecker = dataChecker::getInstance();
 public:
 	/**
 	 * .this is empty constructor
@@ -88,6 +99,8 @@ public:
 	 * 
 	 * \param line the line to split to arguments
 	 */
+
+	SDL_Texture* runForAllThread(Render* myrenderer, SDL_Texture* mytext,std::binary_semaphore &sharedSema, SDL_Rect* texRect);
 	void splitToArguments(std::string line);
 	/**
 	 * .save program to a txt 
@@ -111,6 +124,7 @@ public:
 
 	void checkForAll(std::vector<std::string> &command, MemoryManager* myManager);
 
+	Function* isFunc(std::vector<Function*> callTable,std::string funcStatement);
 
 
 };

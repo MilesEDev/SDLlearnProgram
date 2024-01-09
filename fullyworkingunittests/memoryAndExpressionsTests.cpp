@@ -179,21 +179,25 @@ namespace memoryAndExpressionsTests
 		{
 			MemoryManager* myMemory = new MemoryManager();
 			Expression* myExpression = new Expression();
-			bool passes = myExpression->checkAssignment("myVar=50",myMemory);
+			std::string value = myExpression->getAssignmentValue("myVar=50");
+			bool passes = myExpression->checkAssignmentValue(value,myMemory);
 			Assert::IsTrue(true == passes);
 		}
 		TEST_METHOD(checkAssingmentToValidExpression)
 		{
 			MemoryManager* myMemory = new MemoryManager();
 			Expression* myExpression = new Expression();
-			bool passes = myExpression->checkAssignment("myVar=50+40",myMemory);
+			std::string value = myExpression->getAssignmentValue("myVar=50+40");
+			bool passes = myExpression->checkAssignmentValue(value, myMemory);
+			
 			Assert::IsTrue(true == passes);
 		}
 		TEST_METHOD(checkAssingmentToInvalidValue)
 		{
 			MemoryManager* myMemory = new MemoryManager();
 			Expression* myExpression = new Expression();
-			bool passes = myExpression->checkAssignment("myVar=abur",myMemory);
+			std::string value = myExpression->getAssignmentValue("myVar=abur");
+			bool passes = myExpression->checkAssignmentValue(value, myMemory);
 			Assert::IsTrue(false == passes);
 		}
 		

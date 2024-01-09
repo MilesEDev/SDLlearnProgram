@@ -14,6 +14,8 @@ private:
 	
 	dataChecker* myChecker = dataChecker::getInstance();
 	std::vector<Page*> PageTable;
+
+	std::vector <std::string> varsToDefine = {};
 	
 	Page* pageToAdd;
 public:
@@ -39,6 +41,17 @@ public:
 
 	void deletePagetable();
 
+	bool isToDefine(std::string value);
+
+	bool isAnyToDefine(std::vector<std::string> values);
+
+	void setToDefine(std::vector<std::string> newParameters);
+
+	void addVarToToDefines(std::string varName);
+
+	void deleteToDefineEntry(std::string varName);
+
+	void clearToDefine();
 	
 
 };

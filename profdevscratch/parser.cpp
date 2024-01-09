@@ -44,57 +44,86 @@ void parser::clearAllLists()
 
 std::string parser::syntaxCheckAll()
 {
-	
+	std::string error = "";
 	commandFactory* myFactory = commandFactory::getInstance();
 	programmingConstructsFactory* constructFactory = programmingConstructsFactory::getInstance();
 	line = 0;
-	try
+	
+
+	for (int pcr = 0; pcr < commands.size(); pcr++)
 	{
-		for (int pcr = 0; pcr < commands.size(); pcr++)
+		try
 		{
 			std::vector<std::string> command = commands.at(pcr);
 			line++;
-		
+
 			commandCatFactory* myfact = new commandCatFactory();
 
 			commandCat* abstractCommand = myfact->getCommand(command.at(0));
-		
 
-			if(abstractCommand != nullptr)
-			{ 
-				checkForAll(command, programMemory);
-				int size = command.size() - 1;
-				if (!abstractCommand->correctParamsCount(size))
-				{
-					throw InvalidParameters("you have entered the incorrect number of parameters");
-				}
-				if (size > 0)
+
+			if (abstractCommand != nullptr)
+			{
+				if (!programMemory->isAnyToDefine(command))
 				{
 
-					IArgManager* argChecker = dynamic_cast<IArgManager*>(abstractCommand);
-					std::vector<std::string> commandArgs;
-					for (int i = 1; i < command.size(); i++)
+					checkForAll(command, programMemory);
+					int size = command.size() - 1;
+					if (!abstractCommand->correctParamsCount(size))
 					{
-						commandArgs.push_back(command.at(i));
-
+						throw InvalidParameters("you have entered the incorrect number of parameters");
 					}
-
-					argChecker->syntaxcheck(commandArgs);
-					if (constructFactory->hasKey(command.front(), "body"))
+					if (size > 0)
 					{
-						programmingBodies* mybody = dynamic_cast<programmingBodies*>(abstractCommand);
-						bodyPCRs.push_back(mybody);
-					}
-					if (constructFactory->hasKey(command.front(), "bodyend"))
-					{
-						bodyEnd* myBodyEnd = dynamic_cast<bodyEnd*>(abstractCommand);
-						myBodyEnd->checkCorrectEnd(bodyPCRs);
-						myBodyEnd->setCurrentBodyPCR(bodyPCRs);
-						bodyPCRs = myBodyEnd->popFromBodyList(bodyPCRs);//if any bodies left chuck error at end
 
+						IArgManager* argChecker = dynamic_cast<IArgManager*>(abstractCommand);
+						std::vector<std::string> commandArgs;
+						for (int i = 1; i < command.size(); i++)
+						{
+							commandArgs.push_back(command.at(i));
+
+						}
+
+						argChecker->syntaxcheck(commandArgs);
 					}
 				}
-			
+				if (constructFactory->hasKey(command.front(), "body"))
+				{
+					programmingBodies* mybody = dynamic_cast<programmingBodies*>(abstractCommand);
+					bodyPCRs.push_back(mybody);
+				}
+				if (constructFactory->hasKey(command.front(), "bodyend"))
+				{
+					bodyEnd* myBodyEnd = dynamic_cast<bodyEnd*>(abstractCommand);
+					myBodyEnd->checkCorrectEnd(bodyPCRs);
+					myBodyEnd->setCurrentBodyPCR(bodyPCRs);
+					bodyPCRs = myBodyEnd->popFromBodyList(bodyPCRs);//if any bodies left chuck error at end
+
+				}
+				if (command.front() == "method")
+				{
+					Function* newFunc = new Function(command.at(1));
+					oldMemory = programMemory;
+					programMemory = newFunc->updateMemory();
+					
+					callTable.push_back(newFunc);
+
+				}
+				if (constructFactory->hasKey(command.front(), "memory"))
+				{
+					MemoryRestorer* myMemory = dynamic_cast<MemoryRestorer*>(abstractCommand);
+					if (myMemory->getClearFlag())
+					{
+						myMemory->clearNew(programMemory);
+					}
+					if (myMemory->getRestoreFlag())
+					{
+						programMemory = myMemory->oldToNew(oldMemory);
+					}
+
+				}
+
+
 			}
 			else
 			{
@@ -103,73 +132,114 @@ std::string parser::syntaxCheckAll()
 				std::string statement = command.front();
 				if (myExpression->isAssignment(statement))
 				{
-					if (myExpression->checkAssignment(statement,programMemory))
+					std::string exprName = myExpression->getVarName(statement);
+					if (programMemory->isToDefine(exprName))
 					{
-						if (programMemory->isGoodVarName(myExpression->getVarName(statement)))
+						programMemory->deleteToDefineEntry(exprName);
+					}
+					std::string value = myExpression->getAssignmentValue(statement);
+					
+					if ((programMemory->isToDefine(value) || myExpression->hasToDefines(value,programMemory)) && !programMemory->pageExist(value))
+					{
+						programMemory->addVarToToDefines(exprName);
+						key = true;
+					}
+					else
+					{
+						if (myExpression->checkAssignmentValue(value, programMemory))
 						{
-							myExpression->performAssignment(statement,programMemory);
+							if (programMemory->isGoodVarName(myExpression->getVarName(statement)))
+							{
+								myExpression->performAssignment(statement, programMemory);
+								key = true;
+							}
+						}
+					}
+
+
+
+				}
+				if (!key)
+				{
+					for (Function* func : callTable)
+					{
+
+						if (myChecker->readFuncName(command.at(0)) == func->getName())
+						{
+							func->setArgs(command.at(0));
+							programMemory->clearToDefine();
+							func->syntaxCheck();
 							key = true;
 						}
+
 					}
 				}
 				if (!key)
 				{
 					throw notcommandexception("you have entered something that is not a command nore an assignment");
 				}
-			}
 
+
+			}
+		}
+
+
+		catch (nonStringException& e)
+		{
 			
+			error = error + e.returnError() + " on line " + std::to_string(line) + "\n";
+
+		}
+		catch (nonnumberexception& e)
+		{
+			
+			error = error + e.returnError() + " on line " + std::to_string(line) + "\n";
+		}
+		catch (InvalidParameters& e)
+		{
+		
+			error = error + e.returnError() + " on line " + std::to_string(line) + "\n";
+		}
+		catch (nonfillvalue& e)
+		{
+			
+			error = error + e.returnError() + " on line " + std::to_string(line) + "\n";
+		}
+		catch (operationNotSupportDataType& e)
+		{
+		
+			error = error + e.returnError() + " on line " + std::to_string(line) + "\n";
+		}
+		catch (memoryUnsupportedType& e)
+		{
+			
+			error = error + e.returnError() + " on line " + std::to_string(line) + "\n";
+		}
+		catch (erreneousVarName& e)
+		{
+			
+			error = error + e.returnError() + " on line " + std::to_string(line) + "\n";
+		}
+		catch (variableIsUndefined& e)
+		{
+		
+			error = error + e.returnError() + " on line " + std::to_string(line) + "\n";
+		}
+		catch (notcommandexception& e)
+		{
+
+			error=error+e.returnError() + " on line " + std::to_string(line)+"\n";
 		}
 	}
-
-	catch (nonStringException& e)
+	if (error == "")
 	{
-		programMemory->deletePagetable();
-		return e.returnError() + " on line " + std::to_string(line);
-		
-	}
-	catch (nonnumberexception& e)
-	{
-		programMemory->deletePagetable();
-		return e.returnError() + " on line "+std::to_string(line);
-	}
-	catch (InvalidParameters& e)
-	{
-		programMemory->deletePagetable();
-		return e.returnError() + " on line " + std::to_string(line);
-	}
-	catch(nonfillvalue& e)
-	{
-		programMemory->deletePagetable();
-		return e.returnError() + " on line " + std::to_string(line);
-	}
-	catch (operationNotSupportDataType& e)
-	{
-		programMemory->deletePagetable();
-		return e.returnError() + " on line " + std::to_string(line);
-	}
-	catch (memoryUnsupportedType& e)
-	{
-		programMemory->deletePagetable();
-		return e.returnError() + " on line " + std::to_string(line);
-	}
-	catch (erreneousVarName& e)
-	{
-		programMemory->deletePagetable();
-		return e.returnError() + " on line " + std::to_string(line);
-	}
-	catch (variableIsUndefined& e)
-	{
-		programMemory->deletePagetable();
-		return e.returnError() + " on line " + std::to_string(line);
-	}
-	catch (notcommandexception& e)
-	{
-		programMemory->deletePagetable();
-		return e.returnError() + " on line " + std::to_string(line);
+		error = "ok";
 	}
 	programMemory->deletePagetable();
-	return "ok";
+	bodyPCRs.clear();
+	callTable.clear();
+
+	return error;
 }
 				
 				
@@ -186,17 +256,17 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 {
 	
 
-	
 	SDL_SetRenderTarget(myrenderer->getSDLRenderer(), mytext);
 	SDL_SetRenderDrawColor(myrenderer->getSDLRenderer(), 255, 255, 255, 255);
 	SDL_RenderClear(myrenderer->getSDLRenderer());
-	SDL_SetRenderDrawColor(myrenderer->getSDLRenderer(), 0, 0,0, 0);
+	myrenderer->setPenColourRGBA(0, 0, 0, 0);
+	myrenderer->setFill(false);
+	
 	commandFactory* myComFactory = commandFactory::getInstance(); 
 	programmingConstructsFactory* constructFactory = programmingConstructsFactory::getInstance();
 	bool execution = true;
 	executorManager* myExecutor = nullptr;
 	bodyEnd* myBodyEnd = nullptr;
-	
 	
 
 	for (int pcr = 0; pcr < commands.size(); pcr++)
@@ -210,22 +280,35 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 		commandArgs.clear();
 		if (abstractCommand != nullptr)
 		{
-			checkForAll(command, programMemory);
-			if (!abstractCommand->correctParamsCount(0))
+			if (execution)
 			{
-				for (int i = 1; i < command.size(); i++)
+			checkForAll(command, programMemory);
+			
+				if (!abstractCommand->correctParamsCount(0))
 				{
-					commandArgs.push_back(command.at(i));
+					for (int i = 1; i < command.size(); i++)
+					{
+						commandArgs.push_back(command.at(i));
 
+					}
+				
+				
+					IArgManager* argChecker = dynamic_cast<IArgManager*>(abstractCommand);
+					if (argChecker->syntaxcheck(commandArgs))
+					{
+						argChecker->setAttributes(commandArgs);
+					}
 				}
-				IArgManager* argChecker = dynamic_cast<IArgManager*>(abstractCommand);
-				argChecker->setAttributes(commandArgs);
+			
+
 			}
+		
 
 
 			if (constructFactory->hasKey(command.front(), "body"))
 			{
 				programmingBodies* mybody = dynamic_cast<programmingBodies*>(abstractCommand);
+				mybody->setProgramCounterPos(pcr);
 				bodyPCRs.push_back(mybody);
 			}
 			if (constructFactory->hasKey(command.front(), "bodyend"))
@@ -243,7 +326,7 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 
 
 			}
-			if (execution || (bodyPCRs.size() == 1 && constructFactory->hasKey(command.front(), "bodyend")))
+			if (execution || (bodyPCRs.size() == 0 && constructFactory->hasKey(command.front(), "bodyend")))
 			{
 				if (myComFactory->getCommand(command.at(0)) != nullptr)
 				{
@@ -267,14 +350,215 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 				pcr = myBodyEnd->getNewPCr(pcr);
 
 			}
+			if (command.front() == "method")
+			{
+				Function* newFunc = new Function(command.at(1));
+				oldMemory = programMemory;
+				programMemory = newFunc->updateMemory();
+				newFunc->setMethodDefPcr(pcr);
+				callTable.push_back(newFunc);
+				
+
+			}
+			if (constructFactory->hasKey(command.front(), "memory"))
+			{
+				MemoryRestorer* myMemory = dynamic_cast<MemoryRestorer*>(abstractCommand);
+				if (myMemory->getClearFlag())
+				{
+					myMemory->clearNew(programMemory);
+				}
+				if (myMemory->getRestoreFlag())
+				{
+					programMemory = myMemory->oldToNew(oldMemory);
+				}
+
+			}
 		}
 		else
 		{
+			if (execution)
+			{
+				Function* newFunc = isFunc(callTable, command.at(0));
+				Expression* myExpression = new Expression();
+				std::string statement = command.front();
+				if (myExpression->isAssignment(statement))
+				{
+					std::string value = myExpression->getAssignmentValue(statement);
+
+					if (myExpression->checkAssignmentValue(value, programMemory))
+					{
+						if (programMemory->isGoodVarName(myExpression->getVarName(statement)))
+						{
+							myExpression->performAssignment(statement, programMemory);
+						}
+					}
+				}
+				else if (newFunc != nullptr)
+				{
+
+					newFunc->setArgs(command.at(0));
+					newFunc->addArgsToMemory();
+					methodCommand* methoCom = new methodCommand();
+					methoCom->setProgramCounterPos(pcr + 1);
+					bodyPCRs.push_back(methoCom);
+					pcr = newFunc->getMethodDefPcr();
+					oldMemory = programMemory;
+					programMemory = newFunc->updateMemory();
+
+
+				}
+
+			}
+			
+
+		}
+	}
+
+	myrenderer->removeAnyTargets();
+	callTable.clear();
+	bodyPCRs.clear();
+	execution = true;
+	programMemory->deletePagetable();
+	return mytext;
+
+
+}
+
+SDL_Texture* parser::runForAllThread(Render* myrenderer, SDL_Texture* mytext,std::binary_semaphore& sharedSema, SDL_Rect* texRect)
+{
+	
+
+	commandFactory* myComFactory = commandFactory::getInstance();
+	programmingConstructsFactory* constructFactory = programmingConstructsFactory::getInstance();
+	bool execution = true;
+	executorManager* myExecutor = nullptr;
+	bodyEnd* myBodyEnd = nullptr;
+
+
+	for (int pcr = 0; pcr < commands.size(); pcr++)
+	{
+		std::vector<std::string> command = commands.at(pcr);
+
+		commandCatFactory* myfact = new commandCatFactory();
+		commandCat* abstractCommand = myfact->getCommand(command.at(0));
+
+		std::vector<std::string> commandArgs;
+		commandArgs.clear();
+		if (abstractCommand != nullptr)
+		{
+			if (execution)
+			{
+				checkForAll(command, programMemory);
+
+				if (!abstractCommand->correctParamsCount(0))
+				{
+					for (int i = 1; i < command.size(); i++)
+					{
+						commandArgs.push_back(command.at(i));
+
+					}
+
+
+					IArgManager* argChecker = dynamic_cast<IArgManager*>(abstractCommand);
+					if (argChecker->syntaxcheck(commandArgs))
+					{
+						argChecker->setAttributes(commandArgs);
+					}
+				}
+
+
+			}
+
+
+
+			if (constructFactory->hasKey(command.front(), "body"))
+			{
+				programmingBodies* mybody = dynamic_cast<programmingBodies*>(abstractCommand);
+				mybody->setProgramCounterPos(pcr);
+				bodyPCRs.push_back(mybody);
+			}
+			if (constructFactory->hasKey(command.front(), "bodyend"))
+			{
+				myBodyEnd = dynamic_cast<bodyEnd*>(abstractCommand);
+				myBodyEnd->checkCorrectEnd(bodyPCRs);
+				myBodyEnd->setCurrentBodyPCR(bodyPCRs);
+				bodyPCRs = myBodyEnd->popFromBodyList(bodyPCRs);//if any bodies left chuck error at end
+
+			}
+			if (constructFactory->hasKey(command.front(), "execute"))
+			{
+				myExecutor = dynamic_cast<executorManager*>(abstractCommand);
+				myExecutor->setLocalExecution(execution);
+
+
+			}
+			if (execution || (bodyPCRs.size() == 0 && constructFactory->hasKey(command.front(), "bodyend")))
+			{
+				if (myComFactory->getCommand(command.at(0)) != nullptr)
+				{
+					sharedSema.acquire();
+					Commands* current_Command = dynamic_cast<Commands*>(abstractCommand);
+					SDL_SetRenderTarget(myrenderer->getSDLRenderer(), mytext);
+					myrenderer->resetSDLColours();
+					current_Command->runCommand(myrenderer, myrenderer->getPen());
+					
+					SDL_RenderCopy(myrenderer->getSDLRenderer(), mytext, nullptr, texRect);
+					//SDL_RenderPresent(myrenderer->getSDLRenderer());
+					SDL_Delay(5000);
+					myrenderer->removeAnyTargets();
+					sharedSema.release();
+				}
+
+				else if (constructFactory->getCommand(command.at(0)) != nullptr)
+				{
+					programmingConstructs* currentConstruct = dynamic_cast<programmingConstructs*>(abstractCommand);
+					currentConstruct->runCommand();
+				}
+			}
+
+			if (constructFactory->hasKey(command.front(), "execute"))
+			{
+				execution = myExecutor->getLocalExecution();
+			}
+			if (constructFactory->hasKey(command.front(), "bodyend"))
+			{
+				pcr = myBodyEnd->getNewPCr(pcr);
+
+			}
+			if (command.front() == "method")
+			{
+				Function* newFunc = new Function(command.at(1));
+				oldMemory = programMemory;
+				programMemory = newFunc->updateMemory();
+				newFunc->setMethodDefPcr(pcr);
+				callTable.push_back(newFunc);
+
+
+			}
+			if (constructFactory->hasKey(command.front(), "memory"))
+			{
+				MemoryRestorer* myMemory = dynamic_cast<MemoryRestorer*>(abstractCommand);
+				if (myMemory->getClearFlag())
+				{
+					myMemory->clearNew(programMemory);
+				}
+				if (myMemory->getRestoreFlag())
+				{
+					programMemory = myMemory->oldToNew(oldMemory);
+				}
+
+			}
+		}
+		else
+		{
+			Function* newFunc = isFunc(callTable, command.at(0));
 			Expression* myExpression = new Expression();
 			std::string statement = command.front();
 			if (myExpression->isAssignment(statement))
 			{
-				if (myExpression->checkAssignment(statement,programMemory))
+				std::string value = myExpression->getAssignmentValue(statement);
+
+				if (myExpression->checkAssignmentValue(value, programMemory))
 				{
 					if (programMemory->isGoodVarName(myExpression->getVarName(statement)))
 					{
@@ -282,9 +566,29 @@ SDL_Texture* parser::runForAll(Render* myrenderer,SDL_Texture* mytext)
 					}
 				}
 			}
+			else if (newFunc != nullptr)
+			{
+
+				newFunc->setArgs(command.at(0));
+				newFunc->addArgsToMemory();
+				methodCommand* methoCom = new methodCommand();
+				methoCom->setProgramCounterPos(pcr + 1);
+				bodyPCRs.push_back(methoCom);
+				pcr = newFunc->getMethodDefPcr();
+				oldMemory = programMemory;
+				programMemory = newFunc->updateMemory();
+
+
+			}
+
+
+
+
 		}
 	}
+
 	myrenderer->removeAnyTargets();
+	callTable.clear();
 	bodyPCRs.clear();
 	execution = true;
 	programMemory->deletePagetable();
@@ -401,6 +705,22 @@ void parser::checkForAll(std::vector<std::string>& command, MemoryManager* myMan
 
 	}
 }
+
+Function* parser::isFunc(std::vector<Function*> callTable, std::string funcStatement)
+{
+	for (Function* func : callTable)
+	{
+
+		if (myChecker->readFuncName(funcStatement) == func->getName())
+		{
+			return func;
+		}
+
+	}
+	return nullptr;
+}
+
+
 
 
 

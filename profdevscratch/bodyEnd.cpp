@@ -16,7 +16,7 @@ int bodyEnd::getNewPCr(int pcr)
 {
     if (this->newPCR > -1)
     {
-        return newPCR;
+        return newPCR-1;
     }
     else
     {

@@ -4,10 +4,8 @@
 #include "SDL.h"
 #include <exception>
 #include <contextalreadyset.h>
-#include "parser.h"
 #include "nonnumberexception.h"
 #include "invalidParameters.h"
-#include "Render.h"
 #include "gui.h"
 #include <iostream>
 #include <fstream>
@@ -21,6 +19,7 @@ namespace fullyworkingunittests
 	TEST_CLASS(fullyworkingunittests)
 	{
 	public:
+		gui* mygui = new gui;
 		/**
 		 * .test method for checking if string added as float is handled
 		 * 
@@ -29,14 +28,14 @@ namespace fullyworkingunittests
 		{
 			parser* myparser = new parser();
 
-			myparser->splitToCommands("circle beef");
+			myparser->splitToCommands("circle \"beef\"");
 
 			
 
 			std::string error = myparser->syntaxCheckAll();
 			int line = 0;
 
-			Assert::IsTrue(error == "you have put in an incorrect data type for colourCommand please enter a float with the format(number)e.g circle 54 on line 1");
+			Assert::IsTrue(error == "you have put in an incorrect data type for circleCommand please enter a float with the format(number)e.g circle 54 on line 1\n");
 
 
 			
@@ -148,7 +147,7 @@ namespace fullyworkingunittests
 			std::string error = myparser->syntaxCheckAll();
 			int line = 0;
 		
-			Assert::IsTrue(error == "you have entered the incorrect number of parameters on line 1");
+			Assert::IsTrue(error == "you have entered the incorrect number of parameters on line 1\n");
 
 
 		}
@@ -168,7 +167,7 @@ namespace fullyworkingunittests
 			std::string error = myparser->syntaxCheckAll();
 			int line = 0;
 
-			Assert::IsTrue(error == "you have entered the incorrect number of parameters on line 1");
+			Assert::IsTrue(error == "you have entered the incorrect number of parameters on line 1\n");
 
 
 
@@ -182,7 +181,7 @@ namespace fullyworkingunittests
 		{
 			parser* myparser = new parser();
 
-			myparser->splitToCommands("fill on");
+			myparser->splitToCommands("fill true");
 
 			Render* myrenderer = new Render();
 			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
@@ -204,12 +203,12 @@ namespace fullyworkingunittests
 		{
 			parser* myparser = new parser();
 
-			myparser->splitToCommands("fill beef");
+			myparser->splitToCommands("fill \"beef\"");
 
 			std::string error = myparser->syntaxCheckAll();
 			int line = 0;
 
-			Assert::IsTrue(error == "you have entered an incorrect value for fill please enter on or off or true or false e.g fill on on line 1");
+			Assert::IsTrue(error == "you have entered an incorrect value for fill please enter  true or false e.g fill true on line 1\n");
 
 
 
@@ -320,7 +319,7 @@ namespace fullyworkingunittests
 		 */
 		TEST_METHOD(multilinetest)
 		{
-			gui* mygui = new gui();
+
 			Render* myrenderer = new Render();
 			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
 			mygui->setConsoleInput("run");
@@ -346,7 +345,7 @@ namespace fullyworkingunittests
 		 */
 		TEST_METHOD(singlecommandlinetest)
 		{
-			gui* mygui = new gui();
+			
 			Render* myrenderer = new Render();
 			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
 			mygui->setConsoleInput("circle 50");
@@ -370,10 +369,11 @@ namespace fullyworkingunittests
 
 			myparser->splitToCommands("crce 100");
 
+			std::string error = myparser->syntaxCheckAll();
+	
+			Assert::IsTrue(error == "you have entered something that is not a command nore an assignment on line 1\n");
 
-
-			auto func = [myparser] { myparser->syntaxCheckAll(); };
-			Assert::ExpectException<notcommandexception>(func);
+			
 
 
 		}

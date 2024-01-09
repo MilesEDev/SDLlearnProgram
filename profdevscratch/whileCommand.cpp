@@ -22,6 +22,7 @@ void whileCommand::runCommand()
 
 void whileCommand::setAttributes(std::vector<std::string> commandArgs)
 {
+	localArguments.clear();
 	localArguments.push_back(commandArgs.at(0));
 	localArguments.push_back(commandArgs.at(1));
 	localArguments.push_back(commandArgs.at(2));
