@@ -233,6 +233,23 @@ std::string parser::syntaxCheckAll()
 
 			error=error+e.returnError() + " on line " + std::to_string(line)+"\n";
 		}
+		catch (cannotEndBody& e)
+		{
+			error = error + e.returnError() + " on line " + std::to_string(line) + "\n";
+		}
+		
+	}
+	for (programmingBodies* body : bodyPCRs)
+	{
+		try
+		{
+			bool a = 1;
+			throw unEndedBody("syntax error unEndedbody on line " + std::to_string(body->getProgramCounterPos() + 1));
+		}
+		catch (unEndedBody& e)
+		{
+			error = error + e.returnError();
+		}
 	}
 	if (error == "")
 	{
@@ -412,7 +429,7 @@ std::pair < SDL_Texture*, std::string> parser::runForAll(Render* myrenderer,SDL_
 						methoCom->setProgramCounterPos(pcr + 1);
 						bodyPCRs.push_back(methoCom);
 						pcr = newFunc->getMethodDefPcr();
-						currentScope = newFunc.getName(); 
+						
 						oldMemory = programMemory;
 						programMemory = newFunc->updateMemory();
 
@@ -423,8 +440,9 @@ std::pair < SDL_Texture*, std::string> parser::runForAll(Render* myrenderer,SDL_
 
 
 			}
-		}
 
+		}
+		
 		catch (nonStringException& e)
 		{
 
@@ -471,7 +489,25 @@ std::pair < SDL_Texture*, std::string> parser::runForAll(Render* myrenderer,SDL_
 
 			error = error + "run time error " + e.returnError() + " on line " + std::to_string(line) + "\n";
 		}
+		catch (cannotEndBody& e)
+		{
+			error = error + "run time error " + e.returnError() + " on line " + std::to_string(line) + "\n";
+		}
 	}
+	
+		for (programmingBodies* body : bodyPCRs)
+		{
+			try
+			{
+				bool a = 1;
+				throw unEndedBody("run time error unEndedbody on line " + std::to_string(body->getProgramCounterPos() + 1));
+			}
+				catch(unEndedBody& e)
+				{
+					error = error + e.returnError();
+				}
+		}
+	
 
 	
 
@@ -726,6 +762,22 @@ std::string parser::runForAllThread(Render* myrenderer, std::binary_semaphore& s
 		{
 
 			error = error + "run time error " + e.returnError() + " on line " + std::to_string(line) + "\n";
+		}
+		catch (cannotEndBody& e)
+		{
+			error = error + "run time error " + e.returnError() + " on line " + std::to_string(line) + "\n";
+		}
+	}
+	for (programmingBodies* body : bodyPCRs)
+	{
+		try
+		{
+			bool a = 1;
+			throw unEndedBody("run time error unEndedbody on line " + std::to_string(body->getProgramCounterPos() + 1));
+		}
+		catch (unEndedBody& e)
+		{
+			error = error + e.returnError();
 		}
 	}
 

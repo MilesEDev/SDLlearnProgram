@@ -2,7 +2,7 @@
 #include "programmingConstructs.h"
 #include "bodyEnd.h"
 #include "executorManager.h"
-
+#include "cannotEndBody.h"
 class endIf :public programmingConstructs,public bodyEnd, public executorManager
 {
 public:

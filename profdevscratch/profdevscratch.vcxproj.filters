@@ -85,7 +85,7 @@
     <Filter Include="Header Files\dataManipulators">
       <UniqueIdentifier>{c5b04132-0c89-40d1-93e7-f5faf172e287}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\exceptions\graphics">
+    <Filter Include="graphics">
       <UniqueIdentifier>{d8fb3c94-6057-4692-bc6b-30081f14e30c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -288,11 +288,17 @@
     <ClCompile Include="MemoryRestorer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="endMethod.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ThreadManager.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="unEndedBody.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cannotEndBody.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="endMethod.cpp">
+      <Filter>Source Files\commands\sub-commands\programmingConstruct</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -327,16 +333,16 @@
       <Filter>Header Files\exceptions</Filter>
     </ClInclude>
     <ClInclude Include="gui.h">
-      <Filter>Header Files\exceptions\graphics</Filter>
+      <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="Render.h">
-      <Filter>Header Files\exceptions\graphics</Filter>
+      <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="renderTexture.h">
-      <Filter>Header Files\exceptions\graphics</Filter>
+      <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="window.h">
-      <Filter>Header Files\exceptions\graphics</Filter>
+      <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="triangle.h">
       <Filter>Header Files\shapes</Filter>
@@ -480,6 +486,12 @@
       <Filter>Header Files\commands\sub-commands\programmingConstructs</Filter>
     </ClInclude>
     <ClInclude Include="ThreadManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="unEndedBody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cannotEndBody.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

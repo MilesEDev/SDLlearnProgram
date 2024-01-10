@@ -3,6 +3,7 @@
 #include "bodyEnd.h"
 #include "executorManager.h"
 #include "MemoryRestorer.h"
+#include "cannotEndBody.h"
 
 class endMethod :public programmingConstructs,public bodyEnd, public executorManager,public MemoryRestorer
 {

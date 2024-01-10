@@ -14,7 +14,7 @@ bool endIf::checkCorrectEnd(std::vector<programmingBodies*> bodyPCRs)
     }
     else
     {
-        return false;
+        throw cannotEndBody("cannot end " + bodyPCRs.back()->getName() + "with endif");
     }
 }
 

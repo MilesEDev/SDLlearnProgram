@@ -139,6 +139,7 @@
     <ClCompile Include="..\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\imgui\misc\cpp\imgui_stdlib.cpp" />
     <ClCompile Include="bodyEnd.cpp" />
+    <ClCompile Include="cannotEndBody.cpp" />
     <ClCompile Include="circle.cpp" />
     <ClCompile Include="circleCommand.cpp" />
     <ClCompile Include="clearcommand.cpp" />
@@ -194,6 +195,7 @@
     <ClCompile Include="ThreadManager.cpp" />
     <ClCompile Include="triangle.cpp" />
     <ClCompile Include="triangleCommand.cpp" />
+    <ClCompile Include="unEndedBody.cpp" />
     <ClCompile Include="variableIsUndefined.cpp" />
     <ClCompile Include="whileCommand.cpp" />
     <ClCompile Include="window.cpp" />
@@ -209,6 +211,7 @@
     <ClInclude Include="..\imgui\imgui.h" />
     <ClInclude Include="..\imgui\misc\cpp\imgui_stdlib.h" />
     <ClInclude Include="bodyEnd.h" />
+    <ClInclude Include="cannotEndBody.h" />
     <ClInclude Include="circle.h" />
     <ClInclude Include="circleCommand.h" />
     <ClInclude Include="clearcommand.h" />
@@ -261,6 +264,7 @@
     <ClInclude Include="ThreadManager.h" />
     <ClInclude Include="triangle.h" />
     <ClInclude Include="triangleCommand.h" />
+    <ClInclude Include="unEndedBody.h" />
     <ClInclude Include="variableIsUndefined.h" />
     <ClInclude Include="whileCommand.h" />
     <ClInclude Include="window.h" />

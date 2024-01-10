@@ -30,6 +30,8 @@
 #include "SDL.h"
 #include <thread>
 #include "ThreadManager.h"
+#include "unEndedBody.h"
+#include "cannotEndBody.h"
 /**
  * 
  * .parses the commands and runs them 
