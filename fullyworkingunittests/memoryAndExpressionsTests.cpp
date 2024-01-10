@@ -346,7 +346,12 @@ namespace memoryAndExpressionsTests
 			Assert::IsTrue(2 == std::stoi(myExpression->calcFull("(2*2)/2", myMemory)));
 		}
 
-
+		TEST_METHOD(stringConcatTest)
+		{
+			MemoryManager* myMemory = new MemoryManager();
+			Expression* myExpression = new Expression();
+			Assert::IsTrue("\"hellothere\"" == myExpression->calcFull("\"hello\"+\"there\"", myMemory));
+		}
 
 		
 
