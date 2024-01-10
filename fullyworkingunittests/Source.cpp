@@ -29,6 +29,11 @@ namespace fullyworkingunittests
 			commandFactory* myFactory = commandFactory::getInstance();
 			Assert::IsTrue(myFactory != nullptr);
 		}
+		TEST_METHOD(SingletonTest2)
+		{
+			dataChecker* myChecker = dataChecker::getInstance();
+			Assert::IsTrue(myChecker != nullptr);
+		}
 
 	};
 }
