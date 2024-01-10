@@ -6,6 +6,7 @@
 #include "whileCommand.h"
 #include "Function.h"
 #include "ifCommand.h"
+#include "parser.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -68,6 +69,19 @@ namespace fullyworkingunittests
 			myIf->setAttributes(commandArgs);
 			myIf->runCommand();
 			Assert::IsTrue(true == myIf->getLocalExecution());
+
+		}
+		TEST_METHOD(nestedBodiesTest)
+		{
+			parser* myparser = new parser();
+
+			myparser->splitToCommands("if 2 < 1\nif 2 < 1\ncircle 50\nendif\nendif");
+
+			std::string error = myparser->syntaxCheckAll();
+			int line = 0;
+
+			Assert::IsTrue(error == "ok");
+
 
 		}
 	
