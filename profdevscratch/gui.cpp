@@ -110,17 +110,18 @@ void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer*
 			//std::cout << "Is getToRun null?: " << (myThreadManager->getToRun() == nullptr) << std::endl;
 		if (!thread1Running && !thread2Running)
 		{
-			std::cout << "Draw to screen" << std::endl;
+			//std::cout << "Draw to screen" << std::endl;
 			SDL_RenderCopy(sdlrend, mytextbackground, nullptr, srcRectBlack);
 			//std::cout << mytextbackground<< "mybackground" << std::endl;
 			SDL_RenderCopy(sdlrend, mytext, nullptr, srcRect);
 		}
-		while (thread1Running || thread2Running)
+		if(thread1Running || thread2Running)
 		{
 			if (myThreadManager->getToRun() != nullptr)
 			{
 				std::cout << mytext << std::endl;
 				SDL_SetRenderTarget(myrenderer->getSDLRenderer(), mytext);
+				myrenderer->resetSDLColours();
 				myThreadManager->getToRun()->runCommand(myrenderer, myrenderer->getPen());
 				myThreadManager->setToRun(nullptr);
 				myrenderer->removeAnyTargets();
@@ -130,26 +131,34 @@ void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer*
 
 
 				std::cout << "main thread release" << std::endl;
+				SDL_Delay(5000);
 				mainToThread.release();
 
 			}
 			else {
-				std::cout << "Draw to screen" << std::endl;
+				
 				SDL_RenderCopy(sdlrend, mytextbackground, nullptr, srcRectBlack);
 				//std::cout << mytextbackground<< "mybackground" << std::endl;
 				SDL_RenderCopy(sdlrend, mytext, nullptr, srcRect);
 			}
 		}
-		if (threadsRunning == true)
+		else if(threadsRunning == true)
 		{
-			error = errorth1 + errorth2;
+			threadsRunning = false;
+			//error = errorth1 + errorth2;
 			errorth1 = "";
 			errorth2 = "";
-			if (error != "okok")
+			std::cout << "------------------threads terminated-------------" << std::endl;
+			if (error != "")
 			{
 				ImGui::OpenPopup("ThePopup");
 			}
-			threadsRunning = false;
+			else
+			{
+				error = "";
+			}
+			
+			
 
 
 		}
@@ -234,10 +243,14 @@ void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer*
 
 		if (ImGui::BeginPopupModal("ThePopup")) {
 			ImGui::Text(error.c_str());
+			
 			if (ImGui::Button("ok", buttonsize))
 			{
 				ImGui::CloseCurrentPopup();
+				error = "";
 			}
+
+		
 			ImGui::EndPopup();
 
 		}
@@ -291,19 +304,19 @@ void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer*
 			
 			myrenderer->removeAnyTargets();
 			threadsRunning = true;
-			
+			std::cout << "_________________________________newthread button started_________---" << std::endl;
 			
 			std::string newStr = strmultiline;
 			std::string newStr2 = thread2;
 			thread1Running = true;
-			std::thread thread_runner1(&gui::runnerThreaded,this, myrenderer,newStr,std::ref(errorth1), std::ref(thread1Running));
+			std::thread thread_runner1(&gui::runnerThreaded,this, myrenderer,newStr,std::ref(errorth1), std::ref(thread1Running),1);
 			
 			thread_runner1.detach();
 			
 			
 			
 			thread2Running = true;
-			std::thread thread_runner2(&gui::runnerThreaded,this,myrenderer,newStr2,std::ref(errorth2),std::ref(thread2Running));
+			std::thread thread_runner2(&gui::runnerThreaded,this,myrenderer,newStr2,std::ref(errorth2),std::ref(thread2Running),2);
 			
 			thread_runner2.detach();
 			
@@ -381,7 +394,7 @@ bool gui::runner(Render* myrenderer, SDL_Texture* mytext, std::string mystring, 
 }
 
 
-bool gui::runnerThreaded(Render* myrenderer,std::string program,std::string &errorth,bool &isrunning)
+bool gui::runnerThreaded(Render* myrenderer,std::string program,std::string &errorth,bool &isrunning,int threadid)
 {
 	isrunning = true;
 	Render* myThreadRenderer = new Render();
@@ -389,16 +402,22 @@ bool gui::runnerThreaded(Render* myrenderer,std::string program,std::string &err
 	parser* myparser = new parser();
 	myparser->splitToCommands(program);
 	std::string tempError = myparser->syntaxCheckAll();
+	errorth = tempError;
+	std::cout << errorth << std::endl;
 
 	if (tempError == "ok")
 	{
-		
-		std::string tempError = myparser->runForAllThread(myrenderer, threadToThread, myThreadRenderer, mainToThread, myThreadManager);
-
+		std::string tempError = myparser->runForAllThread(myrenderer, threadToThread, myThreadRenderer, mainToThread, myThreadManager, threadid);
 	}
+		
 	
 	
 	errorth = tempError;
+	
+	if (tempError != "ok")
+	{
+		error = error + errorth;
+	}
 	
 	
 	myparser->clearAllLists();

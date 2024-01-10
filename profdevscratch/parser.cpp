@@ -488,7 +488,7 @@ std::pair < SDL_Texture*, std::string> parser::runForAll(Render* myrenderer,SDL_
 
 }
 
-std::string parser::runForAllThread(Render* myrenderer, std::binary_semaphore& sharedSema, Render* myThreadRenderer, std::binary_semaphore &mainToThread,ThreadManager* myThreadManager)
+std::string parser::runForAllThread(Render* myrenderer, std::binary_semaphore& sharedSema, Render* myThreadRenderer, std::binary_semaphore &mainToThread,ThreadManager* myThreadManager,int threadid)
 {
 
 	std::string error = "";
@@ -562,27 +562,38 @@ std::string parser::runForAllThread(Render* myrenderer, std::binary_semaphore& s
 				}
 				if (execution || (bodyPCRs.size() == 0 && constructFactory->hasKey(command.front(), "bodyend")))
 				{
+					
 					if (myComFactory->getCommand(command.at(0)) != nullptr)
 					{
 						sharedSema.acquire();
+						std::cout << "thread" << threadid << "running in thread semaphore" << std::endl;
 						myrenderer->setFill(myThreadRenderer->getFill());
-						myrenderer->setPen(myThreadRenderer->getPen().first,myThreadRenderer->getPen().second);
-						myrenderer->setPenColour(myThreadRenderer->getPenColour());
-
+						float x = myThreadRenderer->getPen().first;
+						float y = myThreadRenderer->getPen().second;
+						myrenderer->setPen(x,y);
+						std::vector<Uint8> colour = myThreadRenderer->getPenColour();
+						myrenderer->setPenColour(colour);
+						
 						
 						Commands* current_Command = dynamic_cast<Commands*>(abstractCommand);
 						myThreadManager->setToRun(current_Command);
-						
+						std::cout << command.front() << std::endl;
 						std::cout << "thread wait aquire" << std::endl;
 						mainToThread.acquire();
 						std::cout << "thread grab aquire" << std::endl;
 
 						myThreadRenderer->setFill(myrenderer->getFill());
-						myThreadRenderer->setPen(myrenderer->getPen().first, myThreadRenderer->getPen().second);
-						myThreadRenderer->setPenColour(myrenderer->getPenColour());
+					    x = myrenderer->getPen().first;
+						y = myrenderer->getPen().second;
+						myThreadRenderer->setPen(x,y);
+						std::cout << "x" << myThreadRenderer->getPen().first << "y" << myThreadRenderer->getPen().second << std::endl;
+						colour = myrenderer->getPenColour();
+						myThreadRenderer->setPenColour(colour);
 					
+					
+						std::cout << "thread copied context" << std::endl;
 						sharedSema.release();
-
+						std::cout << "thread" << threadid << "running out of thread semaphore" << std::endl;
 						
 					}
 

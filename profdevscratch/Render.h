@@ -30,7 +30,7 @@ private:
 	/**
 	 * .colour stored
 	 */
-	std::vector<Uint8> penRGBA = { 255,255,255,255 };
+	std::vector<Uint8> penRGBA = {0,0,0,0 };
 
 	std::array<float, 4> renderBackground = { 1,1,1,1 };
 

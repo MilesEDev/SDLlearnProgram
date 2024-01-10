@@ -399,10 +399,10 @@ namespace fullyworkingunittests
 			running = true;
 			running2 = true;
 
-			std::thread thread_runner1(&gui::runnerThreaded,*&threadTester,myrenderer,program,std::ref(myStr),std::ref(running));
+			std::thread thread_runner1(&gui::runnerThreaded,*&threadTester,myrenderer,program,std::ref(myStr),std::ref(running),1);
 			
 			thread_runner1.detach();
-			std::thread thread_runner2(&gui::runnerThreaded, *&threadTester, myrenderer, program, std::ref(myStr2), std::ref(running2));
+			std::thread thread_runner2(&gui::runnerThreaded, *&threadTester, myrenderer, program, std::ref(myStr2), std::ref(running2),2);
 
 			thread_runner2.detach();
 

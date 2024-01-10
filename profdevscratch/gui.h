@@ -108,7 +108,7 @@ public:
 	 */
 	bool runner(Render* myrenderer,SDL_Texture* mytext,std::string mystring,parser* myparser);
 
-	bool runnerThreaded(Render* myrenderer, std::string program,std::string &erroth,bool &isRunning);
+	bool runnerThreaded(Render* myrenderer, std::string program,std::string &erroth,bool &isRunning,int threadid);
 	/**
 	 * .gets the line from console
 	 * 
