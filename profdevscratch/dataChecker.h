@@ -78,7 +78,12 @@ public:
 	 */
 
 	static dataChecker* getInstance();
-
+	/**
+	 * .this is used to see how many decimals at end of a number 
+	 * 
+	 * \param strNum the string of the number to locate decimal nums behind of 
+	 * \return the number of didgits behind decimal point
+	 */
 	int getDecimalAccuracy(std::string strNum);
 	/**
 	 * .gets the length of the non decimal values in string
