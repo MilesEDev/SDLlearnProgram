@@ -6,10 +6,10 @@ std::string Expression::add(std::string term1, std::string term2)
    
     if (myChecker->isString(term1) && myChecker->isString(term2))
     {
-        std::string result =  myConverter->sliceQoutes(term1) + myConverter->sliceQoutes(term2);
+        std::string result = myConverter->sliceQoutes(term1) + myConverter->sliceQoutes(term2);
         return myConverter->addQoutes(result);
     }
-        
+
     else if (myChecker->isFloat(term1) && myChecker->isFloat(term2))
     {
         float result = std::stof(term1) + std::stof(term2);
