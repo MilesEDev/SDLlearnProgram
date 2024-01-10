@@ -406,8 +406,11 @@ namespace fullyworkingunittests
 
 			thread_runner2.detach();
 
+			threadTester->setErroth1("ok");
 
-			while (running != false)
+
+			threadTester->setErroth2("ok");
+			while (running != false || running2 != false)
 			{
 				if (threadTester->getManager()->getToRun() != nullptr)
 				{

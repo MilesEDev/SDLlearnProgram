@@ -544,6 +544,16 @@ void gui::releaseMainSemaphore()
 	mainToThread.release();
 }
 
+void gui::setErroth1(std::string newErroth)
+{
+	errorth1 = newErroth;
+}
+
+void gui::setErroth2(std::string newErroth)
+{
+	errorth2 = newErroth;
+}
+
 
 
 

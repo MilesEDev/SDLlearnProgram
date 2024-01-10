@@ -66,8 +66,8 @@ private:
 
 	bool threadsRunning = false;
 
-	std::string errorth1;
-	std::string errorth2;
+	std::string errorth1 ="";
+	std::string errorth2 ="";
 
 	
 	
@@ -135,5 +135,12 @@ public:
 
 	void releaseMainSemaphore();
 	
-};
+	void setErroth1(std::string newErroth);
+	
+	void setErroth2(std::string newErroth);
+
+
+	
+};	
+
 

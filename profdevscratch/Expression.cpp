@@ -91,6 +91,23 @@ std::string Expression::calcFull(std::string expr,MemoryManager* myManager)
                     }
                     j++;
                 }
+            }
+            if (expr[i] == '(')
+            {
+                int j = i + 1;
+                while (j < expr.size())
+                {
+                    breakTest = expr[j];
+                    
+                    if (expr[j] == ')')
+                    {
+                        std::string calcBrackets = calcFull(expr.substr(i + 1, j - (i + 1)), myManager);
+                        expr = expr.replace(i, calcBrackets.size(), calcBrackets);
+                        i = 0;
+                        break;
+                    }
+                    j++;
+                }
 
             }
             key = isOperation(expr, i, operation);

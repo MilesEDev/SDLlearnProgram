@@ -331,11 +331,13 @@ namespace memoryAndExpressionsTests
 
 		}
 
-		
+		TEST_METHOD(expressionsTestBrackets)
+		{
+			MemoryManager* myMemory = new MemoryManager();
+			Expression* myExpression = new Expression();
 
-
-
-
+			Assert::IsTrue(3 == std::stoi(myExpression->calcFull("(1+2)", myMemory)));
+		}
 		
 
 

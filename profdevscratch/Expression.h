@@ -9,7 +9,7 @@ class Expression
 private:
 	dataChecker* myChecker = dataChecker::getInstance();
 	dataConverter* myConverter = dataConverter::getInstance();
-	std::string priorites[4] = { "/","*","+","-" };
+	std::string priorites[5] = { "(","/","*","+","-" };
 	
 	/**
 	 * .this is used to add terms together be they strings or intergers
