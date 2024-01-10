@@ -432,7 +432,20 @@ namespace fullyworkingunittests
 		}
 		
 		
+		TEST_METHOD(syntaxCheck)
+		{
+			parser* myparser = new parser();
 
+			myparser->splitToCommands("circle \"stringTest\"");
+
+
+
+			std::string error = myparser->syntaxCheckAll();
+			int line = 0;
+
+			Assert::IsTrue(error == "you have put in an incorrect data type for circleCommand please enter a float with the format(number)e.g circle 54 on line 1\n");
+
+		}
 		
 	};
 }
