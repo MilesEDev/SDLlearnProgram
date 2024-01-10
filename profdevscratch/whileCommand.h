@@ -32,14 +32,18 @@ public:
 	/**
 	 * .this sets the local arguments variable to so that arguments can be referanced without func pass
 	 * 
-	 * \param commandArgs
+	 * \param commandArgs these are the command args to be passed and have local arguments set to 
 	 */
 	void setAttributes(std::vector<std::string> commandArgs) override;
+
 	/**
+	 * 
 	 * .this performs a syntax check on arguments to make sure that they are of correct type and format in this case
 	 * make sure that arguments are data values and valid operators 
+	 * 
+	 * \param commandArgs the command args to be syntax checked
+	 * \return the successes of the syntax check 
 	 */
-
 	bool syntaxcheck(std::vector<std::string> commandArgs);
 
 

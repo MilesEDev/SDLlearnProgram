@@ -449,6 +449,24 @@ namespace fullyworkingunittests
 			Assert::IsTrue(error == "you have put in an incorrect data type for circleCommand please enter a float with the format(number)e.g circle 54 on line 1\n");
 
 		}
+		/**
+		 * .unit test for checking multi line error returned
+		 * 
+		 */
+		TEST_METHOD(syntaxCheckmultiLine)
+		{
+			parser* myparser = new parser();
+
+			myparser->splitToCommands("circle \"stringTestingCheck\"\ncircle \"str\"");
+
+
+
+			std::string error = myparser->syntaxCheckAll();
+			int line = 0;
+
+			Assert::IsTrue(error == "you have put in an incorrect data type for circleCommand please enter a float with the format(number)e.g circle 54 on line 1\nyou have put in an incorrect data type for circleCommand please enter a float with the format(number)e.g circle 54 on line 2\n");
+
+		}
 		
 	};
 }
