@@ -102,7 +102,7 @@ std::string Expression::calcFull(std::string expr,MemoryManager* myManager)
                     if (expr[j] == ')')
                     {
                         std::string calcBrackets = calcFull(expr.substr(i + 1, j - (i + 1)), myManager);
-                        expr = expr.replace(i, calcBrackets.size(), calcBrackets);
+                        expr.replace(i,j-i+1, calcBrackets);
                         i = 0;
                         break;
                     }

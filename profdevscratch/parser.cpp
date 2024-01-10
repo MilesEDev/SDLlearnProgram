@@ -45,6 +45,7 @@ void parser::clearAllLists()
 std::string parser::syntaxCheckAll()
 {
 	std::string error = "";
+
 	commandFactory* myFactory = commandFactory::getInstance();
 	programmingConstructsFactory* constructFactory = programmingConstructsFactory::getInstance();
 	line = 0;
@@ -119,6 +120,7 @@ std::string parser::syntaxCheckAll()
 					if (myMemory->getRestoreFlag())
 					{
 						programMemory = myMemory->oldToNew(oldMemory);
+						
 					}
 
 				}
@@ -168,6 +170,7 @@ std::string parser::syntaxCheckAll()
 						{
 							func->setArgs(command.at(0));
 							programMemory->clearToDefine();
+							
 							func->syntaxCheck();
 							key = true;
 						}
@@ -409,6 +412,7 @@ std::pair < SDL_Texture*, std::string> parser::runForAll(Render* myrenderer,SDL_
 						methoCom->setProgramCounterPos(pcr + 1);
 						bodyPCRs.push_back(methoCom);
 						pcr = newFunc->getMethodDefPcr();
+						currentScope = newFunc.getName(); 
 						oldMemory = programMemory;
 						programMemory = newFunc->updateMemory();
 
