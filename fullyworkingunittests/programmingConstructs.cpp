@@ -71,6 +71,10 @@ namespace fullyworkingunittests
 			Assert::IsTrue(true == myIf->getLocalExecution());
 
 		}
+		/**
+		 * .test for nested bodies
+		 * 
+		 */
 		TEST_METHOD(nestedBodiesTest)
 		{
 			parser* myparser = new parser();
@@ -84,7 +88,22 @@ namespace fullyworkingunittests
 
 
 		}
-	
+		/**
+		 * .test for function encapsulation
+		 * 
+		 */
+		TEST_METHOD(funcEncapTest)
+		{
+			parser* myparser = new parser();
+
+			myparser->splitToCommands("myVar=50\nmethod myMethod()\ncircle myVar\nendmethod");
+
+			std::string error = myparser->syntaxCheckAll();
+			int line = 0;
+
+			Assert::IsTrue(error == "you have tried to use a variable that has not been defined on line 3\n");
+		}
+
 
 
 

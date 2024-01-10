@@ -104,7 +104,7 @@ std::string parser::syntaxCheckAll()
 				if (command.front() == "method")
 				{
 					Function* newFunc = new Function(command.at(1));
-					oldMemory = programMemory;
+					oldMemory.push_back(programMemory);
 					programMemory = newFunc->updateMemory();
 					
 					callTable.push_back(newFunc);
@@ -119,7 +119,8 @@ std::string parser::syntaxCheckAll()
 					}
 					if (myMemory->getRestoreFlag())
 					{
-						programMemory = myMemory->oldToNew(oldMemory);
+						programMemory = myMemory->oldToNew(oldMemory.back());
+						oldMemory.pop_back();
 						
 					}
 
@@ -380,7 +381,7 @@ std::pair < SDL_Texture*, std::string> parser::runForAll(Render* myrenderer,SDL_
 				if (command.front() == "method")
 				{
 					Function* newFunc = new Function(command.at(1));
-					oldMemory = programMemory;
+					oldMemory.push_back(programMemory);
 					programMemory = newFunc->updateMemory();
 					newFunc->setMethodDefPcr(pcr);
 					callTable.push_back(newFunc);
@@ -396,7 +397,7 @@ std::pair < SDL_Texture*, std::string> parser::runForAll(Render* myrenderer,SDL_
 					}
 					if (myMemory->getRestoreFlag())
 					{
-						programMemory = myMemory->oldToNew(oldMemory);
+						programMemory = myMemory->oldToNew(oldMemory.back());
 					}
 
 				}
@@ -430,7 +431,7 @@ std::pair < SDL_Texture*, std::string> parser::runForAll(Render* myrenderer,SDL_
 						bodyPCRs.push_back(methoCom);
 						pcr = newFunc->getMethodDefPcr();
 						
-						oldMemory = programMemory;
+						oldMemory.push_back(programMemory);
 						programMemory = newFunc->updateMemory();
 
 
@@ -656,7 +657,7 @@ std::string parser::runForAllThread(Render* myrenderer, std::binary_semaphore& s
 				if (command.front() == "method")
 				{
 					Function* newFunc = new Function(command.at(1));
-					oldMemory = programMemory;
+					oldMemory.push_back(programMemory);
 					programMemory = newFunc->updateMemory();
 					newFunc->setMethodDefPcr(pcr);
 					callTable.push_back(newFunc);
@@ -672,7 +673,7 @@ std::string parser::runForAllThread(Render* myrenderer, std::binary_semaphore& s
 					}
 					if (myMemory->getRestoreFlag())
 					{
-						programMemory = myMemory->oldToNew(oldMemory);
+						programMemory = myMemory->oldToNew(oldMemory.back());
 					}
 
 				}
@@ -705,7 +706,7 @@ std::string parser::runForAllThread(Render* myrenderer, std::binary_semaphore& s
 						methoCom->setProgramCounterPos(pcr + 1);
 						bodyPCRs.push_back(methoCom);
 						pcr = newFunc->getMethodDefPcr();
-						oldMemory = programMemory;
+						oldMemory.push_back(programMemory);
 						programMemory = newFunc->updateMemory();
 
 

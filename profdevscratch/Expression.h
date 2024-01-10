@@ -7,8 +7,17 @@
 class Expression
 {
 private:
+	/**
+	 * .data checker to use for checking data
+	 */
 	dataChecker* myChecker = dataChecker::getInstance();
+	/**
+	 * .data converter for converting data
+	 */
 	dataConverter* myConverter = dataConverter::getInstance();
+	/**
+	 * .maths operations in bidmass order 
+	 */
 	std::string priorites[5] = { "(","/","*","+","-" };
 	
 	/**

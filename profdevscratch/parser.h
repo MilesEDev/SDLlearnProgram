@@ -59,11 +59,21 @@ private:
 	 * .this is the line count 
 	 */
 	int line = 0;
-	
+	/**
+	 * .this is the current memory to be used in execution
+	 */
 	MemoryManager* programMemory = new MemoryManager();
-	MemoryManager* oldMemory;
+	/**
+	 * .this is the list of old memories to be restored
+	 */
+	std::vector<MemoryManager*> oldMemory;
+	/**
+	 * .this is the call table containing all functions
+	 */
 	std::vector<Function*> callTable;
-
+	/**
+	 * .data checker for checking data
+	 */
 	dataChecker* myChecker = dataChecker::getInstance();
 public:
 	/**
@@ -118,15 +128,37 @@ public:
 	 * \return the return of the load
 	 */
 	std::string loadFromTxt(std::string programName);
-	
+	/**
+	 * .this checks to see if a specific input is variable
+	 * 
+	 * \param command the command line with args to check for variables
+	 * \param myManager the memory to use to check for existing pages
+	 * \param inputIndex the index of the arg to check 
+	 */
 	void checkForVars(std::vector<std::string> &command, MemoryManager* myManager,int inputIndex);
-	
-	
-	
+	/**
+	 * .checks if a specific input is a data value
+	 * 
+	 * \param command the command containing argumnets
+	 * \param inputIndex the index for the specific argument to check
+	 * \return whether a value was found
+	 */
 	bool checkForValue(std::vector<std::string> &command,int inputIndex);
 
+	/**
+	 * .this checks to see if any args are variables and transforms to values
+	 * 
+	 * \param command the command to check if arguments are variables in
+	 * \param myManager the memory manager used to check for vars
+	 */
 	void checkForAll(std::vector<std::string> &command, MemoryManager* myManager);
-
+	/**
+	 * .check to see if a statement is a function
+	 * 
+	 * \param callTable the call table to check for functions
+	 * \param funcStatement the statement that could be a function
+	 * \return nullptr if no func found the relevant function pointer if func has been found
+	 */
 	Function* isFunc(std::vector<Function*> callTable,std::string funcStatement);
 
 

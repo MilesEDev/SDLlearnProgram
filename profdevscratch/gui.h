@@ -49,24 +49,44 @@ private:
 	 * \return thread to be called
 	 */
 	std::thread* mythread;
-
+	/**
+	 * .the text box for threading programs
+	 */
 	std::string thread2 = "";
-
+	/**
+	 * .binary semaphore to control thread1 and thread2 accsess to renderer
+	 */
 	std::binary_semaphore
 		threadToThread{1};
-
+	/**
+	 * .binary semaphore to control accsess to mainthread
+	 */
 	std::binary_semaphore
 		mainToThread{ 0 };
+	/**
+	 * .the texture rectangle area
+	 */
 	SDL_Rect* srcRect;
 
-
+	/**
+	 * .var to show whether thread 1 is running 
+	 */
 	bool thread1Running = false;
-
+	/**
+	 * var to show whether thread 2 is running.
+	 */
 	bool thread2Running = false;
-
+	/**
+	 * .var to show whether any thread is running 
+	 */
 	bool threadsRunning = false;
-
+	/**
+	 * .stores error message for thread1
+	 */
 	std::string errorth1 ="";
+	/**
+	 * .stores error message for thread2
+	 */
 	std::string errorth2 ="";
 
 	
@@ -122,21 +142,46 @@ public:
 	 * \return 
 	 */
 	void setConsoleInput(std::string newline);
-
 	
+	/**
+	 * .gets the text in program textbox
+	 * 
+	 * \return the text in program textbox
+	 */
 	std::string getMultiLine();
 
+	/**
+	 * .this sets the text multiline program textbox
+	 * 
+	 * \param newmulti the new text to set multiline program textbox to
+	 */
 	void setMultiLine(std::string newmulti);
 
-	void superSimpleThread(Render* renderer);
-
-
+	
+	/**
+	 * .this gets the thread manager containing data used for controlling thread1 and 2
+	 * 
+	 * \return the threadmanager to return
+	 */
 	ThreadManager* getManager();
-
+	/**
+	 * .releases main semaphore so thread can continue execution
+	 * 
+	 */
 	void releaseMainSemaphore();
 	
+	/**
+	 * .sets error message for thread1
+	 * 
+	 * \param newErroth the new error message for thread1
+	 */
 	void setErroth1(std::string newErroth);
-	
+
+	/**
+	 * .sets error message for thread2
+	 *
+	 * \param newErroth the new error message for thread2
+	 */
 	void setErroth2(std::string newErroth);
 
 

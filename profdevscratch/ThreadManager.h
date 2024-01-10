@@ -4,15 +4,22 @@
 class ThreadManager
 {
 public:
+	/**
+	 * .the gui command to run
+	 */
 	Commands* toRun = nullptr;
-	Render* mainThreadRenderer;
 
-	void setRenderer(Render* mainThreadRendererNew);
-
-	Render* getRenderer();
-
+	/**
+	 * .this returns the GUI command to be run
+	 * 
+	 * \return 
+	 */
 	Commands* getToRun();
-
+	/**
+	 * .this sets the GUI command to be run
+	 * 
+	 * \param newToRun the new GUI command to run
+	 */
 	void setToRun(Commands* newToRun);
 };
 

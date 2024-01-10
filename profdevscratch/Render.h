@@ -32,7 +32,7 @@ private:
 	 */
 	std::vector<Uint8> penRGBA = {0,0,0,0 };
 
-	std::array<float, 4> renderBackground = { 1,1,1,1 };
+	
 
 	/**
 	 * .the cordinate of the pen
@@ -193,24 +193,11 @@ public:
 	 * 
 	 */
 	void removeAnyTargets();
-
+	/**
+	 * .this resets the sdl render context for colour
+	 */
 	
-
-
-	void setBackgroundColour(std::array<float,4> colour);
-
-	std::array<float, 4> getBackgroundColour();
-
-	void setFinished(bool finished);
-
-	bool isFinished();
-
-	void waitForRenderUpdate();
-
-	void doDraw();
-
-	bool getRequiresUpdate();
-
 	void resetSDLColours();
+
 };
 

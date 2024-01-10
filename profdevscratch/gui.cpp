@@ -515,24 +515,7 @@ void gui::setMultiLine(std::string newmulti)
 }
 
 
-void gui::superSimpleThread(Render* renderer)
-{
-	renderer->setBackgroundColour({ 255,0,0,255 });
-	renderer->waitForRenderUpdate();
 
-	/*
-	std::cout << "Make text red" << std::endl;
-	
-	SDL_SetRenderDrawColor(myrenderer->getSDLRenderer(), 255, 0, 0, 255);
-	SDL_RenderClear(myrenderer->getSDLRenderer());
-	SDL_Delay(2000);
-	//std::this_thread::sleep_for(std::chrono::seconds(10));
-
-	*/
-
-	std::cout << "Thread end" << std::endl;
-	renderer->setFinished(true);
-}
 
 ThreadManager* gui::getManager()
 {
