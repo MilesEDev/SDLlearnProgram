@@ -9,7 +9,7 @@
 #include "gui.h"
 #include <iostream>
 #include <fstream>
-
+#include "ThreadManager.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -386,7 +386,50 @@ namespace fullyworkingunittests
 
 
 		}
+		TEST_METHOD(doubleThread)
+		{
+			gui* threadTester = new gui();
+			Render* myrenderer = new Render();
+			SDL_Texture* mytext = SDL_CreateTexture(myrenderer->getSDLRenderer(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 640, 500);
+			std::string myStr = "";
+			std::string myStr2 = "";
+			bool running = false;
+			bool running2 = false;
+			std::string program = "circle 50";
+			running = true;
+			running2 = true;
 
+			std::thread thread_runner1(&gui::runnerThreaded,*&threadTester,myrenderer,program,std::ref(myStr),std::ref(running));
+			
+			thread_runner1.detach();
+			std::thread thread_runner2(&gui::runnerThreaded, *&threadTester, myrenderer, program, std::ref(myStr2), std::ref(running2));
+
+			thread_runner2.detach();
+
+
+			while (running != false)
+			{
+				if (threadTester->getManager()->getToRun() != nullptr)
+				{
+					std::cout << mytext << std::endl;
+					SDL_SetRenderTarget(myrenderer->getSDLRenderer(), mytext);
+					threadTester->getManager()->getToRun()->runCommand(myrenderer, myrenderer->getPen());
+					threadTester->getManager()->setToRun(nullptr);
+					myrenderer->removeAnyTargets();
+					SDL_RenderCopy(myrenderer->getSDLRenderer(), mytext, nullptr, nullptr);
+
+					std::cout << "hello world" << std::endl;
+
+
+					std::cout << "main thread release" << std::endl;
+					threadTester->releaseMainSemaphore();
+
+				}
+			}
+			
+			Assert::IsTrue(myStr+myStr2 == "okok");
+			
+		}
 		
 
 		

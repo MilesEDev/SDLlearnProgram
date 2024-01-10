@@ -65,6 +65,10 @@ private:
 	bool thread2Running = false;
 
 	bool threadsRunning = false;
+
+	std::string errorth1;
+	std::string errorth2;
+
 	
 	
 public:
@@ -127,7 +131,9 @@ public:
 	void superSimpleThread(Render* renderer);
 
 
+	ThreadManager* getManager();
 
+	void releaseMainSemaphore();
 	
 };
 

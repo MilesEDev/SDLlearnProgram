@@ -488,7 +488,7 @@ std::pair < SDL_Texture*, std::string> parser::runForAll(Render* myrenderer,SDL_
 
 }
 
-std::pair<SDL_Texture*, std::string> parser::runForAllThread(Render* myrenderer, std::binary_semaphore& sharedSema, Render* myThreadRenderer, std::binary_semaphore &mainToThread,ThreadManager* myThreadManager)
+std::string parser::runForAllThread(Render* myrenderer, std::binary_semaphore& sharedSema, Render* myThreadRenderer, std::binary_semaphore &mainToThread,ThreadManager* myThreadManager)
 {
 
 	std::string error = "";
@@ -724,6 +724,7 @@ std::pair<SDL_Texture*, std::string> parser::runForAllThread(Render* myrenderer,
 	{
 		error = "ok";
 	}
+	return error;
 
 
 }

@@ -5,7 +5,7 @@
 
 gui::gui() 
 {
-	
+	/*
 	window* mywindow = new window(); 
 	mySDLWindow = mywindow->getSDLWindow();
 	
@@ -19,6 +19,7 @@ gui::gui()
 
 	ImGui_ImplSDL2_InitForOpenGL(mySDLWindow, gl_context);
 	ImGui_ImplOpenGL3_Init("#version 450");
+	*/
 }
 gui::gui(window* mywindow)
 {
@@ -35,6 +36,7 @@ gui::gui(window* mywindow)
 	ImGui_ImplOpenGL3_Init("#version 130");
 	SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
 	int SDL_GL_SetSwapInterval(1);
+	
 	
 }
 void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer* sdlrend)
@@ -69,23 +71,19 @@ void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer*
 	SDL_Texture* mytextbackground = SDL_CreateTexture(sdlrend, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 600, 500);
 	
 	SDL_SetRenderTarget(sdlrend, mytextbackground);
-	std::cout << "Render target is now: " << mytextbackground << std::endl;
+
 
 	SDL_SetRenderDrawColor(sdlrend, 0, 0, 0, 255);
 	SDL_RenderClear(sdlrend);
 	SDL_SetRenderTarget(sdlrend, nullptr);
-	std::cout << "Render target is now: " << "nullptr" << std::endl;
-
-	std::string errorth1;
-	std::string errorth2;
 	
+
+
 	SDL_Event event = SDL_Event();
 	while (event.type != SDL_QUIT)
 	{
 
-		//counter++;
-		//myrenderer->drawTo(50, 100);
-
+	
 
 		while (SDL_PollEvent(&event))
 		{
@@ -93,18 +91,7 @@ void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer*
 			ImGui_ImplSDL2_ProcessEvent(&event);
 
 		}
-		if (!threadsRunning)
-		{
-			//SDL_RenderCopy(sdlrend, mytextbackground, nullptr, srcRectBlack);
-			//std::cout << mytextbackground<< "mybackground" << std::endl;
-			//SDL_RenderCopy(sdlrend, mytext, nullptr, srcRect);
-			//std::cout << mytext << "copeing to background" << std::endl;
-			//mainToThread.release();
-		}
-		else
-		{
-			threaded = false;
-		}
+		
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplSDL2_NewFrame();
 
@@ -153,7 +140,20 @@ void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer*
 				SDL_RenderCopy(sdlrend, mytext, nullptr, srcRect);
 			}
 		}
-		//}
+		if (threadsRunning == true)
+		{
+			error = errorth1 + errorth2;
+			errorth1 = "";
+			errorth2 = "";
+			if (error != "okok")
+			{
+				ImGui::OpenPopup("ThePopup");
+			}
+			threadsRunning = false;
+
+
+		}
+	
 		
 
 
@@ -291,60 +291,23 @@ void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer*
 			
 			myrenderer->removeAnyTargets();
 			threadsRunning = true;
-			/*
-			Render myrenderer2 = *myrenderer;
-			
-			std::vector<Render*> renderers = { myrenderer , &myrenderer2 };
-			for (int i = 0; i < renderers.size(); ++i) {
-				renderers[i]->setFinished(false);
-			}
-			*/
 			
 			
 			std::string newStr = strmultiline;
 			std::string newStr2 = thread2;
+			thread1Running = true;
 			std::thread thread_runner1(&gui::runnerThreaded,this, myrenderer,newStr,std::ref(errorth1), std::ref(thread1Running));
+			
 			thread_runner1.detach();
-			threadsRunning = true;
 			
 			
 			
-			//thread_runner1.join();
+			thread2Running = true;
 			std::thread thread_runner2(&gui::runnerThreaded,this,myrenderer,newStr2,std::ref(errorth2),std::ref(thread2Running));
+			
 			thread_runner2.detach();
-			threadsRunning = true;
-			/*
-			bool allRenderersFinished = false;
-
-			while (!allRenderersFinished) {
-
-				allRenderersFinished = true;
-
-				for (auto& renderer : renderers) {
-
-					if (!renderer->isFinished()) allRenderersFinished = false;
-
-					if (renderer->getRequiresUpdate()) {
-						renderer->doDraw();
-					}
-				}				
-			}
 			
 			
-			std::cout << "Thread is joinable" << std::endl;
-			thread_runner1.join();
-			thread_runner2.join();
-			std::cout << "Thread joined" << std::endl;
-			//thread_runner2.join();
-
-			
-			SDL_SetRenderTarget(myrenderer->getSDLRenderer(), nullptr);
-			SDL_RenderCopy(myrenderer->getSDLRenderer(), mytext, nullptr, nullptr);
-
-			error = errorth1 + errorth2;
-
-			//ImGui::OpenPopup("ThePopup");
-			*/
 			
 		}
 		
@@ -429,17 +392,18 @@ bool gui::runnerThreaded(Render* myrenderer,std::string program,std::string &err
 
 	if (tempError == "ok")
 	{
-		std::pair<SDL_Texture*, std::string> runData;
-		myparser->runForAllThread(myrenderer, threadToThread, myThreadRenderer, mainToThread, myThreadManager);
+		
+		std::string tempError = myparser->runForAllThread(myrenderer, threadToThread, myThreadRenderer, mainToThread, myThreadManager);
 
 	}
-	else
-	{
-		errorth = tempError;
-	}
+	
+	
+	errorth = tempError;
+	
 	
 	myparser->clearAllLists();
 	isrunning = false;
+	
 	
 	return true;
 }
@@ -483,6 +447,18 @@ void gui::superSimpleThread(Render* renderer)
 	std::cout << "Thread end" << std::endl;
 	renderer->setFinished(true);
 }
+
+ThreadManager* gui::getManager()
+{
+	return myThreadManager;
+}
+
+void gui::releaseMainSemaphore()
+{
+	mainToThread.release();
+}
+
+
 
 
 

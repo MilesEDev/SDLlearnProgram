@@ -101,7 +101,7 @@ public:
 	 * \param line the line to split to arguments
 	 */
 
-	std::pair<SDL_Texture*, std::string> runForAllThread(Render* myrenderer,std::binary_semaphore &sharedSema,Render* myThreadRenderer,std::binary_semaphore &mainToThread,ThreadManager* threadManager);
+	std::string runForAllThread(Render* myrenderer,std::binary_semaphore &sharedSema,Render* myThreadRenderer,std::binary_semaphore &mainToThread,ThreadManager* threadManager);
 	void splitToArguments(std::string line);
 	/**
 	 * .save program to a txt 
