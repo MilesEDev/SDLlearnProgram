@@ -436,7 +436,7 @@ namespace fullyworkingunittests
 		{
 			parser* myparser = new parser();
 
-			myparser->splitToCommands("circle \"stringTest\"");
+			myparser->splitToCommands("circle \"stringTestingCheck\"");
 
 
 
