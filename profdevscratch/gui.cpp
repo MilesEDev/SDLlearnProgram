@@ -158,172 +158,217 @@ void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer*
 				error = "";
 			}
 			
-			
-
-
 		}
-	
-		
-
-
-		if (this->commandLine == "run") {
-
-
-			myparser->clearAllLists();
-			runner(myrenderer, mytext, strmultiline, myparser);
-			if (!error.empty())
-			{
-				ImGui::OpenPopup("ThePopup");
-
-			}
-			commandLine.clear();
-			caller();
-
-		}
-		else if (!this->commandLine.empty())
-		{
-			runner(myrenderer, mytext, commandLine, myparser);
-			if (!error.empty())
-			{
-				ImGui::OpenPopup("ThePopup");
-
-			}
-			commandLine.clear();
-			caller();
-
-
-		}
-
-		if (ImGui::Button("save", buttonsize))
-		{
-			myparser->saveToTxt(strmultiline);
-
-		}
-		ImGui::SameLine(0.0f, 9.0f);
-
-		if (ImGui::Button("load", buttonsize))
-		{
-			strmultiline = myparser->loadFromTxt(filename);
-
-		}
-		ImGui::InputText("fileToLoad", &filename);
-	
-		//ImGui::InputText()
-		ImGui::InputTextMultiline("##label", &strmultiline);
-		ImGui::InputText("###label", &str);
-		ImGui::InputTextMultiline("thread", &thread2);
-
-
-		if (ImGui::Button("syntax", buttonsize))
+		if (!threadsRunning)
 		{
 
-			if (!strmultiline.empty())
-			{
-				myparser->clearAllLists();
-				myrenderer->setPen(0, 0);
-				myparser->splitToCommands(strmultiline);
-			}
-			else if (!str.empty())
-			{
-				myparser->splitToCommands(strmultiline);
-			}
 
-			std::string syntax = myparser->syntaxCheckAll();
-			if (syntax == "ok") {
-				ImGui::OpenPopup("syntax good");
-			}
-			else
-			{
-				error = syntax;
-				ImGui::OpenPopup("ThePopup");
-			}
-		}
-			
-	
 
-		if (ImGui::BeginPopupModal("ThePopup")) {
-			ImGui::Text(error.c_str());
-			
-			if (ImGui::Button("ok", buttonsize))
-			{
-				ImGui::CloseCurrentPopup();
-				error = "";
+
+			if (this->commandLine == "run") {
+				mythread->join();
+				if (!strmultiline.empty() && !thread2.empty())
+				{
+
+					SDL_SetRenderTarget(myrenderer->getSDLRenderer(), mytext);
+					std::cout << "Render target is now: " << mytext << std::endl;
+
+
+					SDL_SetRenderDrawColor(myrenderer->getSDLRenderer(), 255, 255, 255, 255);
+					std::cout << "did text clear" << std::endl;
+					SDL_RenderClear(myrenderer->getSDLRenderer());
+					myrenderer->setPenColourRGBA(0, 0, 0, 0);
+					myrenderer->setFill(false);
+					myrenderer->setPen(0, 0);
+
+					myrenderer->removeAnyTargets();
+					threadsRunning = true;
+					std::cout << "_________________________________newthread button started_________---" << std::endl;
+
+					std::string newStr = strmultiline;
+					std::string newStr2 = thread2;
+					thread1Running = true;
+					std::thread thread_runner1(&gui::runnerThreaded, this, myrenderer, newStr, std::ref(errorth1), std::ref(thread1Running), 1);
+
+					thread_runner1.detach();
+
+
+
+					thread2Running = true;
+					std::thread thread_runner2(&gui::runnerThreaded, this, myrenderer, newStr2, std::ref(errorth2), std::ref(thread2Running), 2);
+
+					thread_runner2.detach();
+
+
+				}
+				else
+				{
+					myparser->clearAllLists();
+					runner(myrenderer, mytext, strmultiline, myparser);
+					if (!error.empty())
+					{
+						ImGui::OpenPopup("ThePopup");
+
+					}
+				}
+				commandLine.clear();
+				caller();
+
 			}
-
-		
-			ImGui::EndPopup();
-
-		}
-		if (ImGui::BeginPopupModal("syntax good")) {
-			ImGui::Text("syntax good");
-			myparser->clearAllLists();
-			if (ImGui::Button("ok", buttonsize))
+			else if (!this->commandLine.empty())
 			{
-				ImGui::CloseCurrentPopup();
-			}
-			ImGui::EndPopup();
-
-		}
-
-		ImGui::SameLine(0.0f, 9.0f);
-		if (ImGui::Button("run", buttonsize))
-		{
-			if (!strmultiline.empty()) 
-			{
-				myparser->clearAllLists();
-				myrenderer->setPen(0, 0);
-				runner(myrenderer, mytext, strmultiline, myparser);
-				
-			}
-			else if (!str.empty())
-			{
-				if (!runner(myrenderer, mytext, str, myparser) )
+				runner(myrenderer, mytext, commandLine, myparser);
+				if (!error.empty())
 				{
 					ImGui::OpenPopup("ThePopup");
 
 				}
+				commandLine.clear();
+				caller();
+
+
 			}
 
-		}
+			if (ImGui::Button("save", buttonsize))
+			{
+				myparser->saveToTxt(strmultiline);
+
+			}
+			ImGui::SameLine(0.0f, 9.0f);
+
+			if (ImGui::Button("load", buttonsize))
+			{
+				strmultiline = myparser->loadFromTxt(filename);
+
+			}
+			ImGui::InputText("fileToLoad", &filename);
+
+			//ImGui::InputText()
+			ImGui::InputTextMultiline("##label", &strmultiline);
+			ImGui::InputText("###label", &str);
+			ImGui::InputTextMultiline("thread", &thread2);
 
 
-		if (ImGui::Button("runThreads", buttonsize))//make multi thread changes too
-		{
-			
+			if (ImGui::Button("syntax", buttonsize))
+			{
+				std::string syntax = "";
+				if (!strmultiline.empty() && !thread2.empty())
+				{
+					myparser->clearAllLists();
+					myrenderer->setPen(0, 0);
+					myparser->splitToCommands(strmultiline);
+					syntax = myparser->syntaxCheckAll();
+					myparser->clearAllLists();
+					myrenderer->setPen(0, 0);
+					myparser->splitToCommands(thread2);
 
-			SDL_SetRenderTarget(myrenderer->getSDLRenderer(), mytext);
-			std::cout << "Render target is now: " << mytext << std::endl;
+				}
+				if (!strmultiline.empty())
+				{
+					myparser->clearAllLists();
+					myrenderer->setPen(0, 0);
+					myparser->splitToCommands(strmultiline);
+				}
+				else if (!str.empty())
+				{
+					myparser->splitToCommands(strmultiline);
+				}
 
-
-			SDL_SetRenderDrawColor(myrenderer->getSDLRenderer(), 255, 255, 255, 255);
-			std::cout << "did text clear" << std::endl;
-			SDL_RenderClear(myrenderer->getSDLRenderer());
-			myrenderer->setPenColourRGBA(0, 0, 0, 0);
-			myrenderer->setFill(false);
-			myrenderer->setPen(0, 0);
-			
-			myrenderer->removeAnyTargets();
-			threadsRunning = true;
-			std::cout << "_________________________________newthread button started_________---" << std::endl;
-			
-			std::string newStr = strmultiline;
-			std::string newStr2 = thread2;
-			thread1Running = true;
-			std::thread thread_runner1(&gui::runnerThreaded,this, myrenderer,newStr,std::ref(errorth1), std::ref(thread1Running),1);
-			
-			thread_runner1.detach();
-			
-			
-			
-			thread2Running = true;
-			std::thread thread_runner2(&gui::runnerThreaded,this,myrenderer,newStr2,std::ref(errorth2),std::ref(thread2Running),2);
-			
-			thread_runner2.detach();
-			
-			
-			
-		}
+				syntax = syntax + myparser->syntaxCheckAll();
 		
+				if (syntax == "ok") {
+					ImGui::OpenPopup("syntax good");
+				}
+				else
+				{
+					error = syntax;
+					ImGui::OpenPopup("ThePopup");
+				}
+			}
+
+
+
+			if (ImGui::BeginPopupModal("ThePopup")) {
+				ImGui::Text(error.c_str());
+
+				if (ImGui::Button("ok", buttonsize))
+				{
+					ImGui::CloseCurrentPopup();
+					error = "";
+				}
+
+
+				ImGui::EndPopup();
+
+			}
+			if (ImGui::BeginPopupModal("syntax good")) {
+				ImGui::Text("syntax good");
+				myparser->clearAllLists();
+				if (ImGui::Button("ok", buttonsize))
+				{
+					ImGui::CloseCurrentPopup();
+				}
+				ImGui::EndPopup();
+
+			}
+
+			ImGui::SameLine(0.0f, 9.0f);
+			if (ImGui::Button("run", buttonsize))
+			{
+				if (!strmultiline.empty() && !thread2.empty())
+				{
+
+					SDL_SetRenderTarget(myrenderer->getSDLRenderer(), mytext);
+					std::cout << "Render target is now: " << mytext << std::endl;
+
+
+					SDL_SetRenderDrawColor(myrenderer->getSDLRenderer(), 255, 255, 255, 255);
+					std::cout << "did text clear" << std::endl;
+					SDL_RenderClear(myrenderer->getSDLRenderer());
+					myrenderer->setPenColourRGBA(0, 0, 0, 0);
+					myrenderer->setFill(false);
+					myrenderer->setPen(0, 0);
+
+					myrenderer->removeAnyTargets();
+					threadsRunning = true;
+					std::cout << "_________________________________newthread button started_________---" << std::endl;
+
+					std::string newStr = strmultiline;
+					std::string newStr2 = thread2;
+					thread1Running = true;
+					std::thread thread_runner1(&gui::runnerThreaded, this, myrenderer, newStr, std::ref(errorth1), std::ref(thread1Running), 1);
+
+					thread_runner1.detach();
+
+
+
+					thread2Running = true;
+					std::thread thread_runner2(&gui::runnerThreaded, this, myrenderer, newStr2, std::ref(errorth2), std::ref(thread2Running), 2);
+
+					thread_runner2.detach();
+
+
+				}
+				else if (!strmultiline.empty())
+				{
+					myparser->clearAllLists();
+					myrenderer->setPen(0, 0);
+					runner(myrenderer, mytext, strmultiline, myparser);
+
+				}
+				else if (!str.empty())
+				{
+					if (!runner(myrenderer, mytext, str, myparser))
+					{
+						ImGui::OpenPopup("ThePopup");
+
+					}
+				}
+
+			}
+
+
+		}
 
 
 		ImGui::End();
@@ -405,9 +450,17 @@ bool gui::runnerThreaded(Render* myrenderer,std::string program,std::string &err
 	errorth = tempError;
 	std::cout << errorth << std::endl;
 
-	if (tempError == "ok")
+	while (true)
 	{
-		std::string tempError = myparser->runForAllThread(myrenderer, threadToThread, myThreadRenderer, mainToThread, myThreadManager, threadid);
+		if (errorth1 == "ok" && errorth2 == "ok")
+		{
+			std::string tempError = myparser->runForAllThread(myrenderer, threadToThread, myThreadRenderer, mainToThread, myThreadManager, threadid);
+			break;
+		}
+		else if (errorth1 != "" && errorth2 != "") 
+		{
+			break;
+		}
 	}
 		
 	
