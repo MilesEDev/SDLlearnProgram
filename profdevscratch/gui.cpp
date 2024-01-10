@@ -252,8 +252,10 @@ void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer*
 			if (ImGui::Button("syntax", buttonsize))
 			{
 				std::string syntax = "";
+				
 				if (!strmultiline.empty() && !thread2.empty())
 				{
+					syntax = "";
 					myparser->clearAllLists();
 					myrenderer->setPen(0, 0);
 					myparser->splitToCommands(strmultiline);
@@ -263,25 +265,34 @@ void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer*
 					myparser->splitToCommands(thread2);
 
 				}
-				if (!strmultiline.empty())
+				else if (!strmultiline.empty())
 				{
+					syntax = "";
 					myparser->clearAllLists();
 					myrenderer->setPen(0, 0);
 					myparser->splitToCommands(strmultiline);
 				}
 				else if (!str.empty())
 				{
+					syntax = "";
 					myparser->splitToCommands(strmultiline);
+				}
+				else
+				{
+					myparser->clearAllLists();
 				}
 
 				syntax = syntax + myparser->syntaxCheckAll();
 		
 				if (syntax == "ok") {
+					syntax = "";
 					ImGui::OpenPopup("syntax good");
+					
 				}
 				else
 				{
 					error = syntax;
+					syntax = "";
 					ImGui::OpenPopup("ThePopup");
 				}
 			}
@@ -295,6 +306,7 @@ void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer*
 				{
 					ImGui::CloseCurrentPopup();
 					error = "";
+					
 				}
 
 
