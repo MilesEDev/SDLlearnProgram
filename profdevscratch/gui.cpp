@@ -259,10 +259,12 @@ void gui::makeDefaultFrame(Render* myrenderer, SDL_Texture* mytext,SDL_Renderer*
 					myparser->clearAllLists();
 					myrenderer->setPen(0, 0);
 					myparser->splitToCommands(strmultiline);
-					syntax = myparser->syntaxCheckAll();
+					syntax = "program1:\n";
+					syntax = syntax + myparser->syntaxCheckAll();
 					myparser->clearAllLists();
 					myrenderer->setPen(0, 0);
 					myparser->splitToCommands(thread2);
+					syntax = syntax + "program2:\n";
 
 				}
 				else if (!strmultiline.empty())
